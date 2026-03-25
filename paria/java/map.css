@@ -1,0 +1,35 @@
+.input {  font-family: Tahoma, Arial, Helvetica, sans-serif; font-size: 10px; font-weight: normal; color: #003333; text-decoration: none}
+
+#ladestatus
+{
+ position:absolute;
+ left:10px; top:10px;
+ background-color:none;
+ layer-background-color:#F0F0F0;
+ height:18px; width:200px;
+ border:1px none #000000;
+}
+#zoomlayer
+{
+  position:absolute;
+  left:0px; top:0px;
+  width:10px; height:10px;
+  visibility:hidden;
+  border-right:#ff0000 2px solid; 
+  border-top:#ff0000 2px solid;
+  border-left:#ff0000 2px solid;
+  border-bottom:#ff0000 2px solid;
+  padding:0px;
+}
+#kartenlayer 
+{
+  position:absolute;
+  left:0px; top:0px;
+  visibility:hidden;
+  cursor:crosshair;
+  background-image:url(../graphics/boton_0.png);
+  padding:0px;
+}
+# Links
+a:link { text-decoration:underline; font-weight:bold; color:#000080; }
+a:visited { text-decoration:underline; font-weight:bold; color:#000000; }

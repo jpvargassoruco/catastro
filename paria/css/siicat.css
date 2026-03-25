@@ -1,0 +1,636 @@
+/* General css para el Menu */
+
+html {
+   	height:100%;
+}
+	
+body {
+	font-family: Arial, Hevetica, Trebuchet MS, Lucida Sans Unicode, sans-serif;
+	font-size:0.8em;
+	margin:0px;
+	padding:0px;
+	/*background-color:#E2EBED;*/
+	background-color:#FFF;
+	height:100%;
+	text-align:center;
+}
+
+h1 {
+	text-align: center;
+}
+
+.clear {
+	clear:both;
+}
+
+.card {
+	text-align: center;
+	margin: 10px;
+	border: 2px solid;
+	width: 15rem;
+	border-radius: 10px;	
+}
+
+.alert {
+	border-radius: 0%;
+	padding: .5rem;
+	text-align: center;
+	flex-direction: row;
+	max-width: 50%;
+	margin: 1rem;
+}
+
+.alert-success {
+	color: #155724;
+	background-color: #d4edda;
+	border-color: #c3e6cb;
+  }
+  
+  .alert-warning {
+	color: #856404;
+	background-color: #fff3cd;
+	border-color: #ffeeba;
+  }
+  
+  .alert-danger {
+	color: #721c24;
+	background-color: #f8d7da;
+	border-color: #f5c6cb;
+  }
+  
+  .alert-info {
+	color: #0c5460;
+	background-color: #d1ecf1;
+	border-color: #bee5eb;
+  }
+
+#leftMenu {
+	background-color: #D0E6FB;
+	width:173px;
+	padding-left:10px;
+	padding-right:10px;
+	float:left;		
+	height:100%;		
+}	
+	
+#login{	
+	margin: 0;
+	padding: 0;
+	font: 85% arial, hevetica, sans-serif;
+	text-align: center;
+	color: #505367; 	
+	background-image: url('/vallesacta/css/FondoLogin.png');
+	border:1px solid #000;
+ 	width: 400px;
+	height: 230px;
+	margin: 0 auto;
+	margin-top: 200px
+}	
+
+#mainContainer{
+	width:100%;
+	text-align:left;
+	margin:0 auto;
+	background-color: #FFF;
+	border-left:1px solid #000;
+	border-top:1px solid #000;
+	height:100%;
+	position:absolute
+}
+
+#topBar{
+	background-color: #D0E6FB;
+	width:100%;
+	height:50px;
+}
+
+#topBar2{
+	background-color: #B0D2FF;
+	padding-top:10px;
+	width:100%;
+	height:22px;
+}	
+	
+.info{
+	width: 850px;
+	margin-left: 5px;
+	padding-left:40px;
+	padding-top:2px;
+	float:left;
+}		
+		
+.logout_class{
+	width: 100px;	
+	margin-right: 50px;
+	padding-right:1%;
+	padding-top:2px;		
+	float:right
+}
+
+#mainContent{
+	width: 900px;
+	padding-right:2px;
+	float:left;
+	height:100%;
+
+}
+
+/* Estilos Globales */
+
+	
+td {
+	font:11px Arial, Helvetica, sans-serif;
+	color:#666666;
+	}
+	
+a {
+	color: #993300;
+	}
+	
+a:hover {
+	color: #5C743D;
+	}
+
+textarea {overflow: hidden;}
+	
+/* Estilos ID */
+
+#form7{
+    width: 95%;
+    height: 100px;		
+    float: left;
+}
+ 
+#form_anadir1{
+    width: 100%;
+		height: 14px;
+}
+ 
+#form_anadir2{
+    width: 60%;
+		height: 14px;
+}
+
+#form_anadir3{
+    width: 99%;
+		height: 100px;
+		float: center;
+}  
+
+#form_anadir4{
+    width: 30%;
+		height: 14px;
+}
+
+
+#form_anadir4B{
+    width: 10%;
+		height: 14px;
+}
+
+#form_anadir5{
+    width: 60%;
+		height: 65px;
+		float: center;
+} 
+#form_anadir6{
+    width: 90%;
+		height: 30px;
+}  
+#navigation td {
+	border-bottom: 1px solid #F4FFE4;
+	}
+	
+#navigation a {
+	font: bold 11px Arial, Helvetica, sans-serif;
+	color: #D5EDB3;
+	line-height:16px;
+	letter-spacing:.1em;
+	text-decoration: none;
+	display:block;
+	padding:8px 6px 10px 20px;
+	width: 84%;
+	}
+	
+#navigation a:hover {
+	background: #99CC66;
+	color:#993300;
+	}
+	
+#logo 	{
+	font:24px Arial, Helvetica, sans-serif;
+	color: #5C743D;
+	letter-spacing:.2em;
+	line-height:30px;
+	}
+#infodata  {
+	font:11px Arial, Helvetica, sans-serif;
+	color: #0066cc;
+	letter-spacing:.2em;
+	}
+	
+#infodata a {
+	font:11px Arial, Helvetica, sans-serif;
+	color: #cc0000;
+	letter-spacing:.1em;
+	text-decoration:underline;
+        text-decoration:blink;
+	}	
+#infodata a:hover {
+	color: #ffffff;	
+	letter-spacing:.1em;
+	text-decoration:none;	
+	}
+#infodata_old a:hover {
+	color: #F4FFE4;	
+	letter-spacing:.1em;
+	text-decoration:none;	
+	}	
+#logout  {
+	font:11px Arial, Helvetica, sans-serif;
+	color: #0066cc;
+	letter-spacing:.2em;
+	}
+	
+#logout a {
+	font:11px Arial, Helvetica, sans-serif;
+	color: #000000;
+	letter-spacing:.1em;
+	text-decoration:none;
+	}	
+
+#logout a:hover {
+	color: #ffffff;	
+	letter-spacing:.1em;
+	text-decoration:none;	
+	}	
+	
+#tagline 	{	
+	font:18px Arial, Helvetica, sans-serif;
+	color: #0066cc;
+	letter-spacing:.4em;
+	line-height:18px;
+	}
+
+#monthformat {
+	border-bottom: 1px dashed #5C743D;
+	}
+		
+#dateformat {
+	font:11px Arial, Helvetica, sans-serif;
+	color: #993300;
+	letter-spacing:.2em;
+	}
+	
+#dateformat a {
+	font:11px Arial, Helvetica, sans-serif;
+	color: #993300;
+	font-weight:bold;
+	letter-spacing:.1em;
+	text-decoration:none;
+	}
+	
+#dateformat a:hover {
+	color: #F4FFE4;
+	letter-spacing:.1em;
+	}
+	
+#topBarTitle {
+        position: absolute;
+        padding: 0px 0px 0px; 
+        top: 14px;
+        left: 350px;
+        color: #044583;
+        font:16px Arial, Helvetica, sans-serif;
+        letter-spacing:.1em;
+        text-shadow: 0.1em 0.1em 0.2em black;
+        z-index: 1;
+        }
+
+/* Estilo para Tablas Azul*/
+#registros {
+        font-family: Arial, Helvetica, sans-serif;
+        width:100%;
+        border-collapse:collapse;
+}
+#registros td, #registros th {
+        font-size:1.2em;
+        text-align:right;
+        border:1px solid #6699cc;
+        padding:3px 7px 2px 7px;
+}
+#registros td.alt, #registros th {
+        font-size:1.2em;
+        text-align:left;
+        border:1px solid #6699cc;
+        padding:3px 7px 2px 7px;
+}
+#registros th {
+        font-size:1.0em;
+        text-align:center;
+        padding-top:5px;
+        padding-bottom:4px;
+        background-color:#6699cc;
+        color:#fff;
+}
+#registros tr.alt td {
+        color:#000;
+        background-color:#dbedff;
+}
+#registros tr.total td {
+        color:#666;
+        font-weight:bold;
+}
+
+/* Estilo para Tablas Gris*/
+#registros2 {
+        font-family: Arial, Helvetica, sans-serif;
+        width:100%;
+        border-collapse:collapse;
+}
+#registros2 td, #registros th {
+        font-size:1.0em;
+        text-align:center;
+        border:1px solid #cccccc;
+        padding:3px 7px 2px 7px;
+}
+#registros2 th {
+        font-size:0.8em;
+        text-align:center;
+        padding-top:5px;
+        padding-bottom:4px;
+        background-color:#6699cc;
+        color:#fff;
+}
+#registros2 tr.alt td {
+        color:#000;
+        background-color:#eeeeee;
+}
+#registros2 tr.total td {
+        color:#666;
+        font-weight:bold;
+}	
+
+/* Estilos Class */	
+.bodyText {
+	font:11px Arial, Helvetica, sans-serif;
+	color:#666666;
+	line-height:20px;
+	margin-top:0px;
+	}
+	
+.bodyText_Small {
+	font:8px Arial, Helvetica, sans-serif;
+	color:#666666;
+	line-height:10px;
+	margin-top:0px;
+	}	
+	
+.bodyTextH {
+	font:11px Arial, Helvetica, sans-serif;
+	color:#666666; 
+	background: #c6dbf1;  /*Azulito */		
+	line-height:20px;
+	margin-top:0px;
+	}	
+
+
+.bodyTextH_Small {
+	font:11px Arial, Helvetica, sans-serif;
+	color:#666666;
+	background: #c6dbf1;	/*D5EDB3 */	
+	line-height:14px;
+	margin-top:0px;
+	}		
+	
+.bodyTextD {
+	font:bold 11px Arial, Helvetica, sans-serif;
+	color:#666666;
+	line-height:20px;
+	margin-top:0px;
+	}
+		
+.bodyTextD_Small {
+	font:bold 11px Arial, Helvetica, sans-serif;
+	color:#666666;
+	line-height:14px;
+	margin-top:0px;
+	}		
+
+/* Tabla Geometria */	
+.bodyTextD_Tabla {
+	font:bold 11px Arial, Helvetica, sans-serif;
+	color:#666666;
+	line-height:10px;
+	margin-top:0px;
+	}		
+	
+.error {
+	font:normal 11px Arial, Helvetica, sans-serif;
+	color:#FF0000;
+	}		
+	
+.pageName{
+	font: 18px Arial, Helvetica, sans-serif;
+	color: #6699cc;  /* #0066cc; */
+	line-height:26px;
+	letter-spacing:.21em;
+	}
+	
+.subHeader {
+	font:bold 11px Arial, Helvetica, sans-serif;
+	color: #993300; 
+	line-height:22px;
+	letter-spacing:.2em;
+	}
+
+.quote {
+	font: 20px Arial, Helvetica, sans-serif;
+	color: #759DA1;
+	line-height:30px;
+	}
+	
+.smallText {
+	font: 10px Arial, Helvetica, sans-serif;
+	color: #666666;
+	line-height: 22px;
+	}
+	
+.smallTextLeft {
+	font: 10px Arial, Helvetica, sans-serif;
+	color: #0066cc;
+	line-height: 22px;
+	}	
+	
+.navText {
+	font: 11px Arial, Helvetica, sans-serif;
+	color: #003366;
+	width: 95%;
+	line-height:16px;
+	letter-spacing:.1em;
+	text-decoration: none;
+	}
+
+.navText_grey {
+	font: 11px Arial, Helvetica, sans-serif;
+	color: #003366;
+	width: 95%;
+        background-color:#cccccc;
+	line-height:16px;
+	letter-spacing:.1em;
+	text-decoration: none;
+	}
+
+.navTextS {
+	font: 11px Arial, Helvetica, sans-serif;
+	color: #003366;
+	width: 65%;
+	line-height:16px;
+	letter-spacing:.1em;
+	text-decoration: none;
+	}
+
+.logText {
+	font: bold 11px Arial, Helvetica, sans-serif;
+	color: #0066cc;
+	line-height:16px;
+	letter-spacing:.1em;
+	text-decoration: none;
+	}
+	
+.button
+{
+   background:url(../graphics/boton_nueva_cotizacion.png) no-repeat;
+   width:120px;
+   height:22px;
+}
+.button:hover
+{
+    background:url(../graphics/boton_nueva_cotizacion_rojo.png) no-repeat;
+}	
+
+.transparente  {
+  background-color: transparent;
+}
+
+/* Solo afecta a la tabla con esta clase */
+table.tabla-h {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #afaeae;
+    font-family: sans-serif; /* Opcional */
+	border-spacing: 0;
+}
+
+/* Solo afecta a las celdas dentro de esa tabla */
+.tabla-h td {
+    text-align: center;
+    padding: 4px;
+    border-right: 1px solid #afaeae; /* Línea vertical gris */
+    padding-top: 0px;    /* Elimina el espacio superior interno */
+    padding-bottom: 0px	
+}
+
+/* Quita la línea sobrante de la última columna */
+.tabla-h td:last-child {
+    border-right: none;
+}
+
+
+
+
+.alerta {
+	border-radius: 0%;
+	padding: .5rem;
+	border-radius: 4px;
+	border-left: 4px solid #f5c6cb;
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+.alerta-success {
+	color: #155724;
+	background-color: #d4edda;
+	border-color: #c3e6cb;
+
+}
+
+.alerta-warning {
+color: #856404;
+background-color: #fff3cd;
+border-color: #ffeeba;
+}
+
+.alerta-danger {
+color: #721c24;
+background-color: #f8d7da;
+border-color: #f5c6cb;
+}
+
+.alerta-info {
+color: #0c5460;
+background-color: #d1ecf1;
+border-color: #bee5eb;
+}
+
+
+
+/* Estilo general para la fila */
+.fila {
+	display: flex; /* Flexbox para crear una disposición en fila */
+	flex-wrap: wrap; /* Permite que los elementos se envuelvan si no caben */
+	margin: 0px; /* Ajusta el espacio negativo para márgenes internos */
+}
+
+/* Estilo para las columnas */
+.columna {
+	flex: 1 1 calc(20% - 20px); /* 4 columnas por fila (25%), con espacio entre ellas */
+	margin: 0px; /* Espaciado entre columnas */
+	box-sizing: border-box; /* Incluye márgenes y rellenos dentro del tamaño total */
+	background-color: lightblue;
+	text-align: center;
+	padding: 0px;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+	.columna {
+	flex: 1 1 calc(50% - 20px); /* 2 columnas por fila en pantallas medianas */
+}
+
+
+@media (max-width: 480px) {
+	.columna {
+	flex: 1 1 100%; /* 1 columna por fila en pantallas pequeñas */
+}
+
+
+
+.custom-button {
+  /* Estilos generales del botón */
+  background-color: #007bff; /* Color de fondo azul, como en Bootstrap */
+  color: white; /* Color del texto blanco */
+  padding: 10px 20px; /* Espacio interior para el texto */
+  border: none; /* Sin borde */
+  border-radius: 4px; /* Borde redondeado */
+  cursor: pointer; /* Cursor de mano al pasar el ratón */
+  font-size: 16px; /* Tamaño de fuente */
+  text-decoration: none; /* Sin subrayado */
+}
+
+/* Estilos al pasar el ratón (hover) */
+.custom-button:hover {
+  background-color: #0056b3; /* Color de fondo más oscuro al pasar el ratón */
+}
+
+/* Estilos al hacer clic (active) */
+.custom-button:active {
+  background-color: #003980; /* Color de fondo aún más oscuro al hacer clic */
+  opacity: 0.8; /* Opcional: Reducir transparencia para simular efecto de pulsación */
+}
+
+/* Estilos al estar en foco (focus) */
+.custom-button:focus {
+  outline: none; /* Eliminar el borde de foco */
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5); /* Añadir sombra de foco */
+}

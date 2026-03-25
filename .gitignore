@@ -1,0 +1,23 @@
+# IDE / Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+siicat/log/
+
+# Backups
+*.bak
+*.backup
+
+# Agent/AI config (local)
+.cortex/
+.gemini/
+skills-lock.json

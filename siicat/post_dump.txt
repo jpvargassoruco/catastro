@@ -1,0 +1,24 @@
+Array
+(
+    [id_inmu] => 25075
+    [gestion] => 2025
+    [submit] => Liquidar
+    [estatus] => PRELIQUID
+    [imp_neto] => 341
+    [fecha_venc_preliquid] => 03/04/2026
+    [exen_selected] => 0
+    [condon_selected] => 0
+    [descont_exen] => 0
+    [modo_trans] => CPV
+    [min_num] => 69855
+    [not_nom] => Sin nombre de notario
+    [not_num] => 850281
+    [not_cls] => 1
+    [not_exp] => sin dato
+    [min_val] => 11353
+    [min_mon] => bs
+    [min_fech] => 2026-02-03
+    [comprador] => 8045
+    [comprador2] => 75
+    [preliquid] => PRE-LIQUIDACION
+)

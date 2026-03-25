@@ -1,0 +1,239 @@
+<!-- MapServer Template --> 
+<html>
+<head>
+<meta http-equiv=Content-Language content=de>
+<meta http-equiv=Content-Type content=text/html; charset=windows-1252>
+<title>Catastro Buen Retiro</title>
+<link rel=stylesheet type="text/css" href="http://localhost/catastro_br/java/map.css">
+<style type='text/css'>
+</style>
+<script language="JavaScript" type="text/javascript" src="file:///c:/apache2/htdocs/catastro_br/java/codesnips.js"></script>
+<script language="JavaScript" type="text/javascript" src="http://localhost/catastro_br/java/codesnips.js"></script>
+<script language="JavaScript" type="text/javascript">
+function knopfstatus(form)
+{ 
+ var a = form.zoomdir.value;
+ with (document)
+ { 
+  if (form.mode.value == "query") butinfo.src='http://localhost/catastro_br/graphics/icon_info2.png';
+  else if (a == "0") butpan.src='http://localhost/catastro_br/graphics/icon_recentre.png'; 
+  else if (a == "-1") butzoomout.src='http://localhost/catastro_br/graphics/icon_zoomout.png'; 
+  else if (a == "1") butzoomin.src='http://localhost/catastro_br/graphics/icon_zoomin.png'; 
+  else butinfo.src='http://localhost/catastro_br/graphics/icon_info.png'; 
+  } 
+ } 
+ </script> 
+<script language="JavaScript" type="text/javascript">
+function kartengroesse()
+{
+ var kartenmasse = '400 400';
+ var massarray = kartenmasse.split(' ');
+ if (ns4)
+ { 
+  objContainer.width = massarray[0];
+  objContainer.height = massarray[1];
+ }
+ else
+ {
+  objContainer.style.width = massarray[0] + 'px';
+  objContainer.style.height = massarray[1] + 'px';
+ }
+}
+ </script> 
+ 
+<script language="JavaScript" type="text/javascript">
+function bilddaten(img)
+{
+ if (ns4) return new fobjekt(img.x, img.y, 400, 400);
+ else 
+ {
+  var canvas = new fobjekt(0, 0, 400, 400);
+  while(img) 
+  {
+   canvas.x += img.offsetLeft;
+   canvas.y += img.offsetTop;
+   img = img.offsetParent;
+  }
+  return canvas;
+ } 
+}
+ </script> 
+ 
+</head>
+<body onload="initialisierung('karte'); bildladen('ladestatus','hidden'); knopfstatus(document.mapserv); kartengroesse();" bgcolor='#DDDDDD' text='#3399FF' link='#3399FF' vlink='#3399FF' alink='#3399FF' leftmargin='0' topmargin='0' marginwidth='0' marginheight='0'>
+<div id=kartenlayer onmouseup="bildladen('ladestatus','visible');" style='width: 902; height: 21'></div>
+<div id=zoomlayer><img src='img/dot.gif' width='1' height='1' border='0'></div>
+<div id=ladestatus style='width: 90px; border: 1px none #000000; left: 320px; top: 260px;'>
+<img src='http://localhost/catastro_br/graphics/mergis_logo.png' width='125' height='25'></div>
+<!-- start Formular -->
+<form method='post' action='/cgi-bin/mapserv.exe' name='mapserv'>
+<!-- start table 1 -->
+<table border='0' width='800' height='500' bgcolor='#F4FFE4'>
+  <tr>
+<!-- start table 2 -->
+    <td width='798px' valign='top'>
+      <table border='1' height='490' cellspacing='0' bgcolor='#F4FFE4'>
+        <tr>
+          <td height='22' colspan='5' bgcolor='#DDDDDD'>
+ <!-- start table 3 -->
+       <table align='center' bgcolor='#D5EDB3' border='1'>
+        <tr>
+         <td height='20' width='95' align='right'>
+          <b><font size='1' face='Tahoma' color='#000000'>
+          <a href="javascript:document.butinfo.src='http://localhost/catastro_br/graphics/icon_info2.png';document.butpan.src='http://localhost/catastro_br/graphics/icon_recentre.png';document.butzoomin.src='http://localhost/catastro_br/graphics/icon_zoomin.png';document.butzoomout.src='http://localhost/catastro_br/graphics/icon_zoomout.png';aktion('query',1);">
+          <img name='butinfo' src='http://localhost/catastro_br/graphics/icon_info.png' border='0' onLoad='' width='100' height='20' alt="" title='Consultar atributos del tema'></a>
+          </font></b>
+         </td>
+       <td height='20' width='95' align='right'> 
+        <b><font size='1' face='Tahoma' color='#000000'><a href="javascript:document.butinfo.src='http://localhost/catastro_br/graphics/icon_info.png';document.butpan.src='http://localhost/catastro_br/graphics/icon_recentre2.png';document.butzoomin.src='http://localhost/catastro_br/graphics/icon_zoomin.png';document.butzoomout.src='http://localhost/catastro_br/graphics/icon_zoomout.png';aktion('browse',0);"> 
+         <img name='butpan' src='http://localhost/catastro_br/graphics/icon_recentre.png' border='0' onLoad='' width='100' height='20' alt='' title='Centrar el mapa en ese punto'></a></font></b>
+        </td>
+        
+        <td height='20' width='95' align='right' >
+         <b><font face='Tahoma' size='1' color='#000000'><a href="javascript:document.butinfo.src='http://localhost/catastro_br/graphics/icon_info.png';document.butpan.src='http://localhost/catastro_br/graphics/icon_recentre.png';document.butzoomin.src='http://localhost/catastro_br/graphics/icon_zoomin2.png';document.butzoomout.src='http://localhost/catastro_br/graphics/icon_zoomout.png';aktion('browse',1);">
+         <img name='butzoomin' src='http://localhost/catastro_br/graphics/icon_zoomin.png' border='0' onLoad='' width='100' height='20' alt='' title='Acercarse en el mapa'></a></font></b>
+       </td>
+        
+        <td height='20' width='95' align='right' >
+         <b><font face='Tahoma' size='1' color='#000000'><a href="javascript:document.butinfo.src='http://localhost/catastro_br/graphics/icon_info.png';document.butpan.src='http://localhost/catastro_br/graphics/icon_recentre.png';document.butzoomin.src='http://localhost/catastro_br/graphics/icon_zoomin.png';document.butzoomout.src='http://localhost/catastro_br/graphics/icon_zoomout2.png';aktion('browse',-1);">
+         <img name='butzoomout' src='http://localhost/catastro_br/graphics/icon_zoomout.png' border='0' onLoad='' width='100' height='20' alt='' title='Alejarse en el mapa'></a></font></b>
+        </td>
+        <td height='20' width='95' align='right' >
+         <font color='#000000' size='1' face='Tahoma'><b>Zoom</b></font><input type='text' name='zoomsize' size='1' value='2'>
+        </td>
+        <td height='20' width='95' align='right' >
+         <b><font size='1' face='Tahoma' color='#000000'><a href="javascript:neuladen();"><img src='http://localhost/catastro_br/graphics/icon_redraw.png' width='100' height='20' name='butreload' border='0' alt='' title='Actualizar el mapa'></a>
+         </font></b>
+        </td>
+        <td height='20' width='95' align='right' >
+         <b><font face='Tahoma' size='1' color='#000000'><a href="javascript:startansicht();"><img name='butreload' src='http://localhost/catastro_br/graphics/icon_full.png' border='0' onLoad='' width='100' height='20' alt='' title='Ver toda la extensión del mapa'></a>
+         </font></b>
+        </td>
+        <td height='20' width='60' align='right'>
+        <b><font face='Tahoma' size='1' color='#000000'><a href="http://localhost/catastro_br/ayuda.html','','scrollbars='yes,toolbar=yes,menubar=yes')'"><img src='http://localhost/catastro_br/graphics/icon_help.png' width='58' height='20' border='0' name='Image1' alt='' title='Instrucciones para moverse en el mapa'></a>
+         </font></b>
+        </td>
+       </table>
+ 
+      </td>
+     </tr>
+ 
+     <tr height='25'>
+       <td bgcolor='#DDDDDD'>
+          &nbsp 
+       </td>
+<!-- start map & navigation window -->
+      <td bgcolor='#F4FFE4'>
+        <a href='javascript:move(-0.5,0.5)'>
+        <font color='#000000'>
+        <img border='0' src='http://localhost/catastro_br/graphics/nw.png' width='15' height='15'></font></a>
+      </td>
+      <td align='center' bgcolor='#F4FFE4'> 
+        <a href='javascript:move(0,0.5)'>
+        <font color='#000000'><img border='0' src='http://localhost/catastro_br/graphics/n.png' width='15' height='15'></font></a>
+      </td>
+      <td bgcolor='#F4FFE4'>
+       <a href='javascript:move(0.5,0.5)'>
+       <font color='#000000'>
+       <img border='0' src='http://localhost/catastro_br/graphics/ne.png' width='15' height='15'></font></a>
+      </td>
+      <td valign='top' align='center' bgcolor='#DDDDDD'> &nbsp
+      </td>
+    </tr>
+    
+<!-- reference map here --> 
+    <tr>
+     <td bgcolor='#DDDDDD' valign='top' width='120' height='400'>
+      <font color='#000000'>
+      <input name='ref' type='image' src='[ref]' width='130' height='130' align = 'top' border='0' onClick="bildladen('ladestatus','visible');" alt='' title='Click aqui para navegar'>
+      </font></br>
+    <font size='1' face='Tahoma' color='#000000'><b>
+     </b></font>
+		 <b><div align= 'center'><font color='#000000' face='Tahoma' size='1'>Mapa de ubicación</font></div></b>
+    </td>
+ 
+     <td rowspan='1' height='400' bgcolor='#F4FFE4'>
+      <a href='javascript:move(-0.5,0)'>
+      <font color='#000000'>
+      <img src='http://localhost/catastro_br/graphics/w.png' width='15' height='15' border='0' alt='nach W'></font></a>
+     </td>
+  
+<!-- map window here -->
+    <td height='400' rowspan='1' valign='middle' align='center'>
+     <p align='center'><font color='#000000'>
+     <img name='karte' src='[img]' border='0' width='400' height='400'></font></td>
+    <td rowspan='1' height='400' bgcolor='#F4FFE4'>
+     <a href='javascript:move(0.5,0)'>
+     <font color='#000000'>
+     <img border='0' src='http://localhost/catastro_br/graphics/e.png' width='15' height='15'></font></a>
+    </td>    
+<!-- legend window here -->
+ <td width='120' rowspan='2' align='left' valign='top' bgcolor='#DDDDDD'>
+     <div style=' width:160px; height: 400px;overflow-x:auto; overflow-y:auto;'>
+		 <b><div align= 'center'><font color='#000000'>Leyenda</font></div></b>
+     <font color='#000000'><b><font face='Tahoma' size='1'>[legend]</font>
+     </div>
+    </td>
+   </tr>
+ 
+  <tr height='25'>
+   <td bgcolor='#DDDDDD'>
+    <font color='#000000'><b><font face='Tahoma' size='1'>
+Escala 1 : <script>document.write(Math.round('[scale]'));</script></font>
+    </b></font>
+   </td>
+   <td bgcolor='#F4FFE4'>
+    <a href='javascript:move(-0.5,-0.5)'>
+    <font color='#000000'>
+    <img border='0' src='http://localhost/catastro_br/graphics/sw.png' width='15' height='15'>
+    </font></a>
+   </td>
+   <td height='20' bgcolor='#F4FFE4' align='center' valign='middle'>
+    <a href='javascript:move(0,-0.5)'>
+    <font color='#000000'>
+    <img border='0' src='http://localhost/catastro_br/graphics/s.png' width='15' height='15'>
+    </font></a>
+   </td>
+   <td bgcolor='#F4FFE4' height='20'>
+    <p align='center'>
+    <a href='javascript:move(0.5,-0.5)'>
+    <font color='#000000'>
+    <img border='0' src='http://localhost/catastro_br/graphics/se.png' width='15' height='15'>
+    </font></a>
+   </td>
+  </tr>
+    <tr height='30'>
+     <td colspan='1' bgcolor='#DDDDDD'>
+      <b><font face='Tahoma' size='1' color='#000000'>©IGM 2009</font></b>
+			<font size='2' face='Tahoma'> </font>
+     </td>
+     <td colspan='3' bgcolor='#DDDDDD'>
+      <font color='#000000'> &nbsp
+      </font>
+     </td>
+     <td align='center' bgcolor='#DDDDDD'>
+       <b><font color='#000000' size='1' face='Tahoma'>powered by &nbsp
+       <img border='0' src='http://localhost/catastro_br/graphics/ms_logo.png' width='35' height='19' valign='top'>
+			 </font></b>
+     </td>
+    </tr>
+   </table>
+  </td>    
+  </tr>
+ </table>
+      <input type='hidden' name='imgxy' value=''>
+      <input type='hidden' name='mapext' value=''>
+      <input type='hidden' name='imgext' value='[mapext]'>
+      <!-- [mapext] -->
+      <input type='hidden' name='map' value='c:/apache2/cat_br/mapa/catbr_zoom.map'>
+      <input type='hidden' name='savequery' value='false'>
+      <input type='hidden' name='program' value='http://localhost/cgi-bin/mapserv.exe'> 
+      <!-- <input type='hidden' name='program' value='[program]'> -->
+      <input type='hidden' name='map_web' value="imagepath 'c:/Apache2/htdocs/tmp/' imageurl 'http://localhost/tmp/'">
+      <input type='hidden' name='zoomdir' value='1'>
+      <input type='hidden' name='mode' value='browse'>
+      <input type='hidden' name='imgbox' value=''>
+      <input type='hidden' name='imgsize' value='400 400'>
+      <input type='hidden' name='mapsize' value='400 400'>
+      </form>
+</html>

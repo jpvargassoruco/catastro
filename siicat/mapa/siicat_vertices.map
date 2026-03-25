@@ -1,0 +1,524 @@
+MAP
+#
+#< Start of map file - created 2023-03-22 - 01:18:17
+#
+NAME 'SIICAT_VERTICES'
+STATUS ON
+
+PROJECTION
+			'init=epsg:32720'     # UTM 20, Zona 20S, WGS 1984
+END
+
+SIZE 1200 1200
+#EXTENT 700000 8225000 730000 8255000
+EXTENT 351348 7775587 352940 7776563
+UNITS  meters
+SYMBOLSET 'c:/apache/siicat/mapa/symbols/symbset.sym'
+FONTSET   'c:/apache/siicat/mapa/fonts/fonts.fnt'
+IMAGECOLOR 255 255 255
+#IMAGECOLOR 244 255 228
+
+#
+# Start of web interface definition
+#
+WEB
+ LOG siicat_vertices.log
+ TEMPLATE siicat_vertices.html
+ IMAGEPATH 'c:/apache/htdocs/tmp/'
+ IMAGEURL 'http://127.0.0.1/tmp/'
+ EMPTY 'http://127.0.0.1/vallegrande/nada.html'
+ 
+ METADATA
+  WMS_ONLINERESOURCE 'http://127.0.0.1/cgi-bin/mapserv.exe?map=c:/apache/siicat/mapa/siicat_vertices.map'
+  WMS_SRS 'epsg:32720'
+  WMS_ACCESSCONSTRAINTS 'none'
+  WMS_TITLE 'SIICAT_VERTICES'
+  WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+  WMS_ABSTRACT ''
+ END  #METADATA
+
+END  #HEADER
+
+OUTPUTFORMAT
+  NAME 'png'
+	DRIVER 'GDAL/PNG'
+	MIMETYPE 'image/png'
+	IMAGEMODE RGB
+	EXTENSION 'png'
+	FORMATOPTION 'QUALITY=100'
+END
+
+SYMBOL
+   NAME 'circle'
+   TYPE ellipse
+   FILLED true
+   POINTS
+     1 1
+   END
+END
+
+#
+# Start of reference map
+#
+REFERENCE
+  STATUS OFF
+  IMAGE 'c:/apache/htdocs/vallegrande/data/reference.gif'
+  SIZE 120 120
+  EXTENT -70.254 -23.569 -56.844 -8.994
+  COLOR -1 -1 -1
+  OUTLINECOLOR 255 0 0
+END  #REFERENCE
+
+#
+# Start of legend
+#
+LEGEND
+  STATUS OFF
+  KEYSIZE 16 8
+  TEMPLATE 'legend.html'
+  LABEL
+    COLOR 120 120 120
+  END # ENDE LABEL
+END   #LEGEND
+
+#
+# Start of scalebar
+#
+SCALEBAR
+ STATUS OFF
+ POSITION ll
+ STYLE 0
+ INTERVALS 5
+ IMAGECOLOR 255 255 255
+ LABEL
+  COLOR 0 0 0
+  SIZE GIANT  #SMALL
+ END  #ENDE LABEL
+ #SIZE 150 2
+ #SIZE 304 4   #Mapsize 700+700
+ Size 600 8    #Mapsize 1400+1400
+ TRANSPARENT OFF
+ COLOR 0 0 0
+ BACKGROUNDCOLOR 255 255 255
+ OUTLINECOLOR 100 100 100
+ UNITS METERS
+END   #SCALEBAR
+
+#
+# Start of layer definitions #
+#
+#----------------------------------------------------------- Colindantes
+LAYER
+  CONNECTIONTYPE postgis 
+  NAME 'colindante'
+	GROUP 'Predio'
+	STATUS ON
+	CONNECTION 'user=postgres password=qwert dbname=vallegrande host=127.0.0.1'
+  DATA 'the_geom from temp_poly USING UNIQUE oid'
+  TYPE LINE
+METADATA
+ WMS_SRS 'epsg:32720'
+ WMS_TITLE 'colindante'
+ WMS_GROUP_TITLE 'Predio'
+ WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+END
+	
+PROJECTION
+     	'init=epsg:32720'
+END	
+
+ CLASSITEM 'numero'
+	CLASS 
+    NAME 'Predio'
+		EXPRESSION (( '[numero]' == '5' ) AND ('[user_id]' == 'Admin' ))               
+		STYLE
+		  SYMBOL 'linea'
+      COLOR 200 200 200
+	    SIZE 2
+	  END
+	END # end_of_class	
+	
+
+END # end of layer object
+#----------------------------------------------------------- Colindantes
+#----------------------------------------------------------- Predio-Poligono
+LAYER
+  CONNECTIONTYPE postgis 
+  NAME 'predio'
+	GROUP 'Predio'
+	STATUS ON
+	CONNECTION 'user=postgres password=qwert dbname=vallegrande host=127.0.0.1'
+  DATA 'the_geom from temp_poly USING UNIQUE oid'
+  TYPE POLYGON
+METADATA
+ WMS_SRS 'epsg:32720'
+ WMS_TITLE 'predio'
+ WMS_GROUP_TITLE 'Predio'
+ WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+END
+	
+PROJECTION
+     	'init=epsg:32720'
+END	
+
+ CLASSITEM 'numero'	
+	CLASS 
+    NAME 'Predio'
+		EXPRESSION (( '[numero]' == '2' ) AND ('[user_id]' == 'Admin' ))               
+		STYLE
+		  SYMBOL 'circle'
+      COLOR -1 -1 -1
+			OUTLINECOLOR 255 0 0		
+	    SIZE 2
+	  END
+	END # end_of_class
+	CLASS 
+    NAME 'Predio'
+		EXPRESSION (( '[numero]' == '10' ) AND ('[user_id]' == 'Admin' ))               
+  	STYLE
+	 	  SYMBOL 'circle'
+       COLOR -1 -1 -1
+	  	 OUTLINECOLOR 0 0 255			
+	     SIZE 2
+	  END
+	END # end_of_class	
+
+END # end of layer object
+#----------------------------------------------------------- Predio-Poligono
+#----------------------------------------------------------- Predio-Anotation
+LAYER  # START OF ANNOTATION LAYERFILE
+  CONNECTIONTYPE postgis
+  NAME 'predio_anot'
+	GROUP 'Predio'
+  CONNECTION 'user=postgres password=qwert dbname=vallegrande host=127.0.0.1'
+  DATA 'the_geom from temp_poly USING UNIQUE oid'
+  STATUS ON
+  TYPE ANNOTATION
+METADATA
+ WMS_SRS 'epsg:32720'
+ WMS_TITLE 'points_anot'
+ WMS_GROUP_TITLE 'Puntos'
+ WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+END
+
+PROJECTION
+     	'init=epsg:32720'
+END
+
+  CLASSITEM 'numero'
+  LABELITEM 'label'
+ 
+    CLASS
+     NAME 'Codigo Predio'
+     EXPRESSION (( '[numero]' == '2' ) AND ('[user_id]' == 'Admin' ))
+      LABEL
+       TYPE TRUETYPE
+       FONT tahoma
+       SIZE 14
+       ANGLE 0
+       COLOR 255 0 0
+       BUFFER 10
+			 OFFSET 0 0
+       POSITION cc
+       PARTIALS FALSE
+			 FORCE TRUE
+			 ANTIALIAS TRUE
+      END
+    END  # CLASS
+    CLASS
+     NAME 'Codigo Colindantes'
+     EXPRESSION (( '[numero]' == '5' ) AND ('[user_id]' == 'Admin' ) AND ('[cod_cat]' != '01-0001-006' ))
+      LABEL
+       TYPE TRUETYPE
+       FONT tahoma
+       SIZE 10
+       ANGLE 0
+       COLOR 200 200 200
+       BUFFER 5
+			 OFFSET 0 0
+       POSITION cc
+       PARTIALS TRUE
+			 FORCE TRUE
+			 ANTIALIAS TRUE
+      END
+    END  # CLASS		
+		 
+END  # END OF LAYERFILE
+#----------------------------------------------------------- Predio-Anotation
+#----------------------------------------------------------- Radio_Ochaves
+LAYER
+  CONNECTIONTYPE postgis 
+  NAME 'Radio_Ochaves'
+	GROUP 'Puntos'
+	STATUS ON
+	CONNECTION 'user=postgres password=qwert dbname=vallegrande host=127.0.0.1'
+  DATA 'the_geom from temp_line USING UNIQUE oid'
+  TYPE LINE
+	
+METADATA
+ WMS_SRS 'epsg:32720'
+ WMS_TITLE 'Radio_Ochaves'
+ WMS_GROUP_TITLE 'Puntos'
+ WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+END
+	
+PROJECTION
+     	'init=epsg:32720'
+#      	'init=epsg:4326'
+END	
+
+CLASSITEM 'id'
+	
+    CLASS
+     NAME 'Calle'
+      EXPRESSION (( '[id]' == '0' ) AND ('[user_id]' == 'Admin' ))
+		 STYLE
+		   SYMBOL 'gestrichelt2'
+       COLOR 0 0 255
+	     SIZE 1
+	   END
+    END  # CLASS	
+END # end of layer object
+#----------------------------------------------------------- Radio_Ochaves
+#----------------------------------------------------------- Radio_Ochaves-Anotacion
+LAYER
+  CONNECTIONTYPE postgis 
+  NAME 'Calles_Anot'
+	GROUP 'Puntos'
+	STATUS ON
+	CONNECTION 'user=postgres password=qwert dbname=vallegrande host=127.0.0.1'
+  DATA 'the_geom from temp_line USING UNIQUE oid'
+  TYPE ANNOTATION
+METADATA
+ WMS_SRS 'epsg:32720'
+ WMS_TITLE 'calles_anot'
+ WMS_GROUP_TITLE 'Puntos'
+ WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+END
+	
+PROJECTION
+     	'init=epsg:32720'
+END	
+
+CLASSITEM 'id'
+LABELITEM 'tipo'
+	
+    CLASS
+     NAME 'Nombre'
+     EXPRESSION (( '[id]' == '0' ) AND ('[user_id]' == 'Admin' ))
+      LABEL
+       TYPE TRUETYPE
+       FONT tahoma
+       SIZE 7
+       ANGLE AUTO
+       COLOR 0 0 255
+			 #OUTLINECOLOR 255 0 0
+       BUFFER 3
+			 OFFSET 0 0
+       POSITION uc
+       PARTIALS TRUE
+			 FORCE TRUE
+			 ANTIALIAS TRUE
+      END
+    END  # CLASS
+END # end of layer object
+#----------------------------------------------------------- Radio_Ochaves_Anotacion
+#----------------------------------------------------------- Points
+LAYER
+  CONNECTIONTYPE postgis
+  NAME 'points'
+	GROUP 'Puntos'
+  CONNECTION 'user=postgres password=qwert dbname=vallegrande host=127.0.0.1'
+  DATA 'the_geom from temp_point USING UNIQUE oid'
+  STATUS ON
+  TYPE POINT
+	
+	METADATA
+  WMS_SRS 'epsg:32720'
+  WMS_TITLE 'POINTS'
+	WMS_GROUP_TITLE 'Puntos'
+  WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+  END
+
+ PROJECTION
+      	'init=epsg:32720'
+ END
+   #SYMBOLSCALE 1000
+	 CLASSITEM 'pos'
+   TRANSPARENCY 1000
+	  
+		CLASS
+      NAME 'Centroid'
+      EXPRESSION (( '[pos]' == 'CEN' ) OR ('[pos]' == 'NN' ))
+      STYLE
+        SYMBOL 'circle'
+				COLOR -1 -1 -1
+				SIZE 0
+      END
+    END  # END_OF_CLASS	
+		CLASS
+      NAME 'TEXT'
+      EXPRESSION ((( '[pos]' == 'NO' )OR('[pos]' == 'NE' )OR( '[pos]' == 'SO' )OR('[pos]' == 'SE' )OR('[pos]' == '--' )) AND ('[user_id]' == 'Admin' )) 
+      STYLE
+         SYMBOL 'vertice'
+				SIZE 3
+      END
+    END  # END_OF_CLASS
+
+
+END   # END OF LAYERFILE
+#----------------------------------------------------------- Points
+#----------------------------------------------------------- Points-Anotation
+LAYER  # START OF ANNOTATION LAYERFILE
+  CONNECTIONTYPE postgis
+  NAME 'points_anot'
+	GROUP 'Puntos'
+  CONNECTION 'user=postgres password=qwert dbname=vallegrande host=127.0.0.1'
+  DATA 'the_geom from temp_point USING UNIQUE oid'
+  STATUS ON
+  TYPE ANNOTATION
+METADATA
+ WMS_SRS 'epsg:32720'
+ WMS_TITLE 'points_anot'
+ WMS_GROUP_TITLE 'Puntos'
+ WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+END
+
+PROJECTION
+     	'init=epsg:32720'
+END
+
+  CLASSITEM 'pos'
+  LABELITEM 'text'
+ 
+    CLASS
+     NAME 'SO'
+     EXPRESSION (( '[pos]' == 'SO' ) AND ('[user_id]' == 'Admin' ))
+      LABEL
+       TYPE TRUETYPE
+       FONT tahoma
+       SIZE 10
+       ANGLE 0
+       COLOR 0 0 0
+       BUFFER 3
+			 OFFSET 5 5
+       POSITION ll
+       PARTIALS TRUE
+			 FORCE TRUE
+			 ANTIALIAS TRUE
+      END
+    END  # CLASS
+		CLASS
+     NAME 'NO'
+     EXPRESSION (( '[pos]' == 'NO' ) AND ('[user_id]' == 'Admin' ))
+      LABEL
+       TYPE TRUETYPE
+       FONT tahoma
+       SIZE 10
+       ANGLE 0
+       COLOR 0 0 0
+       BUFFER 3
+			 OFFSET 5 5
+       POSITION ul
+       PARTIALS TRUE
+			 FORCE TRUE
+			 ANTIALIAS TRUE
+      END
+    END  # CLASS
+		CLASS
+     NAME 'SE'
+     EXPRESSION (( '[pos]' == 'SE' ) AND ('[user_id]' == 'Admin' ))
+      LABEL
+       TYPE TRUETYPE
+       FONT tahoma
+       SIZE 10
+       ANGLE 0
+       COLOR 0 0 0
+       BUFFER 3
+			 OFFSET 5 5
+       POSITION lr
+       PARTIALS TRUE
+			 FORCE TRUE
+			 ANTIALIAS TRUE
+      END
+    END  # CLASS
+		CLASS
+     NAME 'NE'
+     EXPRESSION (( '[pos]' == 'NE' ) AND ('[user_id]' == 'Admin' ))
+      LABEL
+       TYPE TRUETYPE
+       FONT tahoma
+       SIZE 10
+       ANGLE 0
+       COLOR 0 0 0
+       BUFFER 3
+			 OFFSET 5 5
+       POSITION ur
+       PARTIALS TRUE
+			 FORCE TRUE
+			 ANTIALIAS TRUE
+      END
+    END  # CLASS
+		CLASS
+    NAME 'INTERMEDIOS'
+     EXPRESSION (( '[pos]' == '--' ) AND ('[user_id]' == 'Admin' ))
+      LABEL
+       TYPE TRUETYPE
+       FONT tahoma
+       SIZE 10
+       ANGLE 0
+       COLOR 0 0 255
+       BUFFER 3
+			 OFFSET 10 10
+       POSITION cc
+       PARTIALS TRUE
+			 FORCE TRUE
+			 ANTIALIAS TRUE
+      END
+    END  # CLASS		 
+		CLASS
+    NAME 'CEN'
+     EXPRESSION (( '[pos]' == 'CEN' ) AND ('[user_id]' == 'Admin' ))
+      LABEL
+       TYPE TRUETYPE
+       FONT tahoma
+       SIZE 10
+       ANGLE 0
+       COLOR 0 0 255
+       BUFFER 3
+			 OFFSET 0 0
+       POSITION cc
+       PARTIALS TRUE
+			 FORCE TRUE
+			 ANTIALIAS TRUE
+      END
+     END  # CLASS
+				 
+END  # END OF LAYERFILE
+#----------------------------------------------------------- Points-Anotation
+#----------------------------------------------------------- Flecha Norte
+LAYER
+    NAME 'n_arrow'
+    STATUS ON
+		GROUP 'Predio'
+    TRANSFORM FALSE
+    TYPE POINT
+		METADATA
+      WMS_TITLE 'North Arrow'
+			WMS_GROUP_TITLE 'North Arrow'
+      WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+    END
+		
+    TRANSPARENCY 1000		
+    
+		FEATURE
+      POINTS 360 30 END
+    END
+    CLASS
+      STYLE
+        SYMBOL 'n_arrow_med'	
+      END
+    END
+END
+#----------------------------------------------------------- Flecha Norte
+END  # MAPFILE

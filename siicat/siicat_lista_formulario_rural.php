@@ -1,0 +1,186 @@
+<?php
+
+	# if (!$iframe) {
+# 	    echo "			 <form name=\"form1\" method=\"post\" action=\"index.php?mod=$mod_lista&id=$session_id\" accept-charset=\"utf-8\">\n";
+	# } else {
+ 	 #   echo "			 <form name=\"form1\" method=\"post\" action=\"index.php?mod=$mod_lista&id=$session_id&iframe\" accept-charset=\"utf-8\">\n";	 
+	# } 
+	 echo "      <tr>\n"; 	 
+	 echo "         <td valign=\"center\" height=\"20\" colspan=\"2\">\n";   #COLUMNA 1+2  
+	 echo "            <table border=\"0\" width=\"100%\">\n";                     #TABLE 13 COLUMNAS
+	 echo "               <tr>\n";
+	 echo "                  <td align=\"right\" colspan=\"4\" class=\"bodyText\"></td>\n";   #Col. 1	 
+	 echo "               </tr>\n";
+	 echo "               <tr>\n";
+	 echo "                  <td align=\"center\" width=\"11%\" class=\"bodyTextH\">CODIGO: </td>\n";   #Col. 1
+	 echo "                  <td align=\"left\" width=\"24%\" class=\"bodyTextD\">$cod_cat</td>\n";   #Col. 1	
+	 echo "                  <td align=\"center\" width=\"12%\" class=\"bodyTextH\">DIRECCION: </td>\n";   #Col. 1	
+	 echo "                  <td align=\"left\" width=\"53%\" class=\"bodyTextD\">$nom_pred</td>\n";   #Col. 1		   	 
+	 echo "               </tr>\n";
+	 echo "            </table>\n";
+	 echo "         </td>\n";  	
+	 echo "         <td valign=\"center\" height=\"20\">\n";   #COLUMNA 3  
+	 echo "            <table border=\"0\" width=\"100%\">\n";                     #TABLE 2 COLUMNAS
+	 echo "               <tr>\n";
+	 echo "                  <td align=\"right\" colspan=\"2\" class=\"bodyText\"></td>\n";   #Col. 1	 
+	 echo "               </tr>\n";
+	 echo "               <tr>\n";
+	 echo "                  <td align=\"center\" width=\"35%\" class=\"bodyTextH\">REGIMEN: </td>\n";   #Col. 1
+	 echo "                  <td align=\"left\" width=\"65%\" class=\"bodyTextD\">&nbsp $regimen</td>\n";   #Col. 1		   	 
+	 echo "               </tr>\n";
+	 echo "            </table>\n";
+	 echo "         </td>\n";   	 
+	 echo "      </tr>\n"; 
+	 echo "      <tr>\n"; 	 	   
+	 echo "         <td valign=\"top\" colspan=\"2\">\n";   #COLUMNA 1+2  	  	 	
+	 echo "            <fieldset style=\"border-color: lightgrey; background-color: #EEEEEE;\"><legend>Navegación por...</legend>\n";	  	
+	 echo "            <table border=\"0\" width=\"100%\">\n";                     #TABLE 13 COLUMNAS	  	   
+	 echo "               <tr>\n";  	                     
+	 echo "                  <td width=\"1%\"></td>\n";   #Col. 1	
+	 echo "                  <td align=\"center\" width=\"20%\" class=\"bodyTextH_Small\">\n";   #Col. 2	
+	 echo "                     <a href=\"index.php?mod=44&idpr=$flecha_geo_ant&id=$session_id\"><input type=\"image\" name=\"GEO_ANT\" src=\"http://$server/$folder/css/move_left.png\" alt=\"Anterior\" title=\"Anterior\" width=\"9\" height=\"9\" border=\"0\"></a>\n";   	  	 
+	 echo "                     Cod. Geo.\n"; 
+	 echo "                     <a href=\"index.php?mod=44&idpr=$flecha_geo_post&id=$session_id\"><input type=\"image\" name=\"GEO_POST\" src=\"http://$server/$folder/css/move_right.png\" alt=\"Posterior\" title=\"Posterior\" width=\"9\" height=\"9\" border=\"0\"></a>\n"; 	   		
+	 echo "                  </td>\n"; 
+	 echo "                  <td width=\"1%\"></td>\n";   #Col. 3	  	  
+	 echo "                  <td align=\"center\" width=\"20%\" class=\"bodyTextH_Small\">\n";   #Col. 4 
+	 echo "                     <a href=\"index.php?mod=44&idpr=$flecha_poly_ant&id=$session_id\"><input type=\"image\" src=\"http://$server/$folder/css/move_left.png\" alt=\"Anterior\" title=\"Anterior\" width=\"9\" height=\"9\" border=\"0\"></a>\n";
+	 echo "                     Polygono\n";
+	 echo "                     <a href=\"index.php?mod=44&idpr=$flecha_poly_post&id=$session_id\"><input type=\"image\" src=\"http://$server/$folder/css/move_right.png\" alt=\"Posterior\" title=\"Posterior\" width=\"9\" height=\"9\" border=\"0\"></a>\n"; 	 
+	 echo "                  </td>\n";		 
+	 echo "                  <td width=\"1%\"></td>\n";   #Col. 5	  	 
+	 echo "                  <td align=\"center\" width=\"20%\" class=\"bodyTextH_Small\">\n";   #Col. 6 
+	 echo "                     <a href=\"index.php?mod=44&idpr=$flecha_pred_ant&id=$session_id\"><input type=\"image\" src=\"http://$server/$folder/css/move_left.png\" alt=\"Anterior\" title=\"Anterior\" width=\"9\" height=\"9\" border=\"0\"></a>\n";
+	 echo "                     Predio\n";
+	 echo "                     <a href=\"index.php?mod=44&idpr=$flecha_pred_post&id=$session_id\"><input type=\"image\" src=\"http://$server/$folder/css/move_right.png\" alt=\"Posterior\" title=\"Posterior\" width=\"9\" height=\"9\" border=\"0\"></a>\n"; 
+	 echo "                  </td>\n";	
+	 echo "                  <td width=\"1%\"></td>\n";   #Col. 7	   
+ 	 
+	 echo "                  <td width=\"1%\"></td>\n";   #Col. 9	
+
+	 echo "                  <td width=\"1%\"></td>\n";   #Col. 11	
+	 
+	 echo "                  <td width=\"1%\"></td>\n";   #Col. 13  		   	 
+	 echo "                  <td align=\"center\" width=\"32%\" class=\"bodyTextH_Small\">\n";   #Col. 14
+	 echo "                     <a href=\"index.php?mod=44&inmu=$flecha_inmu_ant&id=$session_id\"><input type=\"image\" src=\"http://$server/$folder/css/move_left.png\" alt=\"Anterior\" title=\"Anterior\" width=\"9\" height=\"9\" border=\"0\"></a>\n";
+	 echo "                     Propiedad del Titular1\n";
+	 echo "                     <a href=\"index.php?mod=44&inmu=$flecha_inmu_post&id=$session_id\"><input type=\"image\" src=\"http://$server/$folder/css/move_right.png\" alt=\"Posterior\" title=\"Posterior\" width=\"9\" height=\"9\" border=\"0\"></a>\n"; 
+	 echo "                  </td>\n";	
+	 echo "                  <td width=\"1%\"></td>\n";   #Col. 15  		 	   	 	 	    
+	 echo "               </tr>\n"; 
+	 echo "               <tr>\n"; 
+	 echo "                  <td>&nbsp</td>\n";   #Col. 1		  	 
+	 echo "                  <td align=\"center\" class=\"bodyTextD_Small\">$cod_uv</td>\n";   #Col. 2	  	  
+	 echo "                  <td></td>\n";   #Col 3
+	 echo "                  <td align=\"center\" class=\"bodyTextD_Small\">$cod_man</td>\n";   #Col. 4	  
+	 echo "                  <td></td>\n";   #Col 5	 
+	 echo "                  <td align=\"center\" class=\"bodyTextD_Small\">$cod_pred</td>\n";   #Col. 6	  
+	 echo "                  <td></td>\n";   #Col 7	 	
+	 echo "                  <td align=\"center\" class=\"bodyTextD_Small\">$cod_blq</td>\n";   #Col. 8	  
+	 echo "                  <td></td>\n";   #Col 9	 
+	 echo "                  <td align=\"center\" class=\"bodyTextD_Small\">$cod_piso</td>\n";   #Col. 10	  
+	 echo "                  <td></td>\n";   #Col 11	 
+	 echo "                  <td align=\"center\" class=\"bodyTextD_Small\">$cod_apto</td>\n";   #Col. 10	  
+	 echo "                  <td></td>\n";   #Col 13		 	 		  
+	 echo "                  <td align=\"center\" class=\"bodyTextD_Small\">\n";   #Col. 14	
+	 echo "                  $pos_inmu/$check_inmuebles_tit1 </td>\n";
+	 echo "                  <td>&nbsp</td>\n";   #Col 15		 	 	
+	 echo "               </tr>\n";	
+	 echo "            </table>\n";  
+	 echo "            </fieldset>\n";  	 	 		 
+	 echo "            <table border=\"0\" width=\"100%\">\n"; #TABLE 7 COLUMNAS	
+	 echo "               <tr>\n";
+	 echo "                  <td colspan=\"9\" style='font-family: Arial; font-size: 1pt'>&nbsp</td>\n";   #Col. 1		 
+	 echo "               </tr>\n";	 	  	 
+	 echo "               <tr>\n";
+	 echo "                  <td width=\"1%\">&nbsp</td>\n";   #Col. 1	 	  	 
+	 echo "                  <td align=\"center\" width=\"21%\" class=\"bodyTextH\">Títular o Razón Social :</td>\n"; #Col. 2
+	 echo "                  <td align=\"left\" width=\"45%\" class=\"bodyTextD\">&nbsp $titular1</td>\n";   #Col. 3	
+	 echo "                  <td align=\"right\" width=\"4%\" class=\"bodyTextD\">\n";   #Col. 4	
+	 if ($titular1 != "-") {
+	    echo "                     (<a href=\"index.php?mod=123&con=$tit_1id&id=$session_id\">ver</a>)&nbsp\n";
+	 }
+	 echo "                  </td>\n";		   	 
+	 echo "                  <td align=\"center\" width=\"8%\" class=\"bodyTextH\">Doc.:</td>\n";   #Col. 5 
+	 echo "                  <td align=\"left\" width=\"20%\" class=\"bodyTextD\">&nbsp $tit_1ci</td>\n";   #Col. 6	 
+	 echo "                  <td width=\"1%\">&nbsp</td>\n";   #Col. 7	 	
+	 echo "               </tr>\n";		 	 
+	 echo "               <tr>\n";
+	 echo "                  <td>&nbsp</td>\n";   #Col. 1	 	  	 
+	 echo "                  <td align=\"center\" class=\"bodyTextH\">Segundo Títular :</td>\n"; #Col. 2
+	 echo "                  <td align=\"left\" class=\"bodyTextD\">&nbsp $titular2</td>\n";   #Col. 3	
+	 echo "                  <td align=\"right\" class=\"bodyTextD\">\n";   #Col. 4	
+	 if ($titular2 != "-") {
+	    echo "                     (<a href=\"index.php?mod=123&con=$tit_2id&id=$session_id\">ver</a>)&nbsp\n";
+	 }
+	 echo "                  </td>\n";		 	   	 
+	 echo "                  <td align=\"center\" class=\"bodyTextH\">Doc.:</td>\n";   #Col. 5 
+	 echo "                  <td align=\"left\"class=\"bodyTextD\">&nbsp $tit_2ci</td>\n";   #Col. 6	 	 
+	 echo "                  <td>&nbsp</td>\n";   #Col. 7	 	
+	 echo "               </tr>\n";   
+	 echo "            </table>\n";
+	 echo "            <table border=\"0\" width=\"100%\">\n";                     #TABLE 5 COLUMNAS	 	 
+	 echo "               <tr>\n";
+	 echo "                  <td width=\"1%\" class=\"bodyText\"></td>\n";   #Col. 1	 	  	 
+	 echo "                  <td align=\"center\" width=\"25%\" class=\"bodyTextH\">\n";            #Col. 2
+	 echo "                     Modo Adquisición\n";   		   	 
+	 echo "                  </td>\n";
+	 echo "                  <td width=\"1%\"></td>\n";   #Col. 3	
+	 echo "                  <td align=\"center\" width=\"55%\" class=\"bodyTextH\">Documentación</td>\n";   #Col. 4    	 
+	 echo "                  <td width=\"1%\" class=\"bodyText\"></td>\n";	 # Col. 5
+	 echo "                  <td align=\"center\" width=\"16%\" class=\"bodyTextH\">Fecha Adq.</td>\n";   #Col. 4    	 
+	 echo "                  <td width=\"1%\" class=\"bodyText\"></td>\n";	 # Col. 5	 
+	 echo "               </tr>\n";		 	 
+	 echo "               <tr>\n";
+	 echo "                  <td> &nbsp</td>\n";   #Col. 1	 		   	 
+	 echo "                  <td align=\"center\" class=\"bodyTextD\">$adq_modo_texto</td>\n";   #Col. 2	 
+	 echo "                  <td> &nbsp</td>\n";   #Col. 3	
+	 echo "                  <td align=\"center\" class=\"bodyTextD\">$adq_doc_texto</td>\n";   #Col. 4	
+	 echo "                  <td> &nbsp</td>\n";   #Col. 5	
+	 echo "                  <td align=\"center\" class=\"bodyTextD\">$adq_fech_texto</td>\n"; 	   
+	 echo "                  <td> &nbsp</td>\n";   #Col. 7
+	 echo "               </tr>\n";	   
+#	 echo "            </table>\n";	
+#	 echo "            <table border=\"0\" width=\"100%\">\n";                     #TABLE 9 COLUMNAS	 	 
+	 echo "               <tr>\n";
+	 echo "                  <td> &nbsp</td>\n";   #Col. 1	 	  	 
+	 echo "                  <td align=\"center\" class=\"bodyTextH\">Titularidad</td>\n";            #Col. 2	 
+	 echo "                  <td> &nbsp</td>\n";   #Col. 3	
+	 echo "                  <td align=\"center\" class=\"bodyTextH\">Número de Registro en Derechos Reales</td>\n";    	 
+	 echo "                  <td> &nbsp</td>\n";	 # Col. 5
+	 echo "                  <td align=\"center\" class=\"bodyTextH\">Fecha DDRR</td>\n";   	 
+	 echo "                  <td &nbsp></td>\n";	 # Col. 7	 
+	 echo "               </tr>\n";		 	 
+	 echo "               <tr>\n";
+	 echo "                  <td></td>\n";   #Col. 1	 		   	 
+	 echo "                  <td align=\"center\" class=\"bodyTextD\">$tit_cara_texto</td>\n";   #Col. 2	   	                     	
+	 echo "                  <td></td>\n";   #Col. 3	 
+	 echo "                  <td align=\"center\" class=\"bodyTextD\">$der_num_texto</td>\n";   #Col. 4	  
+	 echo "                  <td></td>\n";   #Col. 5
+	 echo "                  <td align=\"center\" class=\"bodyTextD\">$der_fech_texto</td>\n";   #Col. 6	  
+	 echo "                  <td></td>\n";   #Col. 7	 
+	 echo "               </tr>\n";	   
+	 echo "            </table>\n";		   	 
+	 echo "         </td>\n"; 
+	 echo "         <td align=\"right\" valign=\"center\">\n";  #COLUMNA 3	
+#   echo "            <img src=\"css/cat_br_mapa_inicio.png\" height=\"200\" width=\"200\" alt=\"Mapa Inicio\" title=\"Mapa Inicio\">\n";	 
+   if ($predio_existe) {
+      include "c:/apache/siicat/siicat_generar_mapfile_predio.php";	    
+	    echo "            <iframe frameborder=\"1\" name=\"mapserver\" src=\"http://$server/cgi-bin/mapserv.exe?map=c:/apache/siicat/mapa/siicat_predios.map&program=http://$server/cgi-bin/mapserv.exe&zoomsize=2&layer=Predios&layer=Manzanos&layer=Calles&imgext=$xmin $ymin $xmax $ymax&imgxy=800+800&mapext=&savequery=false&zoomdir=1&mode=map&imgbox=&imgsize=1600+1600&mapsize=200+200\" id=\"content\" width=\"200px\" height=\"200px\" align=\"middle\" valign=\"center\" scrolling=\"no\"  noresize=\"no\" marginwidth=\"0\" marginheight=\"0\">";
+	    echo "            </iframe>\n";	 
+	 } else {
+      echo "            <img src=\"graphics/siicat_sin_geometria.png\" height=\"200\" width=\"200\" alt=\"Sin geometría\" title=\"Sin geometría\">\n";	 
+	 }	 
+	 echo "         </td>\n";    
+	 echo "         <input name=\"cod_cat\" type=\"hidden\" class=\"smallText\" value=\"$cod_cat\" />\n"; 
+	 echo "         <input name=\"cod_uv\" type=\"hidden\" class=\"smallText\" value=\"$cod_uv\" />\n";
+	 echo "         <input name=\"cod_man\" type=\"hidden\" class=\"smallText\" value=\"$cod_man\" />\n";	 
+	# echo "         <input name=\"cod_lote\" type=\"hidden\" class=\"smallText\" value=\"$cod_lote\" />\n";	
+	# echo "         <input name=\"cod_subl\" type=\"hidden\" class=\"smallText\" value=\"$cod_subl\" />\n";		  	 	  
+	# echo "         <input name=\"dir_nom\" type=\"hidden\" class=\"smallText\" value=\"$dir_nom\" />\n"; 	 	
+	# echo "         <input name=\"tit_1pat\" type=\"hidden\" class=\"smallText\" value=\"$tit_1pat\" />\n"; 
+   echo "         <input name=\"search_string\" type=\"hidden\" value=\"$search_string\">\n";	 			 	  	
+	 echo "         <input name=\"Submit\" type=\"hidden\" class=\"smallText\" value=\"Lista\" />\n"; 	
+	 echo "      </tr>\n";  	
+#	 echo "      </form>\n";
+?>

@@ -1,0 +1,405 @@
+<?php
+
+################################################################################
+#----------------------- RUTA Y NOMBRE PARA GRABAR ----------------------------#
+################################################################################	
+
+$filename = "C:/apache/catastro/mapa/igm_planocatastral_ubicacion.map";
+ 
+################################################################################
+#------------------- PREPARAR CONTENIDO PARA GRABAR ---------------------------#
+################################################################################	
+$content = "MAP 
+#
+#< Start of map file - created $fecha - $hora
+#
+NAME 'IGM_PLANOPREDIAL_UBICACION'
+STATUS ON
+
+PROJECTION
+			'init=epsg:32720'     # UTM 20, Zona 20S, WGS 1984
+END
+
+SIZE 1200 1200
+# EXTENT 423000 8086700 425500 8089200 BR
+EXTENT 599500 8211500 608500 8220500
+UNITS  meters
+SYMBOLSET 'c:/apache/catastro/mapa/symbols/symbset.sym'
+FONTSET   'c:/apache/catastro/mapa/fonts/fonts.fnt'
+IMAGECOLOR 255 255 255
+
+#
+# Start of web interface definition
+#
+WEB
+ LOG igm.log
+ TEMPLATE igm_planocatastral_ubicacion.html
+ IMAGEPATH 'c:/apache/htdocs/tmp/'
+ IMAGEURL 'http://$server/tmp/'
+ EMPTY 'http://$server/$server/nada.html'
+ 
+ METADATA
+  WMS_ONLINERESOURCE 'http://$server/cgi-bin/mapserv.exe?map=c:/apache/catastro/mapa/igm_planocatastral_ubicacion.map'
+  WMS_SRS 'epsg:32720'
+  WMS_ACCESSCONSTRAINTS 'none'
+  WMS_TITLE 'IGM_PLANOCATASTRAL_UBICACION'
+  WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+  WMS_ABSTRACT ''
+ END  #METADATA
+
+END  #HEADER
+
+OUTPUTFORMAT
+    NAME 'AGG'
+    DRIVER 'AGG/PNG'
+    MIMETYPE 'image/png'
+    IMAGEMODE RGB
+  	FORMATOPTION 'QUALITY=100'		
+END
+
+SYMBOL
+  NAME 'n_arrow'
+  TYPE pixmap
+  IMAGE 'C:/apache/htdocs/$folder/graphics/northarrow.png'
+	TRANSPARENT 0
+END
+
+SYMBOL
+   NAME 'circle'
+   TYPE ellipse
+   FILLED true
+   POINTS
+     1 1
+   END
+END
+
+#
+# Start of reference map
+#
+REFERENCE
+  STATUS OFF
+  IMAGE 'c:/apache/htdocs/$folder/data/reference.gif'
+  SIZE 100 100
+  EXTENT -70.254 -23.569 -56.844 -8.994
+  COLOR -1 -1 -1
+  OUTLINECOLOR 255 0 0
+END  #REFERENCE
+
+#
+# Start of legend
+#
+LEGEND
+  STATUS OFF
+  KEYSIZE 16 8
+  TEMPLATE 'legend.html'
+  LABEL
+    COLOR 120 120 120
+  END # ENDE LABEL
+END   #LEGEND
+
+#
+# Start of scalebar
+#
+SCALEBAR
+ STATUS ON
+ POSITION ll
+ STYLE 0
+ INTERVALS 5
+ IMAGECOLOR 255 255 255
+ LABEL
+  COLOR 0 0 0
+  SIZE GIANT  #SMALL
+ END  #ENDE LABEL
+ #SIZE 150 2
+ #SIZE 304 4   #Mapsize 700+700
+ Size 600 8    #Mapsize 1400+1400
+ TRANSPARENT OFF
+ COLOR 0 0 0
+ BACKGROUNDCOLOR 255 255 255
+ OUTLINECOLOR 100 100 100
+ UNITS METERS
+END   #SCALEBAR
+
+#
+# Start of layer definitions #
+#
+#----------------------------------------------------------- U.V.s
+LAYER
+  CONNECTIONTYPE postgis
+  NAME 'Unidades Vecinales'
+  GROUP 'Manzanos'
+	CONNECTION 'user=$db_user password=$db_passw dbname=$db_name host=$server'
+  DATA 'the_geom from manzanos USING UNIQUE oid'
+  STATUS ON
+  TYPE Polygon
+#	TEMPLATE 'query_manzanos.html'
+  METADATA
+    WMS_SRS 'epsg:32720'
+    WMS_TITLE 'Poly'
+    WMS_GROUP_TITLE 'Poligono'
+    WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+  END
+
+PROJECTION
+     	'init=epsg:32720'
+END
+
+    CLASSITEM 'cod_uv'
+
+      CLASS
+       NAME 'U.V.'
+			 EXPRESSION /./
+			 STYLE
+			    SYMBOL 'circle'
+          COLOR -1 -1 -1
+          OUTLINECOLOR 50 50 50 #40 40 40
+			    SIZE 3
+			 END
+      END  # CLASS
+			 
+END  # END OF LAYERFILE		
+#----------------------------------------------------------- U.V.s
+#----------------------------------------------------------- Predios-Outline
+LAYER
+  CONNECTIONTYPE postgis
+  NAME 'predios'
+	GROUP 'Predios'
+	CONNECTION 'user=$db_user password=$db_passw dbname=$db_name host=$server'
+  DATA 'the_geom from predios_ocha USING UNIQUE oid'	
+  TYPE POLYGON
+METADATA
+ WMS_SRS 'epsg:32720'
+ WMS_TITLE 'Predios'
+ WMS_GROUP_TITLE 'Predios'
+ WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+END
+	
+PROJECTION
+     	'init=epsg:32720'
+END	
+
+ CLASSITEM 'cod_uv'
+	CLASS 
+    NAME 'Delimitación'              
+		STYLE
+		  SYMBOL 'circle'
+			#SYMBOL 'Hauptstrasse'
+      COLOR -1 -1 -1
+      OUTLINECOLOR 0 0 0 #40 40 40			
+	    SIZE 1
+	  END
+	END # end_of_class
+END # end of layer object
+#----------------------------------------------------------- Predios-Outline
+#----------------------------------------------------------- Predio-Seleccionado-Relleno
+LAYER
+  CONNECTIONTYPE postgis
+  NAME 'predio_select'
+	GROUP 'Predios'
+	CONNECTION 'user=$db_user password=$db_passw dbname=$db_name host=$server'
+  DATA 'the_geom from temp_poly USING UNIQUE oid'	
+  TYPE Polygon
+METADATA
+ WMS_SRS 'epsg:32720'
+ WMS_TITLE 'Predio_Select'
+ WMS_GROUP_TITLE 'Predios'
+ WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+END
+	
+PROJECTION
+     	'init=epsg:32720'
+END	
+
+ CLASSITEM 'numero'
+	CLASS 
+    NAME 'Delimitación' 
+		EXPRESSION (('[numero]' == '55') AND ('[user_id]' == '$user_id'))         
+		STYLE
+		  SYMBOL 'circle'
+      COLOR 150 150 150
+      OUTLINECOLOR -1 -1 -1 #40 40 40			
+	    SIZE 1
+	  END
+	END # end_of_class
+END # end of layer object
+#----------------------------------------------------------- Predio-Seleccionado-Relleno
+#----------------------------------------------------------- Predio-Seleccionado-Linea
+LAYER
+  CONNECTIONTYPE postgis
+  NAME 'predio_select'
+	GROUP 'Predios'
+	CONNECTION 'user=$db_user password=$db_passw dbname=$db_name host=$server'
+  DATA 'the_geom from temp_poly USING UNIQUE oid'	
+  TYPE Polygon
+METADATA
+ WMS_SRS 'epsg:32720'
+ WMS_TITLE 'Predio_Select'
+ WMS_GROUP_TITLE 'Predios'
+ WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+END
+	
+PROJECTION
+     	'init=epsg:32720'
+END	
+
+ CLASSITEM 'numero'
+	CLASS 
+    NAME 'Delimitación' 
+		EXPRESSION (('[numero]' == '55') AND ('[user_id]' == '$user_id'))         
+		STYLE
+		  SYMBOL 'circle'
+      COLOR -1 -1 -1 #150 150 150
+      OUTLINECOLOR 0 0 0 #40 40 40			
+	    SIZE 6
+	  END
+	END # end_of_class
+END # end of layer object
+#----------------------------------------------------------- Predio-Seleccionado-Linea
+#----------------------------------------------------------- Calles-Anotation
+LAYER 
+  CONNECTIONTYPE postgis
+  NAME 'Calles_Anot'
+	GROUP 'Calles'
+	STATUS ON
+  CONNECTION 'user=$db_user password=$db_passw dbname=$db_name host=$server'
+  DATA 'the_geom from calles USING UNIQUE oid'	
+  TYPE ANNOTATION
+
+METADATA
+ WMS_SRS 'epsg:32720'
+ WMS_TITLE 'Calles_Anot'
+ WMS_GROUP_TITLE 'Calles'
+ WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+END
+	
+PROJECTION
+     	'init=epsg:32720'
+END	
+
+#MAXSCALE 60000
+ CLASSITEM 'id'
+ LABELITEM 'nombre'
+ 
+	CLASS 
+	 NAME 'Calles'
+     EXPRESSION '0' 
+      LABEL
+       TYPE TRUETYPE
+       FONT tahoma
+       SIZE 14
+       ANGLE AUTO
+       COLOR 0 0 0   # orange: 255 153 51
+	#		 OUTLINECOLOR 255 255 255
+       BUFFER 2
+			 ANTIALIAS TRUE
+       POSITION cc
+       PARTIALS FALSE
+			 FORCE TRUE
+      END
+  END
+END # end of layer object
+#----------------------------------------------------------- Calles-Anotation
+#----------------------------------------------------------- Manzanos-Anotation
+LAYER 
+  CONNECTIONTYPE postgis
+  NAME 'Manzanos_Anot'
+  GROUP 'Manzanos'
+	STATUS ON
+	CONNECTION 'user=$db_user password=$db_passw dbname=$db_name host=$server'
+  DATA 'the_geom from temp_poly USING UNIQUE oid'
+  TYPE ANNOTATION
+
+METADATA
+ WMS_SRS 'epsg:32720'
+ WMS_TITLE 'Manzanos_Anot'
+ WMS_GROUP_TITLE 'Manzanos'
+ WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+END
+	
+PROJECTION
+     	'init=epsg:32720'
+END	
+
+#MAXSCALE 60000
+ CLASSITEM 'numero'
+ LABELITEM 'label'
+ 
+	CLASS 
+	 NAME 'Manzanos'
+     EXPRESSION (( '[numero]' == '115' ) AND ('[user_id]' == '$user_id' ))
+      LABEL
+       TYPE TRUETYPE
+       FONT tahoma
+       SIZE 20
+       ANGLE 0
+       COLOR 0 0 0   # orange: 255 153 51
+	#		 OUTLINECOLOR 255 255 255
+       BUFFER 2
+			 ANTIALIAS TRUE
+       POSITION cc
+			 OFFSET 0 -10
+       PARTIALS FALSE
+			 FORCE FALSE
+			 WRAP '@'
+      END
+  END
+END # end of layer object
+#----------------------------------------------------------- Manzanos-Anotation
+#----------------------------------------------------------- Objetos_Linea
+LAYER
+  DEBUG ON
+  CONNECTIONTYPE postgis 
+  NAME 'objetos_linea'
+	GROUP 'Calles'
+	STATUS ON
+  CONNECTION 'user=$db_user password=$db_passw dbname=$db_name host=$server'
+  DATA 'the_geom from objetos_linea USING UNIQUE oid'
+  TYPE LINE
+METADATA
+ WMS_SRS 'epsg:32720'
+ WMS_TITLE 'objetos_linea'
+ WMS_GROUP_TITLE 'Calles'
+ WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+END
+	
+PROJECTION
+     	'init=epsg:32720'
+END	
+
+ CLASSITEM 'id'
+	
+	CLASS 
+    NAME 'Plaza'
+		EXPRESSION '15'             
+		STYLE
+		  SYMBOL 'linea'
+      COLOR 150 150 150
+	    SIZE 2
+	  END
+	END # end_of_class  
+	CLASS 
+    NAME 'Límite urbáno'
+		EXPRESSION '35'               
+		STYLE
+		  SYMBOL 'linea'
+      COLOR 0 0 0
+	    SIZE 2
+	  END
+	END # end_of_class 
+END # end of layer object
+#----------------------------------------------------------- Objetos_Linea
+END  # MAPFILE
+END  # MAPFILE
+";
+################################################################################
+#------------------- CHEQUEAR SI SE PUEDE ABRIR EL ARCHIVO --------------------#
+################################################################################	
+if (!$handle = fopen($filename, "w")) {
+   $error = 2; 
+}
+if (!fwrite($handle, $content)) {
+   $error = 3; 
+}
+fclose($handle);
+
+?>

@@ -1,0 +1,214 @@
+<!-- MapServer Template -->
+<html>
+<head>
+<meta http-equiv=Content-Language content=de>
+<meta http-equiv=Content-Type content=text/html; charset=windows-1252>
+<title>IGM</title>
+<link rel=stylesheet type="text/css" href="http://localhost/baures/java/map.css">
+<style type='text/css'>
+</style>
+<script language="JavaScript" type="text/javascript" src="file:///c:/apache/htdocs/baures/java/codesnips.js"></script>
+<script language="JavaScript" type="text/javascript" src="http://localhost/baures/java/codesnips.js"></script>
+<script language="JavaScript" type="text/javascript">
+function knopfstatus(form)
+{ 
+  var a = form.zoomdir.value;
+  with (document)
+  { 
+  if (form.mode.value == "query") butinfo.src='http://localhost/baures/graphics/b_info2.png';
+    else if (a == "0") butpan.src='http://localhost/baures/graphics/b_mover.png'; 
+    else if (a == "-1") butzoomout.src='http://localhost/baures/graphics/b_menos.png'; 
+    else if (a == "1") butzoomin.src='http://localhost/baures/graphics/b_mas.png'; 
+    else butinfo.src='http://localhost/baures/graphics/b_info.png'; 
+  } 
+} 
+</script> 
+<script language="JavaScript" type="text/javascript">
+function kartengroesse()
+{
+ var kartenmasse = '600 600';
+ var massarray = kartenmasse.split(' ');
+ if (ns4)
+ { 
+  objContainer.width = massarray[0];
+  objContainer.height = massarray[1];
+ }
+ else
+ {
+  objContainer.style.width = massarray[0] + 'px';
+  objContainer.style.height = massarray[1] + 'px';
+ }
+}
+ </script> 
+ 
+<script language="JavaScript" type="text/javascript">
+function bilddaten(img)
+{
+ if (ns4) return new fobjekt(img.x, img.y, 600, 600);
+ else 
+ {
+  var canvas = new fobjekt(0, 0, 600, 600);
+  while(img) 
+  {
+   canvas.x += img.offsetLeft;
+   canvas.y += img.offsetTop;
+   img = img.offsetParent;
+  }
+  return canvas;
+ } 
+}
+ </script> 
+ 
+</head>
+<body onload="initialisierung('karte'); bildladen('ladestatus','hidden'); knopfstatus(document.mapserv); kartengroesse();" bgcolor='#DDDDDD' text='#3399FF' link='#3399FF' vlink='#3399FF' alink='#3399FF' leftmargin='0' topmargin='0' marginwidth='0' marginheight='0'>
+   <div id=kartenlayer onmouseup="bildladen('ladestatus','visible');" style='width: 1000; height: 21'></div>
+   <div id=zoomlayer><img src='img/dot.gif' width='1' height='1' border='0'></div>
+   <div id=ladestatus style='width: 90px; border: 1px none #000000; left: 320px; top: 260px;'>
+   <img src='http://localhost/baures/graphics/mergis_logo.png' width='125' height='25'></div>
+   <!-- start Formular -->
+   <form method='post' action='/cgi-bin/mapserv.exe' name='mapserv'>
+   <!-- start table 1 -->
+   <table border='0' width='900' height='1000' bgcolor='#FFFFFF'>
+      <tr>
+      <!-- start table 2 -->
+      <td width='900px' valign='top'>
+      <!--    <table border='1' height='490' cellspacing='0' bgcolor='#F4FFE4'> ALREDEDOR DEL MAP FRAME -->
+      <table border='1' height='690' cellspacing='0' bgcolor='#FFFFFF'>
+     <tr height='25'>
+<!-- start map & navigation window -- MARCO CON FLECHAS <td bgcolor='#F4FFE4'> -->
+		<td width="31" bgcolor='#FFFFFF'>
+        <a href='javascript:move(-0.5,0.5)'>
+        <font color='#000000'>
+        <img border='0' src='http://localhost/baures/graphics/nw.png' width='15' height='15'></font></a>
+      </td>
+      <td width="431" align='center' bgcolor='#FFFFFF'> 
+        <a href='javascript:move(0,0.5)'>
+        <font color='#000000'><img border='0' src='http://localhost/baures/graphics/n.png' width='15' height='15'></font></a>
+      </td>
+      <td width="37" bgcolor='#FFFFFF'>
+       <a href='javascript:move(0.5,0.5)'>
+       <font color='#000000'>
+       <img border='0' src='http://localhost/baures/graphics/ne.png' width='15' height='15'></font></a>
+      </td>
+      <td valign='top' align='center' bgcolor='#DDDDDD'> <b><font color='#000000'>Leyenda</font></b></td>
+      <td valign='top' align='center' bgcolor='#DDDDDD'><b>Menu</b></td>
+    </tr>
+    
+<!-- reference map here --> 
+    <tr>
+     <td rowspan='1' height='600' bgcolor='#FFFFFF'>
+      <a href='javascript:move(-0.5,0)'>
+      <font color='#000000'>
+      <img src='http://localhost/baures/graphics/w.png' width='15' height='15' border='0' alt='nach W'></font></a>
+     </td>
+  
+<!-- map window here -->
+    <td height='600' rowspan='1' valign='middle' align='center'>
+     <p align='center'><font color='#000000'>
+     <img name='karte' src='[img]' border='0' width='600' height='600'></font></td>
+    <td rowspan='1' height='600' bgcolor='#FFFFFF'>
+     <a href='javascript:move(0.5,0)'>
+     <font color='#000000'>
+     <img border='0' src='http://localhost/baures/graphics/e.png' width='15' height='15'></font></a>
+    </td>    
+<!-- legend window here -->
+ <td width='165' rowspan='2' align='left' valign='top' bgcolor='#DDDDDD'>
+     <div style=' width:160px; height: 600px;overflow-x:auto; overflow-y:auto;'>
+		 <b><div align= 'center'></div></b>
+     <font color='#000000'><b><font face='Tahoma' size='1'>[legend]</font>
+     </div>
+    </td>
+    <!-- MI TABLA-->
+     <td width='50' rowspan='2' align='left' valign='top' bgcolor='#D0E6FB'>
+
+
+<table width="50" border="0" bgcolor='#D0E6FB'>
+<tbody>
+<tr>
+<td><b><font size='1' face='Tahoma' color='#000000'><a href="javascript:document.butinfo.src='http://localhost/baures/graphics/b_info2.png';document.butpan.src='http://localhost/baures/graphics/b_mover.png';document.butzoomin.src='http://localhost/baures/graphics/b_mas.png';document.butzoomout.src='http://localhost/baures/graphics/b_menos.png';aktion('query',1);"><img src='http://localhost/baures/graphics/b_info.png' alt="" name='butinfo' width='45' height='40' id="butinfo" title='Consultar atributos del tema' border='0' onload=''></a></font></b></td>
+</tr>
+<tr>
+<td><b><font size='1' face='Tahoma' color='#000000'><a href="javascript:document.butinfo.src='http://localhost/baures/graphics/b_info2.png';document.butpan.src='http://localhost/baures/graphics/b_mover2.png';document.butzoomin.src='http://localhost/baures/graphics/b_mas.png';document.butzoomout.src='http://localhost/baures/graphics/b_menos.png';aktion('browse',0);"><img src='http://localhost/baures/graphics/b_mover.png' alt='' name='butpan' width='45' height='40' id="butpan" title='Centrar el mapa en ese punto' border='0' onload=''></a></font></b></td>
+           </tr>
+           <tr>
+             <td><b><font face='Tahoma' size='1' color='#000000'><a href="javascript:document.butinfo.src='http://localhost/baures/graphics/b_info.png';document.butpan.src='http://localhost/baures/graphics/b_mover.png';document.butzoomin.src='http://localhost/baures/graphics/b_mas2.png';document.butzoomout.src='http://localhost/baures/graphics/b_menos.png';aktion('browse',1);"><img src='http://localhost/baures/graphics/b_mas.png' alt='' name='butzoomin' width='45' height='40' id="butzoomin" title='Acercarse en el mapa' border='0' onload=''></a></font></b></td>
+           </tr>
+           <tr>
+             <td><b><font face='Tahoma' size='1' color='#000000'><a href="javascript:document.butinfo.src='http://localhost/baures/graphics/b_info.png';document.butpan.src='http://localhost/baures/graphics/b_mover.png';document.butzoomin.src='http://localhost/baures/graphics/b_mas.png';document.butzoomout.src='http://localhost/baures/graphics/b_menos2.png';aktion('browse',-1);"><img src='http://localhost/baures/graphics/b_menos.png' alt='' name='butzoomout' width='45' height='40' id="butzoomout" title='Alejarse en el mapa' border='0' onload=''></a></font></b></td>
+           </tr>
+           <tr>
+             <td><font color='#000000' size='1' face='Tahoma'><b>Zoom</b></font>
+               <input type='text' name='zoomsize' size='1' value='2'></td>
+           </tr>
+           <tr>
+             <td><b><font size='1' face='Tahoma' color='#000000'><a href="javascript:neuladen();"><img src='http://localhost/baures/graphics/b_refresh.png' alt='' name='butreload' width='45' height='40' id="butreload" title='Actualizar el mapa' border='0'></a></font></b></td>
+           </tr>
+           <tr>
+             <td><b><font face='Tahoma' size='1' color='#000000'><a href="javascript:startansicht();"><img src='http://localhost/baures/graphics/b_FullExtent.png' alt='' name='butreload' width='45' height='40' id="butreload" title='Ver toda la extensión del mapa' border='0' onload=''></a></font></b></td>
+           </tr>
+           <tr>
+             <td><b><font face='Tahoma' size='1' color='#000000'><a href='http://localhost/baures/ayuda.html','','scrollbars="yes,toolbar=yes,menubar=yes')'"><img src='http://localhost/baures/graphics/b_Ayuda.png' alt='' name='Image1' width='45' height='40' id="Image1" title='Instrucciones para moverse en el mapa' border='0'></a></font></b></td>
+           </tr>
+           <tr>
+             <td><p><b><font face='Tahoma' size='1' color='#000000'><img src='http://localhost/baures/graphics/b_blanco.png' alt='' name='Image1' width='45' height='40' id="Image2" title='Instrucciones para moverse en el mapa' border='0'></font></b></p></td>
+           </tr>
+           <tr>
+             <td><b><font face='Tahoma' size='1' color='#000000'><img src='http://localhost/baures/graphics/b_blanco.png' alt='' name='Image1' width='45' height='40' id="Image3" title='Instrucciones para moverse en el mapa' border='0'></font></b></td>
+           </tr>
+         </tbody>
+       </table></td>
+    
+    
+   </tr>
+ 
+  <tr height='25'>
+   <td bgcolor='#FFFFFF'>
+    <a href='javascript:move(-0.5,-0.5)'>
+    <font color='#000000'>
+    <img border='0' src='http://localhost/baures/graphics/sw.png' width='15' height='15'>
+    </font></a> 
+   </td>
+   <td height='20' bgcolor='#FFFFFF' align='center' valign='middle'>
+    <a href='javascript:move(0,-0.5)'>
+    <font color='#000000'>
+    <img border='0' src='http://localhost/baures/graphics/s.png' width='15' height='15'>
+    </font></a>
+   </td>
+   <td bgcolor='#FFFFFF' height='20'>
+    <p align='center'>
+    <a href='javascript:move(0.5,-0.5)'>
+    <font color='#000000'>
+    <img border='0' src='http://localhost/baures/graphics/se.png' width='15' height='15'>
+    </font></a>
+   </td>
+  </tr>
+    <tr height='30'>
+
+     <td colspan='3' bgcolor='#DDDDDD'>
+     <font color='#000000'><font face='Tahoma' size='1'>
+Escala 1 : <script>document.write(Math.round('[scale]'));</script></font>
+     </td>
+     <td align='center' bgcolor='#DDDDDD'>
+       <b><font color='#000000' size='1' face='Tahoma'>
+       <img border='0' src='http://localhost/baures/graphics/ms_logo.png' width='35' height='19' valign='top'>
+			 </font></b>
+     </td>
+     <td align='center' bgcolor='#DDDDDD'><b>igm</b></td>     
+    </tr>
+   </table>
+  </td>    
+  </tr>
+ </table>
+      <input type='hidden' name='imgxy' value=''>
+      <input type='hidden' name='mapext' value=''>
+      <input type='hidden' name='imgext' value='[mapext]'>
+      <input type='hidden' name='map' value='c:/apache/siicat/mapa/siicat.map'>
+      <input type='hidden' name='savequery' value='false'>
+      <input type='hidden' name='program' value='http://localhost/cgi-bin/mapserv.exe'> 
+      <input type='hidden' name='zoomdir' value='1'>
+      <input type='hidden' name='mode' value='browse'>
+      <input type='hidden' name='imgbox' value=''>
+      <input type='hidden' name='imgsize' value='600 600'>
+      <input type='hidden' name='mapsize' value='600 600'>
+</form>
+      </html>

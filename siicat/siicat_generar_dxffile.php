@@ -1,0 +1,1290 @@
+<?php
+
+################################################################################
+#----------------------- RUTA Y NOMBRE PARA GRABAR ----------------------------#
+################################################################################	
+
+$filename = "c:/apache/htdocs/tmp/".$filename_dxf.".dxf";
+
+################################################################################
+#------------------- PREPARAR CONTENIDO PARA LINEAS ---------------------------#
+################################################################################	
+if (($tipo == "line") OR ($tipo == "poly") OR ($tipo == "point")) {
+$content = " 0
+SECTION
+  2
+HEADER
+  9
+\$ACADVER
+  1
+AC1009
+  9
+\$INSBASE
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+\$EXTMIN
+ 10
+423476.21599999798
+ 20
+8086679.6180000007
+ 30
+0.0
+  9
+\$EXTMAX
+ 10
+425366.25099999789
+ 20
+8089164.1799999997
+ 30
+0.0
+  9
+\$LIMMIN
+ 10
+0.0
+ 20
+0.0
+  9
+\$LIMMAX
+ 10
+12.0
+ 20
+9.0
+  9
+\$ORTHOMODE
+ 70
+     0
+  9
+\$REGENMODE
+ 70
+     1
+  9
+\$FILLMODE
+ 70
+     1
+  9
+\$QTEXTMODE
+ 70
+     0
+  9
+\$MIRRTEXT
+ 70
+     1
+  9
+\$DRAGMODE
+ 70
+     2
+  9
+\$LTSCALE
+ 40
+1.0
+  9
+\$OSMODE
+ 70
+     0
+  9
+\$ATTMODE
+ 70
+     1
+  9
+\$TEXTSIZE
+ 40
+0.2
+  9
+\$TRACEWID
+ 40
+0.05
+  9
+\$TEXTSTYLE
+  7
+STANDARD
+  9
+\$CLAYER
+  8
+0
+  9
+\$CELTYPE
+  6
+CONTINUOUS
+  9
+\$CECOLOR
+ 62
+   256
+  9
+\$DIMSCALE
+ 40
+1.0
+  9
+\$DIMASZ
+ 40
+0.18
+  9
+\$DIMEXO
+ 40
+0.0625
+  9
+\$DIMDLI
+ 40
+0.38
+  9
+\$DIMRND
+ 40
+0.0
+  9
+\$DIMDLE
+ 40
+0.0
+  9
+\$DIMEXE
+ 40
+0.18
+  9
+\$DIMTP
+ 40
+0.0
+  9
+\$DIMTM
+ 40
+0.0
+  9
+\$DIMTXT
+ 40
+0.18
+  9
+\$DIMCEN
+ 40
+0.09
+  9
+\$DIMTSZ
+ 40
+0.0
+  9
+\$DIMTOL
+ 70
+     0
+  9
+\$DIMLIM
+ 70
+     0
+  9
+\$DIMTIH
+ 70
+     1
+  9
+\$DIMTOH
+ 70
+     1
+  9
+\$DIMSE1
+ 70
+     0
+  9
+\$DIMSE2
+ 70
+     0
+  9
+\$DIMTAD
+ 70
+     0
+  9
+\$DIMZIN
+ 70
+     0
+  9
+\$DIMBLK
+  1
+
+  9
+\$DIMASO
+ 70
+     1
+  9
+\$DIMSHO
+ 70
+     1
+  9
+\$DIMPOST
+  1
+
+  9
+\$DIMAPOST
+  1
+
+  9
+\$DIMALT
+ 70
+     0
+  9
+\$DIMALTD
+ 70
+     2
+  9
+\$DIMALTF
+ 40
+25.4
+  9
+\$DIMLFAC
+ 40
+1.0
+  9
+\$DIMTOFL
+ 70
+     0
+  9
+\$DIMTVP
+ 40
+0.0
+  9
+\$DIMTIX
+ 70
+     0
+  9
+\$DIMSOXD
+ 70
+     0
+  9
+\$DIMSAH
+ 70
+     0
+  9
+\$DIMBLK1
+  1
+
+  9
+\$DIMBLK2
+  1
+
+  9
+\$DIMSTYLE
+  2
+STANDARD
+  9
+\$DIMCLRD
+ 70
+     0
+  9
+\$DIMCLRE
+ 70
+     0
+  9
+\$DIMCLRT
+ 70
+     0
+  9
+\$DIMTFAC
+ 40
+1.0
+  9
+\$DIMGAP
+ 40
+0.09
+  9
+\$LUNITS
+ 70
+     2
+  9
+\$LUPREC
+ 70
+     4
+  9
+\$AXISMODE
+ 70
+     0
+  9
+\$AXISUNIT
+ 10
+0.0
+ 20
+0.0
+  9
+\$SKETCHINC
+ 40
+0.1
+  9
+\$FILLETRAD
+ 40
+0.0
+  9
+\$AUNITS
+ 70
+     0
+  9
+\$AUPREC
+ 70
+     0
+  9
+\$MENU
+  1
+acad
+  9
+\$ELEVATION
+ 40
+0.0
+  9
+\$PELEVATION
+ 40
+0.0
+  9
+\$THICKNESS
+ 40
+0.0
+  9
+\$LIMCHECK
+ 70
+     0
+  9
+\$BLIPMODE
+ 70
+     1
+  9
+\$CHAMFERA
+ 40
+0.0
+  9
+\$CHAMFERB
+ 40
+0.0
+  9
+\$SKPOLY
+ 70
+     0
+  9
+\$TDCREATE
+ 40
+2455063.423379630
+  9
+\$TDUPDATE
+ 40
+2455063.423379630
+  9
+\$TDINDWG
+ 40
+0.0000000000
+  9
+\$TDUSRTIMER
+ 40
+0.0000000000
+  9
+\$USRTIMER
+ 70
+     1
+  9
+\$ANGBASE
+ 50
+0.0
+  9
+\$ANGDIR
+ 70
+     0
+  9
+\$PDMODE
+ 70
+     0
+  9
+\$PDSIZE
+ 40
+0.0
+  9
+\$PLINEWID
+ 40
+0.0
+  9
+\$COORDS
+ 70
+     0
+  9
+\$SPLFRAME
+ 70
+     0
+  9
+\$SPLINETYPE
+ 70
+     6
+  9
+\$SPLINESEGS
+ 70
+    10
+  9
+\$ATTDIA
+ 70
+     0
+  9
+\$ATTREQ
+ 70
+     1
+  9
+\$HANDLING
+ 70
+     1
+  9
+\$HANDSEED
+  5
+247F
+  9
+\$SURFTAB1
+ 70
+     6
+  9
+\$SURFTAB2
+ 70
+     6
+  9
+\$SURFTYPE
+ 70
+     6
+  9
+\$SURFU
+ 70
+     6
+  9
+\$SURFV
+ 70
+     6
+  9
+\$UCSNAME
+  2
+
+  9
+\$UCSORG
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+\$UCSXDIR
+ 10
+1.0
+ 20
+0.0
+ 30
+0.0
+  9
+\$UCSYDIR
+ 10
+0.0
+ 20
+1.0
+ 30
+0.0
+  9
+\$PUCSNAME
+  2
+
+  9
+\$PUCSORG
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+\$PUCSXDIR
+ 10
+1.0
+ 20
+0.0
+ 30
+0.0
+  9
+\$PUCSYDIR
+ 10
+0.0
+ 20
+1.0
+ 30
+0.0
+  9
+\$USERI1
+ 70
+     0
+  9
+\$USERI2
+ 70
+     0
+  9
+\$USERI3
+ 70
+     0
+  9
+\$USERI4
+ 70
+     0
+  9
+\$USERI5
+ 70
+     0
+  9
+\$USERR1
+ 40
+0.0
+  9
+\$USERR2
+ 40
+0.0
+  9
+\$USERR3
+ 40
+0.0
+  9
+\$USERR4
+ 40
+0.0
+  9
+\$USERR5
+ 40
+0.0
+  9
+\$WORLDVIEW
+ 70
+     1
+  9
+\$SHADEDGE
+ 70
+     3
+  9
+\$SHADEDIF
+ 70
+    70
+  9
+\$TILEMODE
+ 70
+     1
+  9
+\$MAXACTVP
+ 70
+    16
+  9
+\$PINSBASE
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+\$PLIMCHECK
+ 70
+     0
+  9
+\$PEXTMIN
+ 10
+-1.000000E+20
+ 20
+-1.000000E+20
+ 30
+-1.000000E+20
+  9
+\$PEXTMAX
+ 10
+-1.000000E+20
+ 20
+-1.000000E+20
+ 30
+-1.000000E+20
+  9
+\$PLIMMIN
+ 10
+0.0
+ 20
+0.0
+  9
+\$PLIMMAX
+ 10
+12.0
+ 20
+9.0
+  9
+\$UNITMODE
+ 70
+     0
+  9
+\$VISRETAIN
+ 70
+     0
+  9
+\$PLINEGEN
+ 70
+     1
+  9
+\$PSLTSCALE
+ 70
+     0
+  9
+\$TREEDEPTH
+ 70
+  3020
+  9
+\$DWGCODEPAGE
+  3
+ansi_1252
+  0
+ENDSEC
+  0
+SECTION
+  2
+TABLES
+  0
+TABLE
+  2
+VPORT
+ 70
+     1
+  0
+VPORT
+  2
+*ACTIVE
+ 70
+     0
+ 10
+0.0
+ 20
+0.0
+ 11
+1.0
+ 21
+1.0
+ 12
+183.5908530480383
+ 22
+-165.9638984355843
+ 13
+0.0
+ 23
+0.0
+ 14
+0.0
+ 24
+0.0
+ 15
+0.0
+ 25
+0.0
+ 16
+0.0
+ 26
+0.0
+ 36
+1.0
+ 17
+424320.952487
+ 27
+8087989.5315
+ 37
+0.0
+ 40
+2812.5697936047909
+ 41
+1.6026845637583891
+ 42
+50.0
+ 43
+0.0
+ 44
+0.0
+ 50
+0.0
+ 51
+0.0
+ 71
+     0
+ 72
+   100
+ 73
+     1
+ 74
+     0
+ 75
+     0
+ 76
+     0
+ 77
+     0
+ 78
+     0
+  0
+ENDTAB
+  0
+TABLE
+  2
+LTYPE
+ 70
+     7
+  0
+LTYPE
+  2
+CONTINUOUS
+ 70
+     0
+  3
+Solid line
+ 72
+    65
+ 73
+     0
+ 40
+0.0
+  0
+LTYPE
+  2
+DOT
+ 70
+    64
+  3
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+ 72
+    65
+ 73
+     2
+ 40
+0.25
+ 49
+0.0
+ 49
+-0.25
+  0
+LTYPE
+  2
+HIDDEN
+ 70
+    64
+  3
+__ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ 
+ 72
+    65
+ 73
+     2
+ 40
+0.375
+ 49
+0.25
+ 49
+-0.125
+  0
+LTYPE
+  2
+DASHED
+ 70
+    64
+  3
+__ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __
+ 72
+    65
+ 73
+     2
+ 40
+0.75
+ 49
+0.5
+ 49
+-0.25
+  0
+LTYPE
+  2
+DASHDOT
+ 70
+    64
+  3
+__ . __ . __ . __ . __ . __ . __ . __ . __ . __ . __ . __ . _
+ 72
+    65
+ 73
+     4
+ 40
+1.0
+ 49
+0.5
+ 49
+-0.25
+ 49
+0.0
+ 49
+-0.25
+  0
+LTYPE
+  2
+DIVIDE
+ 70
+    64
+  3
+____ . . ____ . . ____ . . ____ . . ____ . . ____ . . ____ . .
+ 72
+    65
+ 73
+     6
+ 40
+1.25
+ 49
+0.5
+ 49
+-0.25
+ 49
+0.0
+ 49
+-0.25
+ 49
+0.0
+ 49
+-0.25
+  0
+LTYPE
+  2
+CENTER
+ 70
+    64
+  3
+____ _ ____ _ ____ _ ____ _ ____ _ ____ _ ____ _ ____ _ ____ _
+ 72
+    65
+ 73
+     4
+ 40
+2.0
+ 49
+1.25
+ 49
+-0.25
+ 49
+0.25
+ 49
+-0.25
+  0
+ENDTAB
+  0
+TABLE
+  2
+LAYER
+ 70
+     11
+  0
+LAYER
+  2
+0
+ 70
+     0
+ 62
+     7
+  6
+CONTINUOUS
+  0
+LAYER
+  2
+CONSTRUCTION_CLASS
+ 70
+     0
+ 62
+     7
+  6
+CONTINUOUS
+  0
+LAYER
+  2
+PATTERN_CLASS
+ 70
+     0
+ 62
+     7
+  6
+CONTINUOUS
+  0
+ENDTAB
+  0
+TABLE
+  2
+STYLE
+ 70
+     1
+  0
+STYLE
+  2
+STANDARD
+ 70
+     0
+ 40
+0.0
+ 41
+1.0
+ 50
+0.0
+ 71
+     0
+ 42
+0.0
+  3
+txt
+  4
+
+  0
+ENDTAB
+  0
+TABLE
+  2
+VIEW
+ 70
+     0
+  0
+ENDTAB
+  0
+TABLE
+  2
+UCS
+ 70
+     0
+  0
+ENDTAB
+  0
+TABLE
+  2
+APPID
+ 70
+     1
+  0
+APPID
+  2
+ACAD
+ 70
+     0
+  0
+ENDTAB
+  0
+TABLE
+  2
+DIMSTYLE
+ 70
+     1
+  0
+DIMSTYLE
+  2
+STANDARD
+ 70
+     0
+  3
+
+  4
+
+  5
+
+  6
+
+  7
+
+ 40
+1.0
+ 41
+0.18
+ 42
+0.0625
+ 43
+0.38
+ 44
+0.18
+ 45
+0.0
+ 46
+0.0
+ 47
+0.0
+ 48
+0.0
+140
+0.18
+141
+0.09
+142
+0.0
+143
+25.4
+144
+1.0
+145
+0.0
+146
+1.0
+147
+0.09
+ 71
+     0
+ 72
+     0
+ 73
+     1
+ 74
+     1
+ 75
+     0
+ 76
+     0
+ 77
+     0
+ 78
+     0
+170
+     0
+171
+     2
+172
+     0
+173
+     0
+174
+     0
+175
+     0
+176
+     0
+177
+     0
+178
+     0
+  0
+ENDTAB
+  0
+ENDSEC
+  0
+SECTION
+  2
+BLOCKS
+  0
+ENDSEC
+  0
+SECTION
+  2
+ENTITIES
+  0";
+$i = 0;
+#$polyline_counter = 2;
+#$polyline_hex = dechex($polyline_counter);
+$vertex_counter = hexdec (66);
+$vertex_hex = dechex($vertex_counter);
+while ($i < $no_de_registros) {
+   if ($tipo == "point") {
+      $content = $content."
+POINT
+  8
+$descrip[$i]
+  6
+CONTINUOUS
+ 62
+     7
+  5
+$vertex_hex
+ 10
+$point_x[$i]
+ 20
+$point_y[$i]
+ 30
+0.0
+  0";
+	    $vertex_counter++;
+      $vertex_hex = dechex($vertex_counter);
+			$i++; 	 
+   } elseif ($vertices_linea[$i] == 2) {
+      $x_tmp1 = $p_x[$i][0];
+	    $y_tmp1 = $p_y[$i][0];
+      $x_tmp2 = $p_x[$i][1];
+	    $y_tmp2 = $p_y[$i][1];		 
+      $content = $content."
+LINE
+  5
+$vertex_hex
+  8
+$descrip[$i]
+  6
+CONTINUOUS
+ 62
+     5
+ 10
+$x_tmp1
+ 20
+$y_tmp1
+ 30
+0.0
+ 11
+$x_tmp2
+ 21
+$y_tmp2
+ 31
+0.0
+  0";
+	    $vertex_counter++;
+      $vertex_hex = dechex($vertex_counter);
+			$i++;   				 
+	 } else {
+      $content = $content."
+POLYLINE
+  8
+$descrip[$i]
+  6
+CONTINUOUS
+ 62
+     1
+  5
+$vertex_hex
+ 66
+     1
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  0"; 
+      $j = 0;
+      $vertex_counter++;
+      $vertex_hex = dechex($vertex_counter);	 
+      while ($j < $vertices_linea[$i]) {
+         $x_tmp = $p_x[$i][$j];
+	       $y_tmp = $p_y[$i][$j];
+         $content = $content."
+VERTEX
+  8
+$descrip[$i]
+  6
+CONTINUOUS
+ 62
+     1
+  5
+$vertex_hex
+ 10
+$x_tmp
+ 20
+$y_tmp
+ 30
+0.0
+  0";
+	      $j++;
+	      $vertex_counter++;
+	      $vertex_hex = dechex($vertex_counter);
+     }	#END_OF_WHILE ($vertices_linea)
+     $content = $content."
+SEQEND
+  8
+$descrip[$i]
+  6
+CONTINUOUS
+ 62
+     1
+  5
+$vertex_hex
+  0";
+	    $vertex_counter++;
+      $vertex_hex = dechex($vertex_counter);
+	    $i++;
+   }	#END_OF_ELSE ($vertices_linea > 2) 	
+}	#END_OF_WHILE ($no_de_registros)
+
+$content = $content."
+ENDSEC
+0
+EOF";
+} #END_OF_IF (tipo == line)
+################################################################################
+#------------------- PREPARAR CONTENIDO PARA PUNTOS ---------------------------#
+################################################################################	
+/*if ($tipo == "point") {
+$content = " 0
+SECTION
+  2
+HEADER
+  9
+\$EXTMAX
+ 10
+425186.89600000
+ 20
+8089090.90100000
+  9
+\$EXTMIN
+ 10
+423799.80700000
+ 20
+8087039.07000000
+  9
+\$LUPREC
+ 70
+ 14
+  0
+ENDSEC
+  0
+SECTION
+  2
+TABLES
+  0
+TABLE
+  2
+LAYER
+ 70
+ 49
+  0
+LAYER
+  2
+  0
+ 70
+  1
+ 62
+  7
+  6
+CONTINUOUS
+  0
+LAYER
+  2
+$filename_dxf
+ 70
+ 64
+ 62
+  7
+  6
+CONTINUOUS
+  0
+ENDTAB
+  0
+ENDSEC
+  0
+SECTION
+  2
+BLOCKS
+  0
+ENDSEC
+  0
+SECTION
+  2
+ENTITIES
+  0";
+$i = 0;
+while ($i < $no_de_registros) {
+   $content = $content."	
+POINT
+  8
+$descrip[$i]
+ 10
+$point_x[$i]
+ 20
+$point_y[$i]
+ 62
+0.00000000
+  0";
+	$i++;
+}	
+$content = $content."						
+ENDSEC
+0
+EOF
+";
+} #END_OF_IF (tipo == point)  */
+################################################################################
+#------------------- CHEQUEAR SI SE PUEDE ABRIR EL ARCHIVO --------------------#
+################################################################################	
+if (!$handle = fopen($filename, "w")) {
+   $error = 2; 
+}
+if (!fwrite($handle, $content)) {
+   $error = 3; 
+}
+fclose($handle);
+
+?>

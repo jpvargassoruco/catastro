@@ -1,0 +1,481 @@
+SYMBOLSET
+#
+# Start of symbol definitions 
+#
+SYMBOL
+ NAME 'gestrichelt'
+ TYPE ELLIPSE
+ POINTS 2 2 END
+ FILLED true
+  STYLE
+  2
+  2
+  2
+  2
+  END
+END
+
+SYMBOL
+ NAME 'gestrichelt2'
+ TYPE ELLIPSE
+ POINTS 2 2 END
+ FILLED true
+  STYLE
+  4
+  2
+  4
+  2
+  END
+END
+
+SYMBOL
+ NAME 'gestrichelt3'
+ TYPE ELLIPSE
+ POINTS 2 2 END
+ FILLED true
+  STYLE
+  16
+  8
+  16
+  8
+  END
+END
+
+
+SYMBOL
+NAME 'Hauptstrasse'
+TYPE VECTOR
+ POINTS
+ 1 1
+ 3 1
+ 3 3
+ 1 3
+ 1 1
+ END
+END
+
+SYMBOL
+NAME 'Strasse'
+TYPE VECTOR
+ POINTS
+ 1 1
+ 2 1
+ 2 2
+ 1 2
+ 1 1
+ END
+END
+
+SYMBOL
+NAME 'Eisenbahn'
+TYPE VECTOR
+ POINTS
+ 2 1
+ 2 2
+ 1 2
+ 1 1
+ 2 1
+ 3 1
+ 3 2
+ 2 2
+ END
+END
+
+SYMBOL
+ NAME 'circle'
+ TYPE ELLIPSE
+ FILLED TRUE
+ POINTS 1 1 END
+END
+
+SYMBOL
+ NAME "downleft"
+ TYPE VECTOR
+ TRANSPARENT 0
+ POINTS 1 0 0 1 END
+END
+
+SYMBOL
+ NAME "downright"
+ TYPE VECTOR
+ TRANSPARENT 0
+ POINTS 1 1 0 0 END
+END
+
+SYMBOL
+ NAME "updown"
+ TYPE VECTOR
+ TRANSPARENT 0
+ POINTS 1 0 1 1 END
+END
+
+SYMBOL
+ NAME "leftright"
+ TYPE VECTOR
+ TRANSPARENT 0
+ POINTS 0 1 0 1 END
+END
+
+SYMBOL
+ NAME "box"
+ TYPE VECTOR
+ TRANSPARENT 0
+ POINTS 1 0 1 1 0 1 END
+END
+
+SYMBOL
+ NAME "diabox"
+ TYPE VECTOR
+ TRANSPARENT 0
+ POINTS 0 0 1 1 -99 -99 0 1 1 0 END
+END
+
+SYMBOL
+ NAME "point"
+ TYPE VECTOR
+ TRANSPARENT 0
+ POINTS 2 2 2 2 END
+END
+
+
+SYMBOL
+ NAME "drline"
+ TYPE VECTOR
+ TRANSPARENT 0
+ POINTS 5 5 2 2 END
+END
+
+
+SYMBOL
+ NAME "dlline"
+ TYPE VECTOR
+ TRANSPARENT 0
+ POINTS 5 2 2 5 END
+END
+
+SYMBOL
+ NAME "cross"
+ TYPE VECTOR
+ TRANSPARENT 0
+ POINTS 1 1 END
+END
+
+SYMBOL
+ NAME "dash_line"
+ TYPE ELLIPSE
+ FILLED true
+ POINTS
+ 2 0 
+ 2 4
+ -99 -99
+ 0 2
+ 4 2
+ END
+END
+# Some examples for TrueType Symbols
+
+SYMBOL
+   NAME "fillbox"
+   TYPE TRUETYPE
+   FONT map1
+   FILLED TRUE
+   ANTIALIAS TRUE
+   CHARACTER "&#033;"
+END
+
+SYMBOL
+   NAME "box"
+   TYPE TRUETYPE
+   FONT map1
+   FILLED TRUE
+   ANTIALIAS TRUE
+   CHARACTER "&#039;"
+END
+SYMBOL
+   NAME "fillraut"
+   TYPE TRUETYPE
+   FONT map1
+   FILLED TRUE
+   ANTIALIAS TRUE
+   CHARACTER "&#034;"
+END
+SYMBOL
+   NAME "raut"
+   TYPE TRUETYPE
+   FONT map1
+   FILLED TRUE
+   ANTIALIAS TRUE
+   CHARACTER "&#040;"
+END
+SYMBOL
+   NAME "filltriangle"
+   TYPE TRUETYPE
+   FONT map1
+   FILLED TRUE
+   ANTIALIAS TRUE
+   CHARACTER "&#037;"
+END
+SYMBOL
+   NAME "triangle"
+   TYPE TRUETYPE
+   FONT map1
+   FILLED TRUE
+   ANTIALIAS TRUE
+   CHARACTER "&#043;"
+END
+SYMBOL
+   NAME "filleck"
+   TYPE TRUETYPE
+   FONT map1
+   FILLED TRUE
+   ANTIALIAS TRUE
+   CHARACTER "&#038;"
+END
+SYMBOL
+   NAME "eck"
+   TYPE TRUETYPE
+   FONT map1
+   FILLED TRUE
+   ANTIALIAS TRUE
+   CHARACTER "&#044;"
+END
+SYMBOL
+   NAME "fillcircle"
+   TYPE TRUETYPE
+   FONT map1
+   FILLED TRUE
+   ANTIALIAS TRUE
+   CHARACTER "&#035;"
+END
+SYMBOL
+   NAME "circle"
+   TYPE TRUETYPE
+   FONT map1
+   FILLED TRUE
+   ANTIALIAS TRUE
+   CHARACTER "&#041;"
+END
+
+SYMBOL
+   NAME "airport"
+   TYPE TRUETYPE
+   FONT map1
+   FILLED TRUE
+   ANTIALIAS TRUE
+   CHARACTER "&#053;"
+END
+SYMBOL
+   NAME "harbour"
+   TYPE TRUETYPE
+   FONT map1
+   FILLED TRUE
+   ANTIALIAS TRUE
+   CHARACTER "&#059;"
+END
+SYMBOL
+   NAME "walker"
+   TYPE TRUETYPE
+   FONT map2
+   FILLED TRUE
+   ANTIALIAS TRUE
+   CHARACTER "&#108;"
+END
+SYMBOL
+   NAME "hut"
+   TYPE TRUETYPE
+   FONT map2
+   FILLED TRUE
+   ANTIALIAS TRUE
+   CHARACTER "&#080;"
+END
+SYMBOL
+   NAME "camp"
+   TYPE TRUETYPE
+   FONT map2
+   FILLED TRUE
+   ANTIALIAS TRUE
+   CHARACTER "&#035;"
+END
+SYMBOL
+   NAME "ussr"
+   TYPE TRUETYPE
+   FONT map2
+   FILLED TRUE
+   ANTIALIAS TRUE
+   CHARACTER "&#067;"
+END
+SYMBOL
+   NAME "cloud2"
+   TYPE TRUETYPE
+   FONT map3
+   FILLED TRUE
+   ANTIALIAS TRUE
+   CHARACTER "&#080;"
+END
+SYMBOL
+   NAME "sun"
+   TYPE TRUETYPE
+   FONT map3
+   FILLED TRUE
+   ANTIALIAS TRUE
+   CHARACTER "&#084;"
+END
+# CODIGO 10
+SYMBOL
+   NAME "horno"
+   TYPE pixmap
+   IMAGE "C:/apache/htdocs/siicat/graphics/obj_horno_20pix.png"
+   TRANSPARENT 1
+END
+SYMBOL
+   NAME "horno_grande"
+   TYPE pixmap
+   IMAGE "C:/apache/htdocs/siicat/graphics/obj_horno_40pix.png"
+   TRANSPARENT 1
+END
+#CODIGO 20
+SYMBOL
+   NAME "letrina"
+   TYPE pixmap
+   IMAGE "C:/apache/htdocs/siicat/graphics/obj_letrina_20pix.png"
+   TRANSPARENT 1
+END
+SYMBOL
+   NAME "letrina_grande"
+   TYPE pixmap
+   IMAGE "C:/apache/htdocs/siicat/graphics/obj_letrina_40pix.png"
+   TRANSPARENT 1
+END
+#CODIGO 30
+SYMBOL
+   NAME "meda"
+   TYPE pixmap
+   IMAGE "C:/apache/htdocs/siicat/graphics/obj_meda_20pix.png"
+   TRANSPARENT 1
+END
+SYMBOL
+   NAME "meda_grande"
+   TYPE pixmap
+   IMAGE "C:/apache/htdocs/siicat/graphics/obj_meda_40pix.png"
+   TRANSPARENT 1
+END
+#CODIGO 40
+SYMBOL
+   NAME "noria"
+   TYPE pixmap
+   IMAGE "C:/apache/htdocs/siicat/graphics/obj_noria_20pix.png"
+   TRANSPARENT 1
+END
+SYMBOL
+   NAME "noria_grande"
+   TYPE pixmap
+   IMAGE "C:/apache/htdocs/siicat/graphics/obj_noria_40pix.png"
+   TRANSPARENT 1
+END
+#CODIGO 50
+SYMBOL
+   NAME "antena"
+   TYPE pixmap
+   IMAGE "C:/apache/htdocs/siicat/graphics/obj_antena_20pix.png"
+   TRANSPARENT 1
+END
+SYMBOL
+   NAME "antena_grande"
+   TYPE pixmap
+   IMAGE "C:/apache/htdocs/siicat/graphics/obj_antena_40pix.png"
+   TRANSPARENT 1
+END
+#CODIGO 60
+SYMBOL
+   NAME "medv"
+   TYPE pixmap
+   IMAGE "C:/apache/htdocs/siicat/graphics/obj_medv_20pix.png"
+   TRANSPARENT 1
+END
+SYMBOL
+   NAME "medv_grande"
+   TYPE pixmap
+   IMAGE "C:/apache/htdocs/siicat/graphics/obj_medv_40pix.png"
+   TRANSPARENT 1
+END
+#CODIGO 70
+SYMBOL
+   NAME "cab"
+   TYPE pixmap
+   IMAGE "C:/apache/htdocs/siicat/graphics/obj_cab_20pix.png"
+   TRANSPARENT 1
+END
+SYMBOL
+   NAME "cab_grande"
+   TYPE pixmap
+   IMAGE "C:/apache/htdocs/siicat/graphics/obj_cab_40pix.png"
+   TRANSPARENT 1
+END
+#CODIGO 80
+SYMBOL
+   NAME "poste"
+   TYPE pixmap
+   IMAGE "C:/apache/htdocs/siicat/graphics/obj_poste_20pix.png"
+   TRANSPARENT 1
+END
+SYMBOL
+   NAME "poste_grande"
+   TYPE pixmap
+   IMAGE "C:/apache/htdocs/siicat/graphics/obj_poste_40pix.png"
+   TRANSPARENT 1
+END
+#CODIGO 90
+SYMBOL
+   NAME "vertice"
+   TYPE pixmap
+   IMAGE "C:/apache/htdocs/siicat/graphics/obj_vertice_20pix.png"
+   TRANSPARENT 1
+END
+SYMBOL
+   NAME "vertice_grande"
+   TYPE pixmap
+   IMAGE "C:/apache/htdocs/siicat/graphics/obj_vertice_40pix.png"
+   TRANSPARENT 1
+END
+SYMBOL
+   NAME 'linea'
+   TYPE VECTOR
+   POINTS
+     1 1
+     3 1
+     3 3
+     1 3
+     1 1
+   END
+END
+SYMBOL
+  NAME 'n_arrow'
+  TYPE pixmap
+  IMAGE 'C:/apache/htdocs/siicat/graphics/northarrow.png'
+	TRANSPARENT 1
+END
+SYMBOL
+  NAME 'n_arrow_med'
+  TYPE pixmap
+  IMAGE 'C:/apache/htdocs/siicat/graphics/northarrow_med.png'
+	TRANSPARENT 1
+END
+SYMBOL
+  NAME "n_arrow_grande"
+  TYPE pixmap
+  IMAGE "C:/apache/htdocs/siicat/graphics/northarrow_grande.png"
+	TRANSPARENT 1
+END
+SYMBOL
+  NAME "rosadeviento_gra"
+  TYPE pixmap
+  IMAGE "C:/apache/htdocs/siicat/graphics/rosadeviento.png"
+	TRANSPARENT 1
+END
+SYMBOL
+  NAME "rosadeviento2"
+  TYPE pixmap
+  IMAGE "C:/apache/htdocs/siicat/graphics/rosadeviento2.png"
+	TRANSPARENT 1
+END
+END

@@ -1,0 +1,1000 @@
+MAP
+#
+#< Start of map file - created 2015-06-24 - 18:13:39
+#
+NAME 'SIICAT_TEMATICO'
+STATUS ON
+
+PROJECTION
+			'init=epsg:32720'     # UTM 20, Zona 20S, WGS 1984
+END
+
+SIZE 1200 1200
+#EXTENT 700000 8225000 730000 8255000
+EXTENT 599500 8211500 608500 8220500
+UNITS  meters
+SYMBOLSET 'c:/apache2/siicat/mapa/symbols/symbset.sym'
+FONTSET   'c:/apache2/siicat/mapa/fonts/fonts.fnt'
+IMAGECOLOR 255 255 255
+
+#
+# Start of web interface definition
+#
+WEB
+ LOG siicat_tematico.log
+ TEMPLATE siicat_tematico.html
+ IMAGEPATH 'c:/apache2/htdocs/tmp/'
+ IMAGEURL 'http://localhost/tmp/'
+ EMPTY 'http://localhost/siicat_concep/nada.html'
+ 
+ METADATA
+  WMS_ONLINERESOURCE 'http://localhost/cgi-bin/mapserv.exe?map=c:/apache2/siicat/mapa/siicat_tematico.map'
+  WMS_SRS 'epsg:32720'
+  WMS_ACCESSCONSTRAINTS 'none'
+  WMS_TITLE 'SIICAT_TEMATICO'
+  WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+  WMS_ABSTRACT ''
+ END  #METADATA
+
+END  #HEADER
+
+OUTPUTFORMAT
+    NAME 'AGG'
+    DRIVER 'AGG/PNG'
+    MIMETYPE 'image/png'
+    IMAGEMODE RGB
+  	FORMATOPTION 'QUALITY=100'		
+END
+
+#OUTPUTFORMAT
+#  NAME 'png'
+#	DRIVER 'GDAL/PNG'
+#	MIMETYPE 'image/png'
+#	IMAGEMODE RGB
+#	EXTENSION 'png'
+#	FORMATOPTION 'QUALITY=100'
+#END
+
+SYMBOL
+   NAME 'circle'
+   TYPE ellipse
+   FILLED true
+   POINTS
+     1 1
+   END
+END
+
+#
+# Start of reference map
+#
+REFERENCE
+  STATUS OFF
+  IMAGE 'c:/apache2/htdocs/siicat_concep/data/reference.gif'
+  SIZE 120 120
+  EXTENT -70.254 -23.569 -56.844 -8.994
+  COLOR -1 -1 -1
+  OUTLINECOLOR 255 0 0
+END  #REFERENCE
+
+#
+# Start of legend
+#
+LEGEND
+  STATUS OFF
+  KEYSIZE 16 8
+  TEMPLATE 'legend.html'
+  LABEL
+    COLOR 120 120 120
+  END # ENDE LABEL
+END   #LEGEND
+
+#
+# Start of scalebar
+#
+SCALEBAR
+ STATUS EMBED
+ POSITION lr
+ STYLE 0
+ INTERVALS 3
+ IMAGECOLOR 255 255 255
+ LABEL
+  COLOR 50 50 50
+  SIZE MEDIUM  #SMALL #GIANT
+ END  #ENDE LABEL
+ #SIZE 150 2
+ #SIZE 304 4   #Mapsize 700+700
+ Size 400 8    #Mapsize 1400+1400
+ TRANSPARENT ON
+ COLOR 50 50 50
+ BACKGROUNDCOLOR 255 255 255
+ OUTLINECOLOR 50 50 50
+ UNITS METERS
+END   #SCALEBAR
+
+#
+# Start of layer definitions #
+#
+#----------------------------------------------------------- Predio-Poligono
+LAYER
+  CONNECTIONTYPE postgis 
+  NAME 'predio'
+	GROUP 'Predio'
+	STATUS ON
+	CONNECTION 'user=postgres password=qwert dbname=siicat_concep host=localhost'
+  DATA 'the_geom from temp_poly USING UNIQUE oid'
+  TYPE POLYGON
+METADATA
+ WMS_SRS 'epsg:32720'
+ WMS_TITLE 'predio'
+ WMS_GROUP_TITLE 'Predio'
+ WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+END
+	
+PROJECTION
+     	'init=epsg:32720'
+END	
+
+ CLASSITEM 'numero'	
+
+   CLASS
+       NAME 'UV 1: 24 de Septiembre'
+			 EXPRESSION (('[numero]' == '1') AND ('[user_id]' == '555'))
+			 STYLE
+			    #SYMBOL 'circle'
+          COLOR 192 252 255
+          OUTLINECOLOR -1 -1 -1 #40 40 40
+			    SIZE 1
+			 END
+   END  # CLASS
+   CLASS
+       NAME 'UV 2: Las Mercedes'
+			 EXPRESSION (('[numero]' == '2') AND ('[user_id]' == '555'))
+			 STYLE
+			    #SYMBOL 'circle'
+          COLOR 155 255 155
+          OUTLINECOLOR -1 -1 -1 #40 40 40
+			    SIZE 1
+			 END
+   END  # CLASS
+   CLASS
+       NAME 'UV 3: Los Totaices'
+			 EXPRESSION (('[numero]' == '3') AND ('[user_id]' == '555'))
+			 STYLE
+			    #SYMBOL 'circle'
+          COLOR 193 193 193
+          OUTLINECOLOR -1 -1 -1 #40 40 40
+			    SIZE 1
+			 END
+   END  # CLASS	 
+   CLASS
+       NAME 'UV 4: 1ro de Mayo'
+			 EXPRESSION (('[numero]' == '4') AND ('[user_id]' == '555'))
+			 STYLE
+			    #SYMBOL 'circle'
+          COLOR 230 230 203
+          OUTLINECOLOR -1 -1 -1 #40 40 40
+			    SIZE 1
+			 END		 
+   END  # CLASS		
+   CLASS
+       NAME 'UV 5: San Jose'
+			 EXPRESSION (('[numero]' == '5') AND ('[user_id]' == '555'))
+			 STYLE
+			    #SYMBOL 'circle'
+          COLOR 255 249 165
+          OUTLINECOLOR  -1 -1 -1 #40 40 40
+			    SIZE 1
+			 END
+   END  # CLASS	
+   CLASS
+       NAME 'UV 6: El Carmen'
+			 EXPRESSION (('[numero]' == '6') AND ('[user_id]' == '555'))
+			 STYLE
+			    #SYMBOL 'circle'
+          COLOR 255 199 174
+          OUTLINECOLOR -1 -1 -1 #40 40 40
+			    SIZE 1
+			 END
+   END  # CLASS	
+   CLASS
+       NAME 'UV 7: Barrio Nuevo'
+			 EXPRESSION (('[numero]' == '7') AND ('[user_id]' == '555'))
+			 STYLE
+			    #SYMBOL 'circle'
+          COLOR 183 223 134
+          OUTLINECOLOR -1 -1 -1 #40 40 40
+			    SIZE 1
+			 END
+   END  # CLASS	
+   CLASS
+       NAME 'UV 8: Maria Auxiliadora'
+			 EXPRESSION (('[numero]' == '8') AND ('[user_id]' == '555'))
+			 STYLE
+			    #SYMBOL 'circle'
+          COLOR 156 157 220
+          OUTLINECOLOR -1 -1 -1 #40 40 40
+			    SIZE 1
+			 END
+   END  # CLASS
+   CLASS
+       NAME 'UV 9: N.N.'
+			 EXPRESSION (('[numero]' == '9') AND ('[user_id]' == '555'))
+			 STYLE
+			    SYMBOL 'circle'
+          COLOR 255 255 215
+          OUTLINECOLOR 0 0 153 #40 40 40
+			    SIZE 1
+			 END
+   END  # CLASS	
+   CLASS 
+     NAME 'Manzano'
+		 EXPRESSION (('[numero]' == '11') AND ('[user_id]' == '555'))               
+		 STYLE
+	#	   SYMBOL 'circle'
+       COLOR 220 220 220
+			 OUTLINECOLOR 100 100 100		
+	     SIZE 1
+	   END
+	END # end_of_class
+	CLASS 
+    NAME 'Predio'
+		EXPRESSION (('[numero]' == '12') AND ('[user_id]' == '555'))               
+  	STYLE
+	 	  SYMBOL 'circle'
+       COLOR -1 -1 -1
+	  	 OUTLINECOLOR 0 0 255			
+	     SIZE 2
+	  END
+	END # end_of_class	
+	CLASS 
+    NAME 'Zona'
+		EXPRESSION (('[numero]' == '90') AND ('[user_id]' == '555'))               
+  	STYLE
+	 	  SYMBOL 'circle'
+       COLOR 220 220 220
+	  	 OUTLINECOLOR -1 -1 -1			
+	     SIZE 1
+	  END
+	END # end_of_class	
+END # end of layer object 
+#----------------------------------------------------------- Predio-Poligono
+#----------------------------------------------------------- Predio-Tematico
+LAYER
+  CONNECTIONTYPE postgis 
+  NAME 'tematico'
+	GROUP 'Predio'
+	STATUS ON
+	CONNECTION 'user=postgres password=qwert dbname=siicat_concep host=localhost'
+  DATA 'the_geom from temp_poly USING UNIQUE oid'
+  TYPE POLYGON
+METADATA
+ WMS_SRS 'epsg:32720'
+ WMS_TITLE 'tematico'
+ WMS_GROUP_TITLE 'Predio'
+ WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+END
+	
+PROJECTION
+     	'init=epsg:32720'
+END	
+
+ CLASSITEM 'cod_piso'	
+
+   CLASS
+       NAME 'UV 1: 24 de Septiembre'
+			 EXPRESSION (( '[cod_piso]' == '99' ) AND ('[user_id]' == '555' ))
+			 STYLE
+       #COLOR 255 70 50
+			 COLOR 40 40 40
+	  	 OUTLINECOLOR 80 80 80			
+			 SIZE 1
+			 END
+   END  # CLASS
+END # end of layer object 
+#----------------------------------------------------------- Predio-Tematico 
+#----------------------------------------------------------- Poligonos segundarios
+LAYER
+  CONNECTIONTYPE postgis 
+  NAME 'fondo'
+	GROUP 'Predio'
+	STATUS ON
+	CONNECTION 'user=postgres password=qwert dbname=siicat_concep host=localhost'
+  DATA 'the_geom from temp_poly USING UNIQUE oid'
+  TYPE POLYGON
+METADATA
+ WMS_SRS 'epsg:32720'
+ WMS_TITLE 'fondo'
+ WMS_GROUP_TITLE 'Predio'
+ WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+END
+	
+PROJECTION
+     	'init=epsg:32720'
+END	
+
+ CLASSITEM 'numero'
+	CLASS 
+    NAME 'Manzano'
+		EXPRESSION (( '[numero]' == '15' ) AND ('[user_id]' == '555' ))               
+		STYLE
+		   SYMBOL 'circle'
+       COLOR -1 -1 -1
+       OUTLINECOLOR 80 80 80
+			 #OUTLINECOLOR 160 160 160
+			 SIZE 2		
+	  END
+	END # end_of_class
+	CLASS 
+    NAME 'Manzano2'
+		EXPRESSION (( '[numero]' == '16' ) AND ('[user_id]' == '555' ))               
+		STYLE
+		   SYMBOL 'gestrichelt3'
+       COLOR -1 -1 -1
+       OUTLINECOLOR 0 0 0
+			 #OUTLINECOLOR 160 160 160
+			 SIZE 2		
+	  END
+	END # end_of_class
+	CLASS 
+    NAME 'Predio2'
+		EXPRESSION (( '[numero]' == '26' ) AND ('[user_id]' == '555' ))               
+		STYLE
+		  SYMBOL 'gestrichelt3'
+      COLOR -1 -1 -1
+      OUTLINECOLOR 0 0 0 #0 0 160			
+	    SIZE 2
+	  END
+	END # end_of_class						
+	CLASS 
+    NAME 'Predio'
+		EXPRESSION (( '[numero]' == '25' ) AND ('[user_id]' == '555' ))               
+		STYLE
+		  SYMBOL 'circle'
+      COLOR -1 -1 -1
+      OUTLINECOLOR 60 60 60 #0 0 160			
+	    SIZE 2
+	  END
+	END # end_of_class	
+	CLASS 
+    NAME 'Edif2'
+		EXPRESSION (( '[numero]' == '36' ) AND ('[user_id]' == '555' ))               
+		STYLE
+		  SYMBOL 'circle'
+      COLOR 200 0 0
+      OUTLINECOLOR 255 0 0 #40 40 40			
+	    SIZE 2
+	  END
+	END # end_of_class				
+	CLASS 
+    NAME 'Edif'
+		EXPRESSION (( '[numero]' == '35' ) AND ('[user_id]' == '555' ))               
+		STYLE
+		  SYMBOL 'circle'
+      COLOR -1 -1 -1
+      OUTLINECOLOR 100 100 100 #40 40 40			
+	    SIZE 2
+	  END
+	END # end_of_class	
+		
+END # end of layer object
+#----------------------------------------------------------- Poligonos segundarios
+#----------------------------------------------------------- Predio-Anotation
+LAYER  # START OF ANNOTATION LAYERFILE
+  CONNECTIONTYPE postgis
+  NAME 'predio_anot'
+	GROUP 'Predio'
+  CONNECTION 'user=postgres password=qwert dbname=siicat_concep host=localhost'
+  DATA 'the_geom from temp_poly USING UNIQUE oid'
+  STATUS ON
+  TYPE ANNOTATION
+METADATA
+ WMS_SRS 'epsg:32720'
+ WMS_TITLE 'points_anot'
+ WMS_GROUP_TITLE 'Puntos'
+ WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+END
+
+PROJECTION
+     	'init=epsg:32720'
+END
+
+  CLASSITEM 'numero'
+  LABELITEM 'label'
+ 
+    CLASS
+     NAME 'Codigo'
+     EXPRESSION (( '[numero]' == '20' ) AND ('[user_id]' == '555' ))
+      LABEL
+       TYPE TRUETYPE
+       FONT tahoma
+       SIZE 20
+       ANGLE 0
+       COLOR 0 0 0
+       BUFFER 3
+			 OFFSET 0 0
+       POSITION cc
+       PARTIALS TRUE
+			 FORCE TRUE
+			 ANTIALIAS TRUE
+      END
+    END  # CLASS
+    CLASS
+     NAME 'Codigo'
+     EXPRESSION (( '[numero]' == '25' ) AND ('[user_id]' == '555' ))
+      LABEL
+       TYPE TRUETYPE
+       FONT tahoma
+       SIZE 20
+       ANGLE 0
+       COLOR 60 60 60 # 0 0 200
+       BUFFER 3
+			 OFFSET 0 0
+       POSITION cc
+       PARTIALS TRUE
+			 FORCE TRUE
+			 ANTIALIAS TRUE
+      END
+    END  # CLASS			
+    CLASS
+     NAME 'Codigo IGM'
+     EXPRESSION (( '[numero]' == '26' ) AND ('[user_id]' == '555' ))
+      LABEL
+       TYPE TRUETYPE
+       FONT tahoma
+       SIZE 14
+       ANGLE 0
+       COLOR 0 0 0 # 0 0 200
+       BUFFER 3
+			 OFFSET 15 15
+       POSITION cc
+       PARTIALS TRUE
+			 FORCE TRUE
+			 ANTIALIAS TRUE
+      END
+    END  # CLASS			 
+END  # END OF LAYERFILE
+#----------------------------------------------------------- Predio-Anotation
+#----------------------------------------------------------- Anotation UV y Manzano
+LAYER  # START OF ANNOTATION LAYERFILE
+  CONNECTIONTYPE postgis
+  NAME 'uv_anot'
+	GROUP 'Predio'
+  CONNECTION 'user=postgres password=qwert dbname=siicat_concep host=localhost'
+  DATA 'the_geom from temp_poly USING UNIQUE oid'
+  STATUS ON
+  TYPE ANNOTATION
+METADATA
+ WMS_SRS 'epsg:32720'
+ WMS_TITLE 'points_anot'
+ WMS_GROUP_TITLE 'Puntos'
+ WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+END
+
+PROJECTION
+     	'init=epsg:32720'
+END
+
+  CLASSITEM 'cod_cat'
+  LABELITEM 'label'
+ 
+    CLASS
+     NAME 'Codigo Manzano'
+     EXPRESSION (( '[cod_cat]' == '98' ) AND ('[user_id]' == '555' ))
+      LABEL
+       TYPE TRUETYPE
+       FONT tahoma
+       SIZE 20
+       ANGLE 0
+       COLOR 60 60 60
+       BUFFER 3
+			 OFFSET 0 0
+       POSITION cc
+       PARTIALS TRUE
+			 FORCE TRUE
+			 ANTIALIAS TRUE
+      END
+    END  # CLASS 
+    CLASS
+     NAME 'Codigo UV'
+     EXPRESSION (( '[cod_cat]' == '99' ) AND ('[user_id]' == '555' ))
+      LABEL
+       TYPE TRUETYPE
+       FONT tahoma
+       SIZE 24
+       ANGLE 0
+       COLOR 60 60 60
+       BUFFER 3
+			 OFFSET 0 0
+       POSITION cc
+       PARTIALS TRUE
+			 FORCE TRUE
+			 ANTIALIAS TRUE
+      END
+    END  # CLASS
+		
+		 
+END  # END OF LAYERFILE
+#----------------------------------------------------------- Anotation UV y Manzano
+#----------------------------------------------------------- Calles y Lineas
+LAYER
+  CONNECTIONTYPE postgis 
+  NAME 'Calles'
+	GROUP 'Puntos'
+	STATUS ON
+	CONNECTION 'user=postgres password=qwert dbname=siicat_concep host=localhost'
+  DATA 'the_geom from temp_line USING UNIQUE oid'
+  TYPE LINE
+	
+METADATA
+ WMS_SRS 'epsg:32720'
+ WMS_TITLE 'Calles'
+ WMS_GROUP_TITLE 'Puntos'
+ WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+END
+	
+PROJECTION
+     	'init=epsg:32720'
+#      	'init=epsg:4326'
+END	
+
+MINSCALE 500
+MAXSCALE 10000
+CLASSITEM 'id'
+	
+    CLASS
+     NAME 'Calle'
+      EXPRESSION (( '[id]' == '1' ) AND ('[user_id]' == '555' ))
+		 STYLE
+		   SYMBOL 'linea'
+       COLOR -1 -1 -1
+	     SIZE 5
+	   END
+    END  # CLASS
+    CLASS
+     NAME 'Calle_Grande'
+     EXPRESSION (( '[id]' == '2' ) AND ('[user_id]' == '555' ))
+		 STYLE
+		   SYMBOL 'linea'
+       COLOR -1 -1 -1
+	     SIZE 1
+	   END
+    END  # CLASS	
+	CLASS 
+    NAME 'Plaza'
+		EXPRESSION (( '[id]' == '15' ) AND ('[user_id]' == '555' ))              
+		STYLE
+		  SYMBOL 'linea'
+      COLOR 150 150 150
+	    SIZE 1
+	  END
+	END # end_of_class  
+	CLASS 
+    NAME 'Canal'
+		EXPRESSION  (( '[id]' == '25' ) AND ('[user_id]' == '555' ))               
+		STYLE
+		  SYMBOL 'linea'
+      COLOR 0 0 155
+	    SIZE 1
+	  END
+	END # end_of_class 
+	CLASS 
+    NAME 'Límite urbáno'
+		EXPRESSION  (( '[id]' == '35' ) AND ('[user_id]' == '555' ))               
+		STYLE
+		  SYMBOL 'linea'
+      COLOR 0 0 0
+	    SIZE 2
+	  END
+	END # end_of_class 	
+	CLASS 
+    NAME 'Red_de_Agua'
+		EXPRESSION  (( '[id]' == '45' ) AND ('[user_id]' == '555' ))               
+		STYLE
+		  SYMBOL 'linea'
+      COLOR 50 100 255
+	    SIZE 4
+	  END
+	END # end_of_class 
+	CLASS 
+    NAME 'Red_de_Luz'
+		EXPRESSION  (( '[id]' == '55' ) AND ('[user_id]' == '555' ))               
+		STYLE
+		  SYMBOL 'linea'
+      COLOR 255 55 55
+	    SIZE 4
+	  END
+	END # end_of_class 			
+END # end of layer object
+#----------------------------------------------------------- Calles y Lineas
+#----------------------------------------------------------- Points
+LAYER
+  CONNECTIONTYPE postgis
+  NAME 'points'
+	GROUP 'Puntos'
+  CONNECTION 'user=postgres password=qwert dbname=siicat_concep host=localhost'
+  DATA 'the_geom from temp_point USING UNIQUE oid'
+  STATUS ON
+  TYPE POINT
+	
+	METADATA
+  WMS_SRS 'epsg:32720'
+  WMS_TITLE 'POINTS'
+	WMS_GROUP_TITLE 'Puntos'
+  WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+  END
+
+ PROJECTION
+      	'init=epsg:32720'
+ END
+   #SYMBOLSCALE 1000
+	 CLASSITEM 'pos'
+   TRANSPARENCY 1000
+
+		CLASS
+      NAME 'Horno'
+      EXPRESSION (( '[pos]' == '10' )  AND ('[user_id]' == '555' ))
+      STYLE
+        SYMBOL 'horno'
+      END
+    END  # END_OF_CLASS	
+		CLASS
+      NAME 'Horno2'
+      EXPRESSION (( '[pos]' == '11' )  AND ('[user_id]' == '555' ))
+      STYLE
+        SYMBOL 'horno_grande'
+      END
+    END  # END_OF_CLASS
+		CLASS
+      NAME 'Letrina'
+      EXPRESSION (( '[pos]' == '20' )  AND ('[user_id]' == '555' ))
+      STYLE
+        SYMBOL 'letrina'
+      END
+    END  # END_OF_CLASS	
+		CLASS
+      NAME 'Letrina2'
+      EXPRESSION (( '[pos]' == '21' )  AND ('[user_id]' == '555' ))
+      STYLE
+        SYMBOL 'letrina_grande'
+      END
+    END  # END_OF_CLASS						
+		CLASS
+      NAME 'Medidor de Agua'
+      EXPRESSION (( '[pos]' == '30' )  AND ('[user_id]' == '555' ))
+      STYLE
+        SYMBOL 'meda'
+      END
+    END  # END_OF_CLASS	
+		CLASS
+      NAME 'Medidor de Agua2'
+      EXPRESSION (( '[pos]' == '31' )  AND ('[user_id]' == '555' ))
+      STYLE
+        SYMBOL 'meda_grande'
+      END
+    END  # END_OF_CLASS	
+		CLASS
+      NAME 'Noria'
+      EXPRESSION (( '[pos]' == '40' )  AND ('[user_id]' == '555' ))
+      STYLE
+        SYMBOL 'noria'
+      END
+    END  # END_OF_CLASS	
+		CLASS
+      NAME 'Noria2'
+      EXPRESSION (( '[pos]' == '41' )  AND ('[user_id]' == '555' ))
+      STYLE
+        SYMBOL 'noria_grande'
+      END
+    END  # END_OF_CLASS
+		CLASS
+      NAME 'Antena'
+      EXPRESSION (( '[pos]' == '50' )  AND ('[user_id]' == '555' ))
+      STYLE
+        SYMBOL 'antena'
+      END
+    END  # END_OF_CLASS	
+		CLASS
+      NAME 'Antena2'
+      EXPRESSION (( '[pos]' == '51' )  AND ('[user_id]' == '555' ))
+      STYLE
+        SYMBOL 'antena_grande'
+      END
+    END  # END_OF_CLASS	
+		CLASS
+      NAME 'Medidor de Viento'
+      EXPRESSION (( '[pos]' == '60' )  AND ('[user_id]' == '555' ))
+      STYLE
+        SYMBOL 'medv'
+      END
+    END  # END_OF_CLASS	
+		CLASS
+      NAME 'Medidor de Viento2'
+      EXPRESSION (( '[pos]' == '61' )  AND ('[user_id]' == '555' ))
+      STYLE
+        SYMBOL 'medv_grande'
+      END
+    END  # END_OF_CLASS
+		CLASS
+      NAME 'Cabina Telefonica'
+      EXPRESSION (( '[pos]' == '70' )  AND ('[user_id]' == '555' ))
+      STYLE
+        SYMBOL 'cab'
+      END
+    END  # END_OF_CLASS	
+		CLASS
+      NAME 'Cabina Telefonica2'
+      EXPRESSION (( '[pos]' == '71' )  AND ('[user_id]' == '555' ))
+      STYLE
+        SYMBOL 'cab_grande'
+      END
+    END  # END_OF_CLASS							
+		CLASS
+      NAME 'Poste de Electricidad'
+      EXPRESSION (( '[pos]' == '80' )  AND ('[user_id]' == '555' ))
+      STYLE
+        SYMBOL 'poste'				
+				#OFFSET 0 0
+				OFFSET 0 -5			
+#		SIZE 5
+      END
+    END  # END_OF_CLASS
+		CLASS
+      NAME 'Poste de Electricidad2'
+      EXPRESSION (( '[pos]' == '81' )  AND ('[user_id]' == '555' ))
+      STYLE
+        SYMBOL 'poste_grande'
+				#OFFSET 0 0
+			  OFFSET 0 -15
+      END
+    END  # END_OF_CLASS		
+		CLASS
+      NAME 'Punto de Control'
+      EXPRESSION (( '[pos]' == '90' )  AND ('[user_id]' == '555' ))
+      STYLE
+        SYMBOL 'vertice'
+      END
+    END  # END_OF_CLASS	
+		CLASS
+      NAME 'Punto de Control2'
+      EXPRESSION (( '[pos]' == '91' )  AND ('[user_id]' == '555' ))
+      STYLE
+        SYMBOL 'vertice_grande'
+      END
+    END  # END_OF_CLASS									 			  
+		CLASS
+      NAME 'Centroid'
+      EXPRESSION (( '[pos]' == 'CEN' ) OR ('[pos]' == 'NN' ))
+      STYLE
+        SYMBOL 'circle'
+				COLOR -1 -1 -1
+				SIZE 0
+      END
+    END  # END_OF_CLASS	
+		CLASS
+      NAME 'TEXT'
+      EXPRESSION ((( '[pos]' == 'NO' )OR('[pos]' == 'NE' )OR( '[pos]' == 'SO' )OR('[pos]' == 'SE' )OR('[pos]' == '--' )) AND ('[user_id]' == '555' )) 
+      STYLE
+        SYMBOL 'vertice'
+				SIZE 3
+      END
+    END  # END_OF_CLASS
+
+
+END   # END OF LAYERFILE
+#----------------------------------------------------------- Points
+#----------------------------------------------------------- Points-Anotation
+LAYER  # START OF ANNOTATION LAYERFILE
+  CONNECTIONTYPE postgis
+  NAME 'points_anot'
+	GROUP 'Puntos'
+  CONNECTION 'user=postgres password=qwert dbname=siicat_concep host=localhost'
+  DATA 'the_geom from temp_point USING UNIQUE oid'
+  STATUS ON
+  TYPE ANNOTATION
+METADATA
+ WMS_SRS 'epsg:32720'
+ WMS_TITLE 'points_anot'
+ WMS_GROUP_TITLE 'Puntos'
+ WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+END
+
+PROJECTION
+     	'init=epsg:32720'
+END
+
+  CLASSITEM 'pos'
+  LABELITEM 'text'
+ 
+    CLASS
+     NAME 'SO'
+     EXPRESSION (( '[pos]' == 'SO' ) AND ('[user_id]' == '555' ))
+      LABEL
+       TYPE TRUETYPE
+       FONT tahoma
+       SIZE 10
+       ANGLE 0
+       COLOR 0 0 0
+       BUFFER 3
+			 OFFSET 5 5
+       POSITION ll
+       PARTIALS TRUE
+			 FORCE TRUE
+			 ANTIALIAS TRUE
+      END
+    END  # CLASS
+		CLASS
+     NAME 'NO'
+     EXPRESSION (( '[pos]' == 'NO' ) AND ('[user_id]' == '555' ))
+      LABEL
+       TYPE TRUETYPE
+       FONT tahoma
+       SIZE 10
+       ANGLE 0
+       COLOR 0 0 0
+       BUFFER 3
+			 OFFSET 5 5
+       POSITION ul
+       PARTIALS TRUE
+			 FORCE TRUE
+			 ANTIALIAS TRUE
+      END
+    END  # CLASS
+		CLASS
+     NAME 'SE'
+     EXPRESSION (( '[pos]' == 'SE' ) AND ('[user_id]' == '555' ))
+      LABEL
+       TYPE TRUETYPE
+       FONT tahoma
+       SIZE 10
+       ANGLE 0
+       COLOR 0 0 0
+       BUFFER 3
+			 OFFSET 5 5
+       POSITION lr
+       PARTIALS TRUE
+			 FORCE TRUE
+			 ANTIALIAS TRUE
+      END
+    END  # CLASS
+		CLASS
+     NAME 'NE'
+     EXPRESSION (( '[pos]' == 'NE' ) AND ('[user_id]' == '555' ))
+      LABEL
+       TYPE TRUETYPE
+       FONT tahoma
+       SIZE 10
+       ANGLE 0
+       COLOR 0 0 0
+       BUFFER 3
+			 OFFSET 5 5
+       POSITION ur
+       PARTIALS TRUE
+			 FORCE TRUE
+			 ANTIALIAS TRUE
+      END
+    END  # CLASS
+		CLASS
+    NAME 'INTERMEDIOS'
+     EXPRESSION (( '[pos]' == '--' ) AND ('[user_id]' == '555' ))
+      LABEL
+       TYPE TRUETYPE
+       FONT tahoma
+       SIZE 10
+       ANGLE 0
+       COLOR 0 0 255
+       BUFFER 3
+			 OFFSET 10 10
+       POSITION cc
+       PARTIALS TRUE
+			 FORCE TRUE
+			 ANTIALIAS TRUE
+      END
+    END  # CLASS		 
+		CLASS
+    NAME 'CEN'
+     EXPRESSION (( '[pos]' == 'CEN' ) AND ('[user_id]' == '555' ))
+      LABEL
+       TYPE TRUETYPE
+       FONT tahoma
+       SIZE 10
+       ANGLE 0
+       COLOR 0 0 255
+       BUFFER 3
+			 OFFSET 0 0
+       POSITION cc
+       PARTIALS TRUE
+			 FORCE TRUE
+			 ANTIALIAS TRUE
+      END
+     END  # CLASS
+				 
+END  # END OF LAYERFILE
+#----------------------------------------------------------- Points-Anotation
+#----------------------------------------------------------- Calles-Anotacion
+LAYER
+  CONNECTIONTYPE postgis 
+  NAME 'Calles_Anot'
+	GROUP 'Puntos'
+	STATUS ON
+	CONNECTION 'user=postgres password=qwert dbname=siicat_concep host=localhost'
+  DATA 'the_geom from temp_line USING UNIQUE oid'
+  TYPE ANNOTATION
+METADATA
+ WMS_SRS 'epsg:32720'
+ WMS_TITLE 'calles_anot'
+ WMS_GROUP_TITLE 'Puntos'
+ WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+END
+	
+PROJECTION
+     	'init=epsg:32720'
+END	
+
+CLASSITEM 'id'
+LABELITEM 'nombre'
+	
+    CLASS
+     NAME 'Nombre'
+     EXPRESSION (( '[id]' == '1' ) AND ('[user_id]' == '555' ))
+      LABEL
+       TYPE TRUETYPE
+       FONT tahoma
+       SIZE 20
+       ANGLE AUTO
+       COLOR 0 0 0
+			 #OUTLINECOLOR 255 0 0
+       BUFFER 3
+			 OFFSET 0 0
+       POSITION cc
+       PARTIALS TRUE
+			 FORCE TRUE
+			 ANTIALIAS TRUE
+      END
+    END  # CLASS
+    CLASS
+     NAME 'Nombre_Grande'
+     EXPRESSION (( '[id]' == '2' ) AND ('[user_id]' == '555' ))
+      LABEL
+       TYPE TRUETYPE
+       FONT tahoma
+       SIZE 20
+       ANGLE AUTO
+       COLOR 255 255 255
+			 OUTLINECOLOR 0 0 0
+       BUFFER 3
+			 OFFSET 0 0
+       POSITION cc
+       PARTIALS TRUE
+			 FORCE TRUE
+			 ANTIALIAS TRUE
+      END
+    END  # CLASS	
+END # end of layer object
+#----------------------------------------------------------- Calles_Anotacion
+#----------------------------------------------------------- Flecha Norte
+LAYER
+    NAME 'n_arrow2'
+    STATUS ON
+		GROUP 'Predio'
+    TRANSFORM FALSE
+    TYPE POINT
+		METADATA
+      WMS_TITLE 'North Arrow'
+			WMS_GROUP_TITLE 'North Arrow'
+      WMS_FEATURE_INFO_MIME_TYPE 'text/html'
+    END
+
+    TRANSPARENCY 1000
+		
+    FEATURE		
+      POINTS 1020 80 END	
+    END
+    CLASS
+      STYLE
+        SYMBOL 'n_arrow_grande'
+      END
+    END
+END
+#----------------------------------------------------------- Flecha Norte
+
+END  # MAPFILE
