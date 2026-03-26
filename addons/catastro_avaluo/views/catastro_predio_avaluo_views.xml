@@ -7,8 +7,8 @@
         <field name="inherit_id" ref="catastro_predio.view_catastro_predio_form"/>
         <field name="arch" type="xml">
 
-            <!-- Smart button con contador de avalúos — se inserta antes del oe_title -->
-            <xpath expr="//sheet/div[@class='oe_title']" position="before">
+            <!-- Stat button con contador de avalúos — antes del bloque oe_title -->
+            <xpath expr="//sheet/div[hasclass('oe_title')]" position="before">
                 <div class="oe_button_box" name="button_box">
                     <button class="oe_stat_button" icon="fa-calculator"
                             name="action_ver_avaluos" type="object">
@@ -17,13 +17,15 @@
                 </div>
             </xpath>
 
-            <!-- Campo de valor catastral vigente en el bloque "Valor Catastral" -->
-            <xpath expr="//group[@string='Valor Catastral']" position="after">
-                <group string="Avalúo Catastral Vigente"
+            <!-- Grupo de avalúo vigente — después del group principal de datos -->
+            <xpath expr="//sheet/group" position="after">
+                <group name="group_avaluo_vigente"
                        invisible="not avaluo_vigente_id">
-                    <field name="avaluo_vigente_id" readonly="1"/>
-                    <field name="gestion_avaluo_vigente" readonly="1"/>
-                    <field name="valor_catastral_vigente" readonly="1"/>
+                    <group string="Avalúo Catastral Vigente">
+                        <field name="avaluo_vigente_id" readonly="1"/>
+                        <field name="gestion_avaluo_vigente" readonly="1"/>
+                        <field name="valor_catastral_vigente" readonly="1"/>
+                    </group>
                 </group>
             </xpath>
 
