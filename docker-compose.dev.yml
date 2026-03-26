@@ -1,28 +1,39 @@
 # ─────────────────────────────────────────────────────────────────────────────
 # docker-compose.dev.yml — Ambiente de DESARROLLO LOCAL (Kali Linux)
-# Uso: docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+# Uso:  docker compose -f docker-compose.dev.yml up -d --build
+#       (NO necesita docker-compose.yml base)
 #
 # Diferencias vs producción (WSL catastro):
+#   - Construye imagen desde Dockerfile local (no usa GHCR)
 #   - Expone puerto 8069 directamente (sin Traefik)
 #   - Monta addons desde ./addons para hot-reload
-#   - No requiere red externa web-proxy
 # ─────────────────────────────────────────────────────────────────────────────
 
 services:
   db:
-    # Sobrescribe: healthcheck más rápido en dev
+    image: postgres:16
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=odoo_secret
+      - POSTGRES_USER=odoo
+    volumes:
+      - odoo-db-dev:/var/lib/postgresql/data
     healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U odoo"]
       interval: 5s
-      retries: 3
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
 
   odoo:
-    # En dev: NO usar imagen de GHCR, construir desde Dockerfile local
-    image: catastro-dev:latest
     build:
       context: .
       dockerfile: Dockerfile
+    image: catastro-dev:latest
+    depends_on:
+      db:
+        condition: service_healthy
     ports:
-      # Acceso directo sin Traefik
       - "8069:8069"
       - "8072:8072"
     environment:
@@ -30,21 +41,11 @@ services:
       - USER=odoo
       - PASSWORD=odoo_secret
     volumes:
-      - odoo-web-data:/var/lib/odoo
-      - ./addons:/mnt/extra-addons        # hot-reload de módulos
+      - odoo-web-dev:/var/lib/odoo
+      - ./addons:/mnt/extra-addons      # hot-reload de módulos
       - ./config/odoo.conf:/etc/odoo/odoo.conf
-    # Sin Traefik labels en dev
-    labels: []
-    networks:
-      - default                            # solo red interna, sin web-proxy
+    restart: unless-stopped
 
-  # Traefik deshabilitado en dev
-  traefik:
-    profiles:
-      - disabled
-
-networks:
-  web-proxy:
-    # En dev no existe la red externa — ignorar
-    external: false
-    name: catastro_web-proxy
+volumes:
+  odoo-db-dev:
+  odoo-web-dev:
