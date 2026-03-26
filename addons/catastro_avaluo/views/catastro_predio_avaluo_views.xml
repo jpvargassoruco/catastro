@@ -4,7 +4,7 @@
     <record id="catastro_predio_view_form_avaluo" model="ir.ui.view">
         <field name="name">catastro.predio.form.avaluo</field>
         <field name="model">catastro.predio</field>
-        <field name="inherit_id" ref="catastro_predio.catastro_predio_view_form"/>
+        <field name="inherit_id" ref="catastro_predio.view_catastro_predio_form"/>
         <field name="arch" type="xml">
 
             <!-- Smart button con contador de avalúos -->
