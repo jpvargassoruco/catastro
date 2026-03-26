@@ -6,7 +6,7 @@
         <field name="name">catastro.tabla.valor.list</field>
         <field name="model">catastro.tabla.valor</field>
         <field name="arch" type="xml">
-            <list string="Tablas de Valores Unitarios">
+            <tree string="Tablas de Valores Unitarios">
                 <field name="gestion"/>
                 <field name="zona"/>
                 <field name="tipo_predio"/>
@@ -14,7 +14,7 @@
                 <field name="valor_terreno" string="VU Terreno (Bs/m²)"/>
                 <field name="valor_construccion" string="VU Construcción (Bs/m²)"/>
                 <field name="active"/>
-            </list>
+            </tree>
         </field>
     </record>
 
@@ -73,7 +73,7 @@
     <record id="catastro_tabla_valor_action" model="ir.actions.act_window">
         <field name="name">Tablas de Valores Unitarios</field>
         <field name="res_model">catastro.tabla.valor</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="catastro_tabla_valor_view_search"/>
         <field name="context">{'search_default_activo': 1}</field>
         <field name="help" type="html">

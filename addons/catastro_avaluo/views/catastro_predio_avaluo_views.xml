@@ -29,7 +29,7 @@
             <xpath expr="//notebook" position="inside">
                 <page string="Avalúos" name="page_avaluos">
                     <field name="avaluo_ids" readonly="1">
-                        <list decoration-success="state == 'vigente'"
+                        <tree decoration-success="state == 'vigente'"
                               decoration-muted="state == 'historico'">
                             <field name="name"/>
                             <field name="gestion"/>
@@ -41,7 +41,7 @@
                                    decoration-warning="state == 'calculado'"
                                    decoration-secondary="state == 'historico'"/>
                             <field name="fecha_calculo"/>
-                        </list>
+                        </tree>
                     </field>
                 </page>
             </xpath>
