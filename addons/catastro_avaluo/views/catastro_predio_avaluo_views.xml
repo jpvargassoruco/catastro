@@ -7,16 +7,18 @@
         <field name="inherit_id" ref="catastro_predio.view_catastro_predio_form"/>
         <field name="arch" type="xml">
 
-            <!-- Smart button con contador de avalúos -->
-            <xpath expr="//div[@name='button_box']" position="inside">
-                <button class="oe_stat_button" icon="fa-calculator"
-                        name="action_ver_avaluos" type="object">
-                    <field name="avaluo_count" widget="statinfo" string="Avalúos"/>
-                </button>
+            <!-- Smart button con contador de avalúos — se inserta antes del oe_title -->
+            <xpath expr="//sheet/div[@class='oe_title']" position="before">
+                <div class="oe_button_box" name="button_box">
+                    <button class="oe_stat_button" icon="fa-calculator"
+                            name="action_ver_avaluos" type="object">
+                        <field name="avaluo_count" widget="statinfo" string="Avalúos"/>
+                    </button>
+                </div>
             </xpath>
 
-            <!-- Campo de valor catastral vigente en el header del predio -->
-            <xpath expr="//sheet//group[1]" position="after">
+            <!-- Campo de valor catastral vigente en el bloque "Valor Catastral" -->
+            <xpath expr="//group[@string='Valor Catastral']" position="after">
                 <group string="Avalúo Catastral Vigente"
                        invisible="not avaluo_vigente_id">
                     <field name="avaluo_vigente_id" readonly="1"/>
