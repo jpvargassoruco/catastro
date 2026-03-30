@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_boleta_pago_impuesto" model="ir.actions.report">
+        <field name="name">Boleta de Pago de Impuesto (PDF)</field>
+        <field name="model">catastro.impuesto</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">catastro_impuestos.report_boleta_pago_document</field>
+        <field name="report_file">catastro_impuestos.report_boleta_pago_document</field>
+        <field name="binding_model_id" ref="model_catastro_impuesto"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_boleta_pago_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="row align-items-center mb-4">
+                            <div class="col-8">
+                                <h2>COMPROBANTE DE PAGO DE IMPUESTO PREDIAL</h2>
+                                <h4 class="text-muted">Gestión Tributaria: <span t-field="doc.gestion"/></h4>
+                            </div>
+                            <div class="col-4 text-end">
+                                <h3><span t-field="doc.name"/></h3>
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-4 mb-4 border rounded p-3">
+                            <div class="col-12">
+                                <h5>DATOS DEL CONTRIBUYENTE Y PREDIO</h5>
+                            </div>
+                            <div class="col-6">
+                                <p><strong>Propietario:</strong> <span t-field="doc.predio_id.propietario_id.name"/></p>
+                                <p><strong>NIT/CI:</strong> <span t-field="doc.predio_id.propietario_id.vat"/></p>
+                            </div>
+                            <div class="col-6">
+                                <p><strong>Código Catastral:</strong> <span t-field="doc.predio_id.codigo_catastral"/></p>
+                                <p><strong>Ubicación:</strong> <span t-field="doc.predio_id.direccion"/></p>
+                            </div>
+                        </div>
+
+                        <table class="table table-sm table-bordered mt-4">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th>Concepto</th>
+                                    <th class="text-end">Monto Liquidado (Bs.)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Impuesto Determinado por Ley Municipal</td>
+                                    <td class="text-end"><span t-field="doc.impuesto_calculado"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Descuentos Aplicados de Ley</td>
+                                    <td class="text-end">- <span t-field="doc.descuento_ley"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Multas y Recargos por Mora</td>
+                                    <td class="text-end">+ <span t-field="doc.multa_mora"/></td>
+                                </tr>
+                                <tr class="table-active font-weight-bold">
+                                    <td><strong>TOTAL LIQUIDADO A PAGAR</strong></td>
+                                    <td class="text-end"><strong><span t-field="doc.monto_pagar"/> Bs.</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="row mt-5">
+                            <div class="col-12 text-center text-muted" style="font-size: 0.8em;">
+                                <p>Este documento sustituye a la Boleta SIICAT Legacy y es el comprobante oficial de Catastro Municipal y Recaudaciones.</p>
+                                <p t-if="doc.factura_id">
+                                    Vinculado a la Factura/Recibo Caja Nº: <strong><span t-field="doc.factura_id.name"/></strong>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

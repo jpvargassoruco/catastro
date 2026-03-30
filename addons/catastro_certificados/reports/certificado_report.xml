@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_certificado_catastral" model="ir.actions.report">
+        <field name="name">Certificado Catastral Oficial (PDF)</field>
+        <field name="model">catastro.certificado</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">catastro_certificados.report_certificado_catastral_doc</field>
+        <field name="report_file">catastro_certificados.report_certificado_catastral_doc</field>
+        <field name="binding_model_id" ref="model_catastro_certificado"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_certificado_catastral_doc">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page" style="font-family: Arial, sans-serif;">
+                        <div class="text-center mb-5 border-bottom pb-3">
+                            <h2><strong>CERTIFICADO CATASTRAL OFICIAL</strong></h2>
+                            <h4 class="text-muted">Gobierno Autónomo Municipal de Vallegrande</h4>
+                            <p><strong>Nº de Emisión: </strong> <span t-field="doc.name"/></p>
+                        </div>
+                        
+                        <div class="row mt-4 mb-3 p-3 bg-light border">
+                            <div class="col-12">
+                                <h5 class="border-bottom pb-2"><strong>I. IDENTIFICACIÓN DEL PROPIETARIO</strong></h5>
+                            </div>
+                            <div class="col-6 mt-2">
+                                <p><strong>Titular:</strong> <span t-field="doc.predio_id.propietario_id.name"/></p>
+                            </div>
+                            <div class="col-6 mt-2">
+                                <p><strong>Documento de Identidad:</strong> <span t-field="doc.predio_id.propietario_id.vat"/></p>
+                            </div>
+                        </div>
+
+                        <div class="row mt-4 mb-3 p-3 border">
+                            <div class="col-12">
+                                <h5 class="border-bottom pb-2"><strong>II. DATOS TÉCNICOS DEL PREDIO</strong></h5>
+                            </div>
+                            <div class="col-6 mt-2">
+                                <p><strong>Código Catastral:</strong> <span t-field="doc.predio_id.codigo_catastral"/></p>
+                                <p><strong>Dirección:</strong> <span t-field="doc.predio_id.direccion"/></p>
+                            </div>
+                            <div class="col-6 mt-2 border-start">
+                                <p><strong>Superficie de Terreno (m2):</strong> <span t-field="doc.predio_id.area_terreno_title"/></p>
+                                <p><strong>Superficie Construida (m2):</strong> <span t-field="doc.predio_id.area_construida"/></p>
+                                <p><strong>Uso de Suelo:</strong> <span t-field="doc.predio_id.uso_suelo"/></p>
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-5">
+                            <div class="col-12 text-justify" style="font-size: 0.9em;">
+                                <p>El presente certificado certifica que el predio con Código Catastral <strong><span t-field="doc.predio_id.codigo_catastral"/></strong> figura a nombre del beneficiario en los registros técnicos, cartográficos y económicos administrados por el G.A.M. de Vallegrande a la fecha de emisión.</p>
+                                <p>Este documento es válido para fines consiguientes de ley y caduca conforme a la ordenanza fiscal municipal vigente.</p>
+                            </div>
+                        </div>
+
+                        <div class="row mt-5 pt-5 text-center">
+                            <div class="col-6">
+                                <div style="border-top: 1px solid black; width: 60%; margin: 0 auto;"/>
+                                <p class="mt-2"><strong>Técnico Catastral</strong></p>
+                            </div>
+                            <div class="col-6">
+                                <div style="border-top: 1px solid black; width: 60%; margin: 0 auto;"/>
+                                <p class="mt-2 text-center"><strong>Director(a) de Catastro y Urbanismo</strong></p>
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-5">
+                            <div class="col-12 text-center text-muted" style="font-size: 0.7em;">
+                                Fecha de Impresión: <span t-field="doc.fecha_emision"/> | Válido hasta: <span t-field="doc.valido_hasta"/>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

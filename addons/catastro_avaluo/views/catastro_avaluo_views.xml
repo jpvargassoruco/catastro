@@ -136,7 +136,7 @@
         <field name="res_model">catastro.avaluo</field>
         <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="catastro_avaluo_view_search"/>
-        <field name="context">{'search_default_vigente': 1}</field>
+        <field name="context">{}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Genere el primer avalúo catastral

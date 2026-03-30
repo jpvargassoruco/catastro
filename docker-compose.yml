@@ -1,6 +1,6 @@
 # ─────────────────────────────────────────────────────────────────────────────
 # docker-compose.yml — Catastro Municipal Vallegrande
-# Imagen custom: ghcr.io/jpvargassoruco/catastro:latest (construida por CI/CD)
+# Imagen custom: ghcr.io/pothoko/catastro_01:latest (construida por CI/CD)
 # ─────────────────────────────────────────────────────────────────────────────
 # DESARROLLO LOCAL: los addons se montan como volumen (override del Dockerfile)
 # PRODUCCIÓN (WSL catastro): usar /opt/catastro/docker-compose.yml sin el mount
@@ -24,7 +24,8 @@ services:
 
   odoo:
     # ── Imagen custom desde GitHub Container Registry ─────────────────────────
-    image: ghcr.io/jpvargassoruco/catastro:latest
+    build: .
+    image: ghcr.io/pothoko/catastro_01:latest
     depends_on:
       db:
         condition: service_healthy

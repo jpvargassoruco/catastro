@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_catastro_impuesto_tree" model="ir.ui.view">
+        <field name="name">catastro.impuesto.tree</field>
+        <field name="model">catastro.impuesto</field>
+        <field name="arch" type="xml">
+            <tree string="Impuestos Prediales">
+                <field name="name"/>
+                <field name="predio_id"/>
+                <field name="gestion"/>
+                <field name="monto_pagar"/>
+                <field name="estado" widget="badge" decoration-warning="estado == 'borrador'" decoration-info="estado == 'liquidado'" decoration-success="estado == 'pagado'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_catastro_impuesto_form" model="ir.ui.view">
+        <field name="name">catastro.impuesto.form</field>
+        <field name="model">catastro.impuesto</field>
+        <field name="arch" type="xml">
+            <form string="Liquidación Predial">
+                <header>
+                    <button name="action_aprobar_liquidacion" string="Aprobar Liquidación" type="object" class="oe_highlight" invisible="estado != 'borrador'"/>
+                    <button name="action_generar_factura" string="Pagar en Caja (Emitir Boleta)" type="object" class="oe_highlight" invisible="estado != 'liquidado'"/>
+                    <field name="estado" widget="statusbar" statusbar_visible="borrador,liquidado,pagado"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="predio_id" readonly="estado != 'borrador'"/>
+                            <field name="gestion" readonly="estado != 'borrador'"/>
+                        </group>
+                        <group name="Calculos">
+                            <field name="base_imponible"/>
+                            <field name="impuesto_calculado"/>
+                            <field name="descuento_ley" readonly="estado != 'borrador'"/>
+                            <field name="multa_mora" readonly="estado != 'borrador'"/>
+                            <field name="monto_pagar" style="font-size: 1.2em; font-weight: bold;"/>
+                            <field name="factura_id" invisible="not factura_id"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_catastro_impuestos" model="ir.actions.act_window">
+        <field name="name">Impuestos Prediales</field>
+        <field name="res_model">catastro.impuesto</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crear el primer registro de impuesto predial
+            </p>
+        </field>
+    </record>
+    
+    <!-- Menú -->
+    <menuitem id="menu_catastro_impuestos" 
+              name="Impuestos" 
+              action="action_catastro_impuestos" 
+              parent="catastro_predio.menu_catastro_root"
+              sequence="20"/>
+</odoo>

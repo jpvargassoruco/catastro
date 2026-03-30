@@ -21,7 +21,6 @@ permissions:
 # ─── Variables globales ───────────────────────────────────────────────────────
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}   # jpvargassoruco/catastro
 
 jobs:
   build-and-push:
@@ -32,6 +31,11 @@ jobs:
       # 1. Checkout del código
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      # 1.5. Estandarizar nombre de imagen en minúsculas (Obligatorio para Docker Registry)
+      - name: Set lower case repository name
+        run: |
+          echo "IMAGE_NAME=${GITHUB_REPOSITORY,,}" >> ${GITHUB_ENV}
 
       # 2. Login a GitHub Container Registry
       - name: Log in to GHCR

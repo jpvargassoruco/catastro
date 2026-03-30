@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_catastro_mapa_tree" model="ir.ui.view">
+        <field name="name">catastro.mapa.tree</field>
+        <field name="model">catastro.mapa</field>
+        <field name="arch" type="xml">
+            <tree string="Capas GIS / Planimetría">
+                <field name="name"/>
+                <field name="predio_id"/>
+                <field name="tipo_poligono"/>
+                <field name="activo" widget="boolean_toggle"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_catastro_mapa_form" model="ir.ui.view">
+        <field name="name">catastro.mapa.form</field>
+        <field name="model">catastro.mapa</field>
+        <field name="arch" type="xml">
+            <form string="Planimetría Geoespacial">
+                <sheet>
+                    <widget name="web_ribbon" title="Activo" bg_color="bg-success" invisible="not activo"/>
+                    <widget name="web_ribbon" title="Inactivo" bg_color="bg-danger" invisible="activo"/>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Ej: Polígono Urbano Lote 45"/></h1>
+                    </div>
+                    <group>
+                        <group name="meta_datos" string="Metadatos ESP">
+                            <field name="predio_id"/>
+                            <field name="tipo_poligono"/>
+                            <field name="activo" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Visor Cartográfico GIS" name="visor_geoespacial">
+                            <field name="coordenadas_json" widget="catastro_leaflet_map"/>
+                        </page>
+                        <page string="Datos GeoJSON Crudos" name="raw_json_data">
+                            <field name="coordenadas_json" widget="text" placeholder="{ 'type': 'FeatureCollection', ... }"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_catastro_mapa" model="ir.actions.act_window">
+        <field name="name">Gestión de Planos Cartográficos</field>
+        <field name="res_model">catastro.mapa</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Inyectar una nueva capa cartográfica JSON / Polígono
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_catastro_mapas" 
+              name="Cartografía Web" 
+              action="action_catastro_mapa"
+              parent="catastro_predio.menu_catastro_root"
+              sequence="70"/>
+</odoo>

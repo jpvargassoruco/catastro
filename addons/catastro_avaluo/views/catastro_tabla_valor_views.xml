@@ -75,7 +75,7 @@
         <field name="res_model">catastro.tabla.valor</field>
         <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="catastro_tabla_valor_view_search"/>
-        <field name="context">{'search_default_activo': 1}</field>
+        <field name="context">{}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Registre la primera tabla de valores unitarios
