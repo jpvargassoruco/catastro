@@ -48,18 +48,14 @@ Dado que Odoo se levanta a través del router Ingress de **Traefik**, es mandato
 ### Arranque del Entorno
 Ejecuta el login referenciado al paquete Container Registry de Github:
 ```bash
-# 1. Autenticar GHCR (solo una vez en tu terminal). Sustituye TU_GITHUB_PAT por un token tuyo con permisos de lectura.
-echo TU_GITHUB_PAT | docker login ghcr.io -u Pothoko --password-stdin
+# 1. Crear la red externa global de Traefik (Si es servidor nuevo)
+sudo docker network create web-proxy
 
-# 2. Requerimos la red externa global de traefik
-docker network create web-proxy
-
-# 3. Lanzar todo el stack de Odoo + Traefik + Postgres
-cd /directorio_del_proyecto
+# 2. Levantar toda la infraestructura (Docker descargará GHCR automáticamente)
 docker compose up -d
 
-# Puedes revisar el status vivo:
-docker logs catastro-odoo-1 -f
+# 3. Revisar logs en vivo para confirmar arranque seguro
+docker compose logs -f odoo
 ```
 
 ## 🌐 Entorno de Usuarios y Configuración
