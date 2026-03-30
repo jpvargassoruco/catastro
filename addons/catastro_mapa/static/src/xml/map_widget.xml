@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="catastro_mapa.MapWidget" owl="1">
+        <div class="catastro-leaflet-map-wrapper w-100">
+            <!-- Contenedor puro para Leaflet -->
+            <div t-ref="mapContainer" style="height: 500px; width: 100%; border: 2px solid #ced4da; border-radius: 8px; z-index: 1;"></div>
+            <div t-if="!props.record.data.coordenadas_json" class="text-muted mt-2 text-center" style="font-size: 0.85em;">
+                <i class="fa fa-info-circle"></i> Ingrese un polígono GeoJSON válido para renderizar automáticamente el predio catastral.
+            </div>
+        </div>
+    </t>
+</templates>

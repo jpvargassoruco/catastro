@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_informe_empadronamiento" model="ir.actions.report">
+        <field name="name">Informe de Empadronamiento (PDF)</field>
+        <field name="model">catastro.informe</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">catastro_informes.report_empadronamiento_doc</field>
+        <field name="report_file">catastro_informes.report_empadronamiento_doc</field>
+        <field name="binding_model_id" ref="model_catastro_informe"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_empadronamiento_doc">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-if="doc.tipo_informe == 'empadronamiento'">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <div class="text-center mb-4 border-bottom pb-2">
+                                <h3><strong>INFORME TÉCNICO DE EMPADRONAMIENTO</strong></h3>
+                                <h5 class="text-muted">Nro. Registro/Trámite: <span t-field="doc.name"/></h5>
+                            </div>
+
+                            <div class="row mt-4 mb-4">
+                                <div class="col-12">
+                                    <p><strong>Fecha de Evaluación Técnica:</strong> <span t-field="doc.fecha_emision"/></p>
+                                    <p><strong>Técnico Asignado:</strong> <span t-field="doc.tecnico_id.name"/></p>
+                                    <p><strong>Código Predial Referencial:</strong> <span t-field="doc.predio_id.codigo_catastral"/></p>
+                                </div>
+                            </div>
+
+                            <div class="row mt-3 border rounded p-4 bg-light">
+                                <div class="col-12">
+                                    <h5 class="mb-3"><strong>I. ANÁLISIS DE CAMPO Y CONSTANCIA FÍSICA</strong></h5>
+                                    <p class="mt-3 text-justify" style="white-space: pre-wrap; font-size: 1.1em;"><span t-field="doc.conclusiones"/></p>
+                                </div>
+                            </div>
+
+                            <div class="row mt-5 pt-5 text-center">
+                                <div class="col-12 mb-3">
+                                    <strong>Es todo cuanto informa para fines consiguientes técnico-legales.</strong>
+                                </div>
+                                <div class="col-12 mt-5">
+                                    <div style="border-top: 1px solid black; width: 40%; margin: 0 auto;"/>
+                                    <p class="mt-2"><strong>Firma del Técnico Inspector</strong></p>
+                                    <p><span t-field="doc.tecnico_id.name"/></p>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

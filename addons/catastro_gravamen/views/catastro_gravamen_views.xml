@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_catastro_gravamen_tree" model="ir.ui.view">
+        <field name="name">catastro.gravamen.tree</field>
+        <field name="model">catastro.gravamen</field>
+        <field name="arch" type="xml">
+            <tree string="Gravámenes">
+                <field name="name"/>
+                <field name="predio_id"/>
+                <field name="acreedor_id"/>
+                <field name="fecha_inscripcion"/>
+                <field name="monto_deuda"/>
+                <field name="estado" widget="badge" decoration-danger="estado == 'activo'" decoration-success="estado == 'levantado'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_catastro_gravamen" model="ir.actions.act_window">
+        <field name="name">Hipotecas y Gravámenes</field>
+        <field name="res_model">catastro.gravamen</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Registrar una nueva anotación preventiva u hipoteca
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_catastro_gravamen" 
+              name="Gravámenes" 
+              action="action_catastro_gravamen"
+              parent="catastro_predio.menu_catastro_root"
+              sequence="40"/>
+</odoo>

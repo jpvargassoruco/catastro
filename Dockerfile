@@ -5,7 +5,7 @@
 FROM odoo:17.0
 
 # Metadatos OCI
-LABEL org.opencontainers.image.source="https://github.com/jpvargassoruco/catastro" \
+LABEL org.opencontainers.image.source="https://github.com/Pothoko/catastro_01" \
       org.opencontainers.image.description="Odoo 17 LTS - Catastro Municipal Vallegrande" \
       org.opencontainers.image.licenses="LGPL-3.0"
 

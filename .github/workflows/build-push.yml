@@ -21,7 +21,7 @@ permissions:
 # ─── Variables globales ───────────────────────────────────────────────────────
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}   # jpvargassoruco/catastro
+  IMAGE_NAME: ${{ github.repository }}   # Pothoko/catastro_01
 
 jobs:
   build-and-push:

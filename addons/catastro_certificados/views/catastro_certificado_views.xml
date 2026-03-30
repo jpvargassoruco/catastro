@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_catastro_certificado_tree" model="ir.ui.view">
+        <field name="name">catastro.certificado.tree</field>
+        <field name="model">catastro.certificado</field>
+        <field name="arch" type="xml">
+            <tree string="Certificados Emitidos">
+                <field name="name"/>
+                <field name="predio_id"/>
+                <field name="solicitante_id"/>
+                <field name="fecha_emision"/>
+                <field name="estado" widget="badge" decoration-info="estado == 'borrador'" decoration-success="estado == 'impreso'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_catastro_certificados" model="ir.actions.act_window">
+        <field name="name">Certificados Catastrales</field>
+        <field name="res_model">catastro.certificado</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Emitir un nuevo certificado catastral
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_catastro_certificados" 
+              name="Certificados" 
+              action="action_catastro_certificados"
+              parent="catastro_predio.menu_catastro_root"
+              sequence="50"/>
+</odoo>

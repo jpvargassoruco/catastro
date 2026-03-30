@@ -6,7 +6,7 @@
 set -euo pipefail
 
 COMPOSE_DIR="/opt/catastro"
-IMAGE="ghcr.io/jpvargassoruco/catastro:latest"
+IMAGE="ghcr.io/Pothoko/catastro_01:latest"
 
 log() { echo "$(date '+%Y-%m-%d %H:%M:%S') $*"; }
 
