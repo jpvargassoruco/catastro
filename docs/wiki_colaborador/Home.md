@@ -133,12 +133,12 @@ Este proyecto consiste en **migrar el sistema de catastro municipal SIICAT** (es
 |--------|---------------|--------|-----------|
 | Predios catastrales | `catastro_predio` | ✅ Implementado | Alta |
 | Avalúos catastrales | `catastro_avaluo` | ✅ Implementado | Alta |
-| Planos + Cartografía | `catastro_mapa` | 🔲 Pendiente | Media |
-| Certificados PDF | `catastro_certificados` | 🔲 Pendiente | Alta |
-| Impuestos prediales | `catastro_impuestos` | 🔲 Pendiente | Alta |
-| Transferencias de dominio | `catastro_transferencia` | 🔲 Pendiente | Alta |
-| Línea de nivel / informes | `catastro_informes` | 🔲 Pendiente | Media |
-| Gravámenes | `catastro_gravamen` | 🔲 Pendiente | Media |
+| Planos + Cartografía | `catastro_mapa` | ✅ Implementado | Media |
+| Certificados PDF | `catastro_certificados` | ✅ Implementado | Alta |
+| Impuestos prediales | `catastro_impuestos` | ✅ Implementado | Alta |
+| Transferencias de dominio | `catastro_transferencia` | ✅ Implementado | Alta |
+| Línea de nivel / informes | `catastro_informes` | ✅ Implementado | Media |
+| Gravámenes | `catastro_gravamen` | ✅ Implementado | Media |
 
 ---
 
@@ -146,25 +146,24 @@ Este proyecto consiste en **migrar el sistema de catastro municipal SIICAT** (es
 
 ### Entorno de Desarrollo
 
-- **Host**: Windows 11 con WSL2 (distro: `catastro`) o Linux nativo
+- **Host**: Windows 11 con WSL2 (distro: `catastro`) o Linux
 - **Local Host URL**: `http://catastro.local`
-- **Acceso al stack**: `wsl.exe -d catastro -u root`
-- **Compose ubicado en**: directorio raíz del repositorio
-- **Red proxy**: `web-proxy` (Docker network externa compartida)
+- **Compose ubicado en**: Directorio raíz
+- **Red proxy**: `web-proxy` (Docker network externa)
 
 ### Stack Docker
 
 ```
 ┌─────────────────────────────────────────┐
-│  Windows Host / Linux                    │
+│  Linux / WSL Host                        │
 │  ┌────────────────────────────────────┐  │
-│  │  WSL2: catastro (o Linux nativo)   │  │
+│  │  Pila de Docker Catastro           │  │
 │  │  ┌──────────────────────────────┐  │  │
 │  │  │  Traefik :80/:8080           │  │  │
 │  │  │  (traefik:latest)            │  │  │
 │  │  ├──────────────────────────────┤  │  │
 │  │  │  Odoo :8069/:8072            │  │  │
-│  │  │  (odoo:19.0)                 │  │  │
+│  │  │  (odoo:17.0 LTS)             │  │  │
 │  │  ├──────────────────────────────┤  │  │
 │  │  │  PostgreSQL :5432            │  │  │
 │  │  │  (postgres:16)               │  │  │
@@ -177,298 +176,40 @@ Este proyecto consiste en **migrar el sistema de catastro municipal SIICAT** (es
 
 | Servicio | Imagen | Versión |
 |----------|--------|---------|
-| Odoo | `odoo:19.0` | 19.0-20260324 |
+| Odoo | `ghcr.io/pothoko/catastro_01` | 17.0 LTS custom |
 | PostgreSQL | `postgres:16` | 16.x |
 | Traefik | `traefik:latest` | v3.x |
-| Docker | — | 29.3.1 |
-
-### Routing (Traefik)
-
-| Router | Regla | Backend |
-|--------|-------|---------|
-| `odoo-catastro` | `Host('catastro.local')` | Puerto 8069 |
-| `odoo-catastro-ws` | `Host('catastro.local') && PathPrefix('/websocket')` | Puerto 8072 (longpolling) |
-
-### Credenciales
-
-| Servicio | Usuario | Contraseña |
-|---------|---------|------------|
-| PostgreSQL | `odoo` | `odoo_secret` |
-| Odoo master password | — | `catastro_admin_2026` |
-| Odoo admin UI | `admin` | `admin` (cambiar en producción) |
 
 ### Archivos de Configuración
 
 ```
-/home/kali/catastro/           ← repositorio git
+/home/fisbert/.../catastro_01/ ← repositorio git
 ├── README.md
-├── Dockerfile                 ← imagen Odoo personalizada
-├── docker-compose.yml         ← stack completo (prod-like)
-├── docker-compose.dev.yml     ← override dev (hot-reload, puertos expuestos)
+├── docker-compose.yml         
 ├── config/
 │   └── odoo.conf              ← configuración de Odoo
 ├── addons/
 │   ├── catastro_predio/       ← ✅ Módulo predios catastrales
-│   └── catastro_avaluo/       ← ✅ Módulo avalúos catastrales
+│   ├── catastro_avaluo/       ← ✅ Módulo avalúos catastrales
+│   ├── catastro_impuestos/    ← ✅ Motor tributario y facturación CAJA
+│   ├── catastro_mapa/         ← ✅ Renderizador Geoespacial OWL Map
+│   ├── catastro_certificados/ ← ✅ Generador de Folios en QWeb
+│   ├── catastro_informes/     ← ✅ Generador Empadronamientos QWeb
+│   ├── catastro_transferencia/← ✅ Aprobaciones legales y tracking
+│   └── catastro_gravamen/     ← ✅ Restricciones judiciales 
 ├── docs/
-│   ├── wiki.md                ← este archivo (documentación master)
-│   ├── Fase2y3/               ← documentación fases 2 y 3
-│   └── fase4/                 ← documentación fase 4 (avalúos)
-├── scripts/
-│   ├── deploy.sh              ← deploy actualización Odoo (WSL/Linux)
-│   ├── deploy/
-│   │   ├── .env.example       ← plantilla de variables de entorno
-│   │   ├── dev.sh             ← deploy rápido en desarrollo
-│   │   ├── prod.sh            ← deploy producción con backup
-│   │   ├── update_module.sh   ← actualizar módulo en Odoo en caliente
-│   │   └── README.md          ← guía de uso de los scripts
-│   └── migrate_siicat_to_odoo.py ← ETL migración de datos SIICAT → Odoo
-├── siicat/                    ← código PHP legacy (obsoleto/referencia)
-└── paria/                     ← utilidad de exportación HTML→Word
+│   ├── wiki.md                ← Documentación Master
+│   └── informe_tecnico...md   ← Informe Despliegue Oficial
+├── scripts/                   
+│   └── migrate_siicat_to_odoo.py ← ETL Migración de datos 
+└── siicat/                    ← código PHP legacy (obsoleto/referencia)
 ```
-
-### Volúmenes Docker
-
-| Volumen | Contenido |
-|---------|-----------|
-| `catastro_odoo-db-data` | Datos PostgreSQL |
-| `catastro_odoo-web-data` | Filestore Odoo (adjuntos, imágenes) |
 
 ---
 
 ## Arquitectura Interna y Justificación de Scaffolding
 
-Durante la ejecución del Plan de Migración se aplicaron los siguientes patrones de diseño basados en la **separación de responsabilidades** (Separation of Concerns):
-
-### ¿Por qué separar `catastro_impuestos` de `catastro_predio`?
-
-**Racionalidad**: La gestión territorial (Predios) debe ser independiente de la fluctuación contable y financiera anual de las normativas de Alcaldía (Impuestos). Agrupar ambos forzaría actualizaciones al modelo técnico del predio cada que cambie la ley fiscal.
-
-**Datos Técnicos**:
-- Asociación: modelo `catastro.impuesto` (relación `Many2one` hacia `catastro_predio`)
-- Integración: dependencia de `account` base para extender `account.move` en el futuro y registrar deudas en el balance por cobrar del municipio (Caja General)
-
-### ¿Por qué `catastro_transferencia` es un módulo diferente?
-
-**Racionalidad**: Una transferencia de dominio es un flujo de trabajo legal burocrático, no solo una modificación de metadato. Requiere aprobaciones de diferentes departamentos (Avalúos, Legal, Recaudadora) y hereda estados lógicos (`Borrador → Revisión → Liquidado → Aprobado`), haciendo uso intensivo de **Auditoría** (`mail.thread`) para rastrear quién autorizó el cambio de dueño (Tradición de Dominio).
-
-**Dependencias**:
-- `catastro_predio` (dónde aplicar el cambio)
-- `catastro_impuestos` (para calcular el IMT, Impuesto Municipal a las Transferencias)
-- `mail.thread` + `mail.activity.mixin` de Odoo para rastro y discusión entre funcionarios
-
-### ¿Por qué encapsular `catastro_gravamen`?
-
-**Racionalidad**: Los gravámenes cambian el estatus legal restrictivo de un predio. Mientras un predio esté sometido a una carga judicial o hipotecaria activa, sus transferencias habitualmente quedan inhabilitadas. Es una capa de seguridad jurídica pura, manteniéndose desacoplada; conectando acreedores o jueces al modelo base nativo de roles de Odoo `res.partner`.
-
-**Asociación**: modelo autónomo y centralizado con dependencias directas en `catastro_predio`.
-
-### Módulo de Motor QWeb PDF: `catastro_certificados`
-
-**Racionalidad**: En SIICAT (Legacy PHP), utilizar librerías manuales como FPDF requiere crear páginas calculando coordenadas X,Y manualmente (`siicat_certificado_catastral_generar.php`). Este módulo aísla y transiciona todos los reportes hacia **QWeb Web Engine**. Permite diseñar estructuralmente usando HTML semántico (Bootstrap) y emitir reportes PDF limpios y unificados; al mismo tiempo mantiene una base de datos propia (`catastro.certificado`) para trazar cuándo y a quién se entregó un folio impreso.
-
-### ¿Por qué diferenciar `catastro_informes` de `catastro_certificados`?
-
-**Racionalidad**: Un "Certificado" es un documento estático exportado inmediatamente por el contribuyente. Un "Informe Técnico" (Líneas de Cota, Reporte de Empadronamiento) requiere levantamiento de información humana. Esta distinción promueve **"Workflows Dinámicos"**, requiriendo asignación interna (`res.users` Técnicos) y un campo de recolección de variables físicas o conclusiones, algo impropio en el módulo de Certificados.
-
-### Módulo de Arquitectura Cartográfica: `catastro_mapa`
-
-**Racionalidad**: Las librerías de renderizado de MapServer Legacy corrían aisladas en el SO. Este módulo base asimila las capas espaciales (como atributos JSON o extensiones de Base de Datos Geoespaciales PostGIS). Para evitar MapServer, se instancian componentes **OWL JavaScript** nativos que renderizan los vértices GeoJSON dinámicamente usando mapas **OpenStreetMap/Leaflet** en las vistas form de Odoo.
-
----
-
-## 🚀 Guía Práctica de Despliegue y Uso
-
-### 1. ¿Cómo funciona la arquitectura tecnológica?
-
-El sistema Catastral opera sobre un ecosistema de **Docker Containers** con tres piezas autónomas:
-
-1. **Odoo 19 (Backend ERP)**: Software central que procesa Python (cálculos de impuestos), vistas XML (interfaces) y QWeb/OWL (PDF y mapas).
-2. **PostgreSQL 16 (Base de Datos)**: Reemplaza la BD plana de SIICAT, conteniendo tablas dinámicas unificadas con NIIF / Contabilidad Odoo.
-3. **Traefik (Enrutador de Tráfico)**: Intercepta las peticiones y enruta a los contenedores correctos, evitando puertos confusos (`http://catastro.local`).
-
-### 2. Comandos de Puesta en Marcha Inicial
-
-#### Entorno de desarrollo (con hot-reload):
-
-```bash
-# Clonar el repositorio
-git clone https://github.com/jpvargassoruco/catastro.git
-cd catastro
-
-# Copiar variables de entorno
-cp scripts/deploy/.env.example .env
-
-# Arrancar en modo desarrollo (usa docker-compose.dev.yml)
-bash scripts/deploy/dev.sh
-```
-
-#### Stack completo (prod-like):
-
-```bash
-# Build y arranque completo (el flag --build reconstruye si hay cambios)
-sudo docker compose up -d --build
-
-# Ver logs en tiempo real
-sudo docker compose logs -f odoo
-```
-
-#### Deploy con backup automático (producción):
-
-```bash
-sudo bash scripts/deploy/prod.sh
-```
-
-#### Actualizar un módulo en caliente:
-
-```bash
-# Actualiza catastro_avaluo sin reiniciar todo el stack
-bash scripts/deploy/update_module.sh catastro_avaluo
-```
-
-### 3. Accesos y Credenciales
-
-| Elemento | Valor |
-|----------|-------|
-| URL Operación | `http://catastro.local` |
-| Correo admin | `admin` |
-| Contraseña admin | `admin` (**cambiar en producción**) |
-| Master Password BD | `catastro_admin_2026` |
-
-### 4. Instalación de Módulos en Odoo
-
-1. Abre Odoo → ve a **Aplicaciones**
-2. Quita el filtro "Aplicaciones" (clic en la ✕ del chip)
-3. Busca `catastro`
-4. Instala en orden de dependencias:
-   1. `catastro_predio` (base territorial)
-   2. `catastro_avaluo` (depende de `catastro_predio`)
-   3. Los demás módulos (sin orden estricto entre ellos)
-
-### 5. Flujo de Trabajo Funcional
-
-El municipio dispone de:
-
-- 🗺️ **Cartografía en vuelo**: Pegando coordenadas GeoJSON, el sistema dibuja el predio con Leaflet embebido en OWL.
-- 💰 **Colecturía nativa e integrada**: Al oprimir "Pagar en Caja", se dispara un `account.move` legalmente vinculante con el libro mayor interno.
-- 📜 **Oficina virtual sin papel**: Peritos y secretarios exportan Certificados Catastrales y Líneas de Cota en QWeb/PDF responsive.
-- 🤖 **Herramientas de migración**: `scripts/migrate_siicat_to_odoo.py` puede usarse para inyectar las tablas de `vallegrande` o `paria` a Odoo vía XML-RPC.
-
-### 6. Migración de Datos desde SIICAT (ETL)
-
-#### A) Datos Demo Nativos (seguro para GitHub)
-
-Los datos demo de `catastro_predio` y `catastro_avaluo` se cargan automáticamente al crear la BD en Odoo marcando **"Cargar Datos de Demostración"**.
-
-#### B) Volcar Backup de Producción (`paria.backup`) dentro de Docker
-
-```bash
-# Desde la raíz del proyecto:
-# 1. Crear BD temporal vacía dentro del contenedor
-sudo docker exec -i catastro-db-1 createdb -U odoo -O odoo paria
-
-# 2. Restaurar el backup al contenedor
-sudo docker exec -i catastro-db-1 pg_restore -U odoo -d paria < ../paria.backup
-```
-
-#### C) Disparar el Script ETL (XML-RPC)
-
-```bash
-# Una vez que la BD 'paria' está restaurada dentro de Docker:
-sudo docker exec -it catastro-odoo-1 python3 /mnt/extra-addons/../scripts/migrate_siicat_to_odoo.py
-```
-
----
-
-## Historial de Cambios de Infraestructura
-
-### 2026-03-25 — Setup inicial + fixes
-
-1. **Creado stack Docker** con `traefik:v3.3`, `odoo:19.0`, `postgres:16`
-2. **Fix Docker API version**: `traefik:v3.3` incompatible con Docker 29.3.1 (API client v1.24 vs requerido v1.40+) → cambiado a `traefik:latest`
-3. **Fix password mismatch**: `odoo.conf` tenía `db_password = odoo_secret` pero el compose tenía `POSTGRES_PASSWORD=odoo` → alineados a `odoo_secret`
-4. **Red `web-proxy`**: red Docker externa creada previamente para compartir Traefik entre proyectos
-5. **Estado final**: todos los contenedores activos, Odoo respondiendo HTTP 303 (redirecta al selector de BD — primer arranque)
-
-### 2026-03-30 — Scripts de deploy + Wiki consolidada
-
-1. **Creados scripts de deploy** bajo `scripts/deploy/`: `dev.sh`, `prod.sh`, `update_module.sh`, `.env.example`
-2. **Wiki consolidada**: integradas secciones de Arquitectura Interna y Guía Práctica del colaborador Pothoko
-
----
-
-## Plan de Migración (Roadmap)
-
-### Fase 1 — Infraestructura y Setup ✅
-- [x] Stack Docker funcionando en WSL `catastro`
-- [x] Odoo 19 accesible via Traefik en `catastro.local`
-- [x] PostgreSQL configurado y conectado
-- [x] Estructura de directorios del repositorio
-
-### Fase 2 — Configuración Inicial Odoo ✅
-- [x] Base de datos creada en Odoo
-- [x] Módulos nativos instalados: Contactos, Contabilidad
-- [x] Usuarios y roles configurados
-
-### Fase 3 — Módulo Predios (`catastro_predio`) ✅
-- [x] Análisis de la estructura de datos de `vallegrande.predios`
-- [x] Modelo `catastro.predio` implementado (standalone con zonas, sectores, tipos)
-- [x] Formulario con campos: clave catastral, zona, sector, colindantes, propietario
-- [x] Soporte predios urbanos y rurales con subtipos
-- [x] Historial de propietarios (tradición de dominio)
-- [x] Importación de tablas de referencia desde BD origen
-
-### Fase 4 — Avalúos Catastrales (`catastro_avaluo`) ✅
-- [x] Modelo `catastro.avaluo` con flujo de estados: `borrador→calculado→aprobado→vigente→historico`
-- [x] Tabla de valores unitarios `catastro.tabla.valor` (zona/uso/tipo/gestión)
-- [x] Cálculo automático: `valor_terreno + valor_construccion × factor_estado`
-- [x] Transición automática a `historico` al publicar nuevo avalúo vigente
-- [x] Wizard de recálculo masivo por zona/tipo/gestión
-- [x] Smart button en ficha de predio (contador de avalúos + ir al vigente)
-- [x] Datos demo: 20 tablas de valores + 19 avalúos (2 gestiones, urbano y rural)
-- [x] Seguridad: ACL para grupos `catastro_user` y `catastro_admin`
-- [x] Menú integrado bajo el módulo Catastro
-- [x] Scripts de deploy automático para dev y producción
-
-### Fase 5 — Impuestos Prediales (`catastro_impuestos`) 🔲
-- [ ] Análisis de fórmulas de cálculo en `siicat_impuestos_calc.php`
-- [ ] Modelo de tasas e impuestos configurables por año
-- [ ] Integración con `account.move` para facturas de impuestos
-- [ ] Generación de boletas de pago en PDF (FPDF → Odoo QWeb)
-- [ ] Módulo de caja / colecturía
-
-### Fase 6 — Certificados y Documentos (`catastro_certificados`) 🔲
-- [ ] Templates QWeb para certificado catastral
-- [ ] Template QWeb para informe de empadronamiento
-- [ ] Template QWeb para línea de nivel (cota)
-- [ ] Integración con módulo Documentos de Odoo
-- [ ] BD `catastro.certificado` para trazabilidad de folios impresos
-
-### Fase 7 — Planos y Cartografía (`catastro_mapa`) 🔲
-- [ ] Componentes OWL + Leaflet para renderizado de GeoJSON en vistas form
-- [ ] Reemplazar MapServer por solución web (OpenStreetMap)
-- [ ] Importación de geometrías PostGIS al nuevo esquema
-- [ ] Exportación DXF desde Odoo
-
-### Fase 8 — Módulos Restantes 🔲
-- [ ] `catastro_transferencia`: flujo legal con `mail.thread` + cálculo IMT
-- [ ] `catastro_gravamen`: restricciones judiciales e hipotecarias por predio
-- [ ] `catastro_informes`: informes técnicos con asignación interna
-- [ ] Patentes usando `sale.order` o flujo propio
-- [ ] Integración vehículos con módulo `fleet` de Odoo
-
-### Fase 9 — Migración de Datos 🔲
-- [ ] Script ETL: `vallegrande` → PostgreSQL Odoo
-- [ ] Migración de contribuyentes → `res.partner`
-- [ ] Migración de predios → `catastro.predio`
-- [ ] Migración de historial de impuestos → `account.move`
-- [ ] Validación y reconciliación de datos
-
----
-
-## Arquitectura Interna y Justificación de Scaffolding
-
-Durante la ejecución del Plan de Migración y modularidad de Odoo 17, se aplican los siguientes patrones de diseño basados en la separación de responsabilidades (*Separation of Concerns*):
+Durante la ejecución del Plan de Migración y modularidad de Odoo 17, se aplicaron los siguientes patrones de diseño basados en la separación de responsabilidades (*Separation of Concerns*):
 
 ### ¿Por qué separar `catastro_impuestos` de `catastro_predio`?
 **Racionalidad:** La gestión territorial (Predios) debe ser independiente a la fluctuación contable y financiera anual de las normativas de Alcaldía (Impuestos). Agrupar ambos forzaría actualizaciones al modelo técnico del predio cada que cambie la ley fiscal.
@@ -494,19 +235,7 @@ Durante la ejecución del Plan de Migración y modularidad de Odoo 17, se aplica
 **Racionalidad:** Un "Certificado" es funcionalmente estático exportado inmediatamente por el contribuyente. Un "Informe Técnico" (Líneas de Cota, Reporte de Empadronamiento) necesita el levantamiento de información humana. Esta distinción promueve el modelo en base al uso de "Workflows Dinámicos", requiriendo asignación interna (`res.users` Técnicos) y un campo de recolección de variables físicas o conclusiones, algo impropio en el módulo de Certificados.
 
 ### Módulo de Arquitectura Cartográfica: `catastro_mapa`
-**Racionalidad:** Las librerías de renderizado de MapServer Legacy corrían aisladas en el SO. Este módulo base asimila las capas espaciales (como atributos JSON o extensiones de Base de Datos Geoespaciales PostGIS). Posee la dependencia de Odoo `web` lo que permite incrustar posteriormente librerías JavaScript de rendering Front-end (Leaflet/OpenLayers) directas en la pantalla del contribuyente o del funcionario.
-
----
-
-## Referencias
-
-- [Código fuente legacy](../siicat/) — sistema PHP SIICAT
-- [docker-compose.yml](../docker-compose.yml) — stack actual
-- [config/odoo.conf](../config/odoo.conf) — configuración Odoo
-- [scripts/deploy/](../scripts/deploy/) — scripts de deploy automatizado
-- [Wiki del colaborador Pothoko](https://github.com/Pothoko/catastro_01/wiki) — fuente original de secciones de arquitectura interna
-- [Odoo 19 Developer Docs](https://www.odoo.com/documentation/19.0/)
-- [Odoo ORM Reference](https://www.odoo.com/documentation/19.0/developer/reference/backend/orm.html)
+**Racionalidad:** Las librerías de renderizado de MapServer Legacy corrían aisladas en el SO. Este módulo base asimila las capas espaciales (como atributos JSON o extensiones de Base de Datos Geoespaciales PostGIS). Para evitar MapServer, instanciamos componentes OWL Javascript nativos que renderizan los vértices GeoJSON dinámicamente usando mapas OpenStreetMap/Leaflet base en las vistas form de Odoo.
 
 ---
 
